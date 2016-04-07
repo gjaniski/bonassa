@@ -1,0 +1,994 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.esense.bonassa.core.dao.ProcessDao">
+
+	<resultMap type="Process" id="resultProcess">
+
+		<id column="id_" property="id" />
+
+		<result column="num_process_" property="numProcess" />
+		<result column="cont_cob_" 	  property="contCob" />
+<!-- 		<result column="file_locale_" property="fileLocale" /> -->
+<!-- 		<result column="file_folder_" property="fileFolder" /> -->
+		<!-- <result column="state_id_" property="state" /> -->
+		<!-- <result column="city_id_" property="city" /> -->
+<!-- 		<result column="county_" 	   property="county" /> -->
+<!-- 		<result column="notarys_office_" property="notarysOffice" /> -->
+<!-- 		<result column="court_" property="court" /> -->
+		<result column="recovered_property_" property="recoveredProperty" />
+		<result column="related_process_" property="relatedProcess" />
+		<result column="checked_to_export_" property="checkedToExport" />
+		<result column="sentence_" property="sentence" />
+		<result column="acordao_" property="acordao" />
+		<result column="transit_" property="transit" />
+		<result column="observation_" property="observation" />
+		<result column="instance_" property="instance" />
+<!-- 		<result column="action_type_" property="actionType" /> -->
+<!-- 		<result column="object_title_" property="objectTitle" /> -->
+<!-- 		<result column="office_" property="office" /> -->
+		<result column="object_" property="object" />
+
+<!-- 		<result column="cost_center_" property="costCenter" /> -->
+		<result column="process_rapporteur_" property="processRapporteur" />
+<!-- 		<result column="place_file_" property="placeFile" /> -->
+		<result column="date_field_" property="dateField" />
+		<result column="observation_2_" property="observation2" />
+		<result column="lawsuit_value_" property="lawSuitValue" />
+		<result column="contingency_value_" property="contingencyValue" />
+		<result column="active_passive_process_" property="activePassiveProcess" />
+		<result column="loss_prob_" property="lossProb" />
+<!-- 		<result column="motivation_" property="motivation" /> -->
+		<result column="final_value_" property="finalValue" />
+		<result column="creator_id_" property="creator.id" />
+		<result column="name_" property="creator.name" />
+		<result column="login_" property="creator.login" />
+		<result column="email_" property="creator.email" />
+		<result column="password_" property="creator.pwd" />
+		<result column="status_" property="creator.status" />
+		
+<!-- 		<result column="link_" property="link" /> -->
+<!-- 		<result column="phase_" property="phase" /> -->
+<!-- 		<result column="extra_" property="extra" /> -->
+		<result column="table_updated_value_" property="tableUpdatedValue" />
+		<result column="lawsuit_value_updated_" property="lawSuitValueUpdated" />
+		<result column="table_contingency_value_" property="tableContingencyValue" />
+		<result column="contingency_value_updated_" property="contingencyValueUpdated" />
+		<result column="end_result_" property="endResult" />
+		
+<!-- 		<result column="area_process_" property="areaProcess" /> -->
+
+<!-- 		<collection property="processProgress" ofType="ProcessProgress" column="id_" select="selectProgressByProcess" /> -->
+
+		<association column="file_locale_id_" property="fileLocale" javaType="Value" select="selectValue" />
+		<association column="file_folder_id_" property="fileFolder" javaType="Value" select="selectValue" />
+		<association column="city_id_" property="city" javaType="Value" select="selectValue" />		
+		<association column="state_id_" property="state" javaType="Value" select="selectValue" />
+		<association column="county_id_" property="county" javaType="Value" select="selectValue" />		
+		<association column="notarys_office_id_" property="notarysOffice" javaType="Value" select="selectValue" />
+		<association column="court_id_" property="court" javaType="Value" select="selectValue" />	
+		<association column="link_id_" property="link" javaType="Value" select="selectValue" />	
+		<association column="action_type_id_" property="actionType" javaType="Value" select="selectValue" />		
+		<association column="phase_id_" property="phase" javaType="Value" select="selectValue" />	
+		<association column="object_title_id_" property="objectTitle" javaType="Value" select="selectValue" />	
+		<association column="office_id_" property="office" javaType="Value" select="selectValue" />		
+		<association column="extra_id_" property="extra" javaType="Value" select="selectValue" />	
+		<association column="cost_center_id_" property="costCenter" javaType="Value" select="selectValue" />	
+		<association column="place_file_id_" property="placeFile" javaType="Value" select="selectValue" />	
+		<association column="motivation_id_" property="motivation" javaType="Value" select="selectValue" />	
+
+		<collection property="processCustomer" ofType="ProcessPartner" column="id_" select="selectCustomerByProcess" />
+				
+		<collection property="processOpponent" ofType="ProcessPartner" column="id_" select="selectOpponentByProcess" />
+		
+		<collection property="processOther" ofType="ProcessPartner" column="id_" select="selectOtherByProcess" />
+
+<!-- 		<collection property="owners" ofType="User" column="id_" select="selectOwnerByProcess" /> -->
+
+		<collection property="owners" ofType="ProcessOwner" column="id_" select="selectOwnerByProcess" />
+
+<!-- JA ESTAVAM COMENTADAS -->
+		
+<!-- 		<collection property="processRequest" ofType="ProcessRequest" column="id_" select="selectProcessRequestByProcess" /> -->
+		
+<!-- 		<collection property="processProperty" ofType="ProcessProperty" column="id_" select="selectProcessPropertyByProcess" /> -->
+		
+	</resultMap>
+
+	<resultMap type="ProcessProgress" id="resultProcessProgress">
+	
+		<id column="id_" property="id" />
+
+		<result column="process_id_" property="process.id" />
+		<result column="creator_id_" property="creator.id" />
+		<result column="creation_date_" property="creationDate" />
+		<result column="hour_" property="hour" />
+		<result column="action_type_id_" property="actionType.id" />
+		<result column="action_type_value_" property="actionType.value" />
+		<result column="phase_id_" property="phase.id" />
+		<result column="phase_value_" property="phase.value" />
+		<result column="description_" property="description" />
+		<result column="show_repo_client_" property="showRepoClient" />
+		<result column="send_email_" property="sendEmail" />
+		<result column="event_hours_" property="eventHours" />
+
+		<collection property="owners" ofType="User" column="id_" select="selectOwnerByProgress" />
+
+	</resultMap>
+
+	<resultMap type="ProcessAppointment" id="resultProcessAppointment">
+	
+		<id column="id_" property="id" />
+		
+		<result column="process_id_" property="process.id" />
+		<result column="real_date_" property="realDate" />
+		<result column="limit_date_" property="limitDate" />
+		<result column="hour_" property="hour" />
+		<result column="type_id_" property="type.id" />
+		<result column="type_value_" property="type.value" />
+		<result column="city_id_" property="city.id" />
+		<result column="city_value_" property="city.value" />
+		<result column="notarys_office_id_" property="notarysOffice.id" />
+		<result column="notarys_office_value_" property="notarysOffice.value" />
+		<result column="description_" property="description" />
+		<result column="required_time_" property="requiredTime" />
+		<result column="date_" property="date" />
+		<result column="has_term_" property="hasTerm" />
+		<result column="hearing_" property="hearing" />
+		<result column="providence_" property="providence" />
+		<result column="email_alert_" property="emailAlert" />
+		<result column="remember_" property="remember" />
+		<result column="progress_released_" property="progressReleased" />
+		<result column="status_" property="status" />
+
+		<collection property="owners" ofType="User" column="id_" select="selectOwnerByAppointment" />
+
+	</resultMap>
+
+	<resultMap type="ProcessAttached" id="resultProcessAttached">
+	
+		<id column="id_" property="id" />
+
+		<result column="parent_process_id_" property="parentProcess.id" />
+		<result column="child_process_id_" property="childProcess.id" />
+
+	</resultMap>
+	
+	<resultMap type="ProcessPartner" id="resultProcessPartner">
+
+		<id column="id_" property="partner.id" />
+		<result column="type_" property="partner.type" />
+		<result column="name_" property="partner.name" />
+		<result column="address_" property="partner.address" />
+		<result column="zip_code_" property="partner.zipCode" />
+		<!-- <result column="city_id_" property="partner.city.id" /> -->
+		<!-- <result column="state_id_" property="partner.state.id" /> -->
+		<result column="phone_number_" property="partner.phoneNumber" />
+		<result column="cellphone_number_" property="partner.cellPhoneNumber" />
+		<result column="state_registration_id_" property="partner.stateId" />
+		<result column="federal_registration_id_" property="partner.federalId" />
+		<result column="email_" property="partner.email" />
+		<result column="website_" property="partner.websiteUrl" />
+		<result column="category_" property="partner.category" />
+		<result column="rg_" property="partner.rg" />
+		<result column="birth_date_" property="partner.birthDate" />
+		<!-- <result column="civil_status_id_" property="partner.civilStatus.id" /> -->
+		<result column="status_" property="partner.status" />
+		<result column="home_number_" property="partner.homeNumber" />
+		<result column="neighborhood_" property="partner.neighborhood" />
+		<result column="observation_" property="partner.observation" />
+		<result column="process_relationship_id_" property="processRelationship.id" />
+		<result column="process_relationship_value_" property="processRelationship.value" />
+		
+<!-- 		<association column="city_id_" property="partner.city" javaType="Value" select="selectCity" /> -->
+<!-- 		<association column="state_id_" property="partner.state" javaType="Value" select="selectState" /> -->
+<!-- 		<association column="civil_status_id_" property="partner.civilStatus.id" javaType="Value" select="selectCivilStatus" /> -->
+	</resultMap>
+	
+	<resultMap type="User" id="resultUser">
+	
+		<id column="id_" property="id" />
+
+		<result column="name_" property="name" />
+		<result column="login_" property="login" />
+		<result column="password_" property="pwd" />
+		<result column="email_" property="email" />
+		<result column="status_" property="status" />
+
+	</resultMap>
+	
+	<resultMap type="ProcessRequest" id="resultProcessRequest">
+
+		<id column="id_" property="id" />
+		<result column="process_id_" property="process.id" />
+		<result column="type_id_" property="type.id" />
+		<result column="type_value_" property="type.value" />
+		<result column="status_id_" property="status.id" />
+		<result column="status_value_" property="status.value" />
+		<result column="initial_interest_" property="initialInterest" />
+		<result column="asked_date_" property="askedDate" />
+		<result column="loss_prob_" property="lossProb" />
+		<result column="observation_" property="observation" />
+		<result column="requested_value_" property="requestedValue" />
+		<result column="updated_value_" property="updatedValue" />
+		<result column="updated_date_" property="updatedDate" />
+		<result column="estimated_value_" property="estimatedValue" />
+		<result column="deferred_value_" property="deferredValue" />
+		<result column="loss_prob_percentage_" property="lossProbPercentage" />
+
+	</resultMap>
+
+	<resultMap type="ProcessProperty" id="resultProcessProperty">
+
+		<id column="id_" property="id" />
+
+		<result column="process_id_" property="process.id" />
+		<result column="type_" property="type" />
+		<result column="status_id_" property="status.id" />
+		<result column="status_value_" property="status.value" />
+		<result column="value_" property="value" />
+		<result column="brand_id_" property="brand.id" />
+		<result column="brand_value_" property="brand.value" />
+		<result column="model_id_" property="model.id" />
+		<result column="model_value_" property="model.value" />
+		<result column="num_contract" property="numContract" />
+		<result column="color_id_" property="color.id" />
+		<result column="color_value_" property="color.value" />
+		<result column="year_" property="year" />
+		<result column="date_env_" property="dateEnv" />
+		<result column="date_inad_" property="dateInad" />
+		<result column="date_seizure_" property="dateSeizure" />
+		<result column="date_sentence_" property="dateSentence" />
+		<result column="date_auction_" property="dateAuction" />
+		<result column="date_sale_" property="dateSale" />
+		<result column="deposit_id_" property="deposit.id" />
+		<result column="deposit_value_" property="deposit.value" />
+		<result column="observation_" property="observation" />
+
+	</resultMap>
+	
+	<resultMap type="ProcessOwner" id="resultProcessOwner">
+
+		<id column="user_id_" property="owner.id" />
+		<result column="name_" property="owner.name" />
+		<result column="process_id_" property="process.id" />
+		<result column="area_id_" property="area.id" />
+		<result column="area_value_" property="area.value" />
+
+	</resultMap>
+		
+	<resultMap type="Value" id="resultValue">
+		<id property="id" column="id_"/>
+    	<result property="value" column="value_"/>
+	</resultMap>
+
+	<sql id="whereClause">
+		<where>
+			<foreach collection="criterions" item="criterion">
+				AND
+				${criterion.condition} ${criterion.value}
+			</foreach>
+		</where>
+	</sql>
+	
+	<select id="selectValue" parameterType="int" resultMap="resultValue">
+		select * from par_value where id_ = #{id}
+	</select>
+
+	<select id="select" parameterType="Process" resultMap="resultProcess">
+		SELECT a.*,
+		       b.name_,
+		       b.login_,
+		       b.email_,
+		       b.password_,
+		       b.status_
+		FROM   process a
+		       INNER JOIN user_ b
+		               ON a.creator_id_ = b.id_  
+		<if test="criterions.size() > 0">
+			<include refid="whereClause" />
+		</if>
+	</select>
+	
+	<select id="selectProgressByProcess" parameterType="int" resultMap="resultProcessProgress">
+<!-- 		SELECT * -->
+<!-- 		FROM pro_progress -->
+<!-- 		WHERE process_id_ = #{id} -->
+		SELECT a.*, b.value_ as action_type_value_, c.value_ as phase_value_
+			FROM pro_progress a
+				INNER JOIN par_value b
+					ON a.action_type_id_ = b.id_
+				INNER JOIN par_value c
+					ON a.phase_id_ = c.id_
+		WHERE process_id_ = #{id}
+	</select>
+	
+	<select id="selectAppointmentByProcess" parameterType="int" resultMap="resultProcessAppointment">
+<!-- 		SELECT * -->
+<!-- 		FROM pro_appointment -->
+<!-- 		WHERE process_id_ = #{id} -->
+		SELECT a.*, b.value_ as type_value_, c.value_ as city_value_, d.value_ as notarys_office_value_
+			FROM pro_appointment a
+				INNER JOIN par_value b
+					ON a.type_id_ = b.id_
+				INNER JOIN par_value c
+					ON a.city_id_ = c.id_
+				INNER JOIN par_value d
+					ON a.notarys_office_id_ = d.id_
+		WHERE process_id_ = #{id}
+	</select>
+	
+	<select id="selectAttachedByProcess" parameterType="int" resultMap="resultProcessAttached">
+		SELECT *
+		FROM pro_attached
+		WHERE parent_process_id_ = #{id}
+	</select>
+	
+	<select id="selectCustomerByProcess" parameterType="int" resultMap="resultProcessPartner">
+		SELECT b.*, a.process_relationship_id_, c.value_ as process_relationship_value_
+		FROM   pro_partner a
+		       INNER JOIN partner b
+		               ON a.partner_id_ = b.id_
+		               		INNER JOIN par_value c
+		               			ON a.process_relationship_id_ = c.id_
+		WHERE  a.process_id_ = #{id}
+		AND    a.partner_type_ = 'processCustomer'
+	</select>
+	
+	<select id="selectOpponentByProcess" parameterType="int" resultMap="resultProcessPartner">
+		SELECT b.*, a.process_relationship_id_, c.value_ as process_relationship_value_
+		FROM   pro_partner a
+		       INNER JOIN partner b
+		               ON a.partner_id_ = b.id_
+		               		INNER JOIN par_value c
+		               			ON a.process_relationship_id_ = c.id_
+		WHERE  a.process_id_ = #{id}
+		AND    a.partner_type_ = 'processOpponent'
+	</select>
+	
+	<select id="selectOtherByProcess" parameterType="int" resultMap="resultProcessPartner">
+		SELECT b.*, a.process_relationship_id_, c.value_ as process_relationship_value_
+		FROM   pro_partner a
+		       INNER JOIN partner b
+		               ON a.partner_id_ = b.id_
+		               		INNER JOIN par_value c
+		               			ON a.process_relationship_id_ = c.id_
+		WHERE  a.process_id_ = #{id}
+		AND    a.partner_type_ = 'processOther'
+	</select>
+	
+<!-- 	<select id="selectOwnerByProcess" parameterType="int" resultMap="resultUser"> -->
+<!-- 		SELECT a.* -->
+<!-- 		FROM   USER_ a -->
+<!-- 		       INNER JOIN pro_owner b -->
+<!-- 		               ON a.id_ = b.user_id_ -->
+<!-- 		WHERE  b.process_id_ = #{id}   -->
+<!-- 	</select> -->
+
+	<select id="selectOwnerByProcess" parameterType="int" resultMap="resultProcessOwner">
+		SELECT a.*, b.name_, c.value_ as area_value_
+		FROM   pro_owner a
+		       INNER JOIN user_ b
+		               ON a.user_id_ = b.id_
+		               		INNER JOIN par_value c
+		               			ON a.area_id_ = c.id_
+		WHERE  a.process_id_ = #{id}  
+	</select>
+	
+	<select id="selectOwnerByProgress" parameterType="int" resultMap="resultUser">
+		SELECT a.*
+		FROM   USER_ a
+		       INNER JOIN progress_owner b
+		               ON a.id_ = b.user_id_
+		WHERE  b.progress_id_ = #{id} 
+	</select>
+	
+	<select id="selectOwnerByAppointment" parameterType="int" resultMap="resultUser">
+		SELECT a.*
+		FROM   USER_ a
+		       INNER JOIN appointment_owner b
+		               ON a.id_ = b.user_id_
+		WHERE  b.appointment_id_ = #{id} 
+	</select>
+	
+	<select id="selectProgress" parameterType="ProcessProgress" resultMap="resultProcessProgress">
+<!-- 		SELECT * -->
+<!-- 		FROM pro_progress -->
+
+		SELECT a.*, b.value_ as action_type_value_, c.value_ as phase_value_
+			FROM pro_progress a
+				INNER JOIN par_value b
+					ON a.action_type_id_ = b.id_
+				INNER JOIN par_value c
+					ON a.phase_id_ = c.id_
+		<if test="criterions.size() > 0">
+			<include refid="whereClause" />
+		</if>
+	</select>
+	
+	<select id="selectProcessAppointment" parameterType="ProcessAppointment" resultMap="resultProcessAppointment">
+<!-- 		SELECT * -->
+<!-- 		FROM pro_appointment -->
+		SELECT a.*, b.value_ as type_value_, c.value_ as city_value_, d.value_ as notarys_office_value_
+			FROM pro_appointment a
+				INNER JOIN par_value b
+					ON a.type_id_ = b.id_
+				INNER JOIN par_value c
+					ON a.city_id_ = c.id_
+				INNER JOIN par_value d
+					ON a.notarys_office_id_ = d.id_
+		<if test="criterions.size() > 0">
+			<include refid="whereClause" />
+		</if>
+	</select>
+	
+	<select id="selectProcessAttached" parameterType="ProcessAttached" resultMap="resultProcessAttached">
+		SELECT *
+		FROM pro_attached
+		<if test="criterions.size() > 0">
+			<include refid="whereClause" />
+		</if>
+	</select>
+	
+	<select id="selectProcessProperty" parameterType="ProcessProperty" resultMap="resultProcessProperty">
+<!-- 		SELECT * -->
+<!-- 		FROM pro_property -->
+		SELECT a.*, b.value_ as status_value_, c.value_ as brand_value_, 
+					d.value_ as model_value_, e.value_ as color_value_,
+					f.value_ as deposit_value_
+			FROM pro_property a
+				INNER JOIN par_value b
+					ON a.status_id_ = b.id_
+				INNER JOIN par_value c
+					ON a.brand_id_ = c.id_
+				INNER JOIN par_value d
+					ON a.model_id_ = d.id_
+				INNER JOIN par_value e
+					ON a.color_id_ = e.id_
+				INNER JOIN par_value f
+					ON a.deposit_id_ = f.id_
+		<if test="criterions.size() > 0">
+			<include refid="whereClause" />
+		</if>
+	</select>
+	
+	<select id="selectProcessRequest" resultMap="resultProcessRequest">
+<!-- 		SELECT * -->
+<!-- 		FROM pro_request -->
+		SELECT a.*, b.value_ as type_value_, c.value_ as status_value_
+			FROM pro_request a
+				INNER JOIN par_value b
+					ON a.type_id_ = b.id_
+				INNER JOIN par_value c
+					ON a.status_id_ = c.id_
+		<if test="criterions.size() > 0">
+			<include refid="whereClause" />
+		</if>
+	</select>
+	
+	<select id="selectProcessRequestByProcess" parameterType="int" resultMap="resultProcessRequest">
+<!-- 		SELECT * -->
+<!-- 		FROM pro_request -->
+<!-- 		WHERE process_id_ = #{id} -->
+		SELECT a.*, b.value_ as type_value_, c.value_ as status_value_
+			FROM pro_request a
+				INNER JOIN par_value b
+					ON a.type_id_ = b.id_
+				INNER JOIN par_value c
+					ON a.status_id_ = c.id_
+		WHERE process_id_ = #{id}
+	</select>
+	
+	<select id="selectProcessPropertyByProcess" parameterType="int" resultMap="resultProcessProperty">
+<!-- 		SELECT * -->
+<!-- 		FROM pro_property -->
+		SELECT a.*, b.value_ as status_value_, c.value_ as brand_value_, 
+					d.value_ as model_value_, e.value_ as color_value_,
+					f.value_ as deposit_value_
+			FROM pro_property a
+				INNER JOIN par_value b
+					ON a.status_id_ = b.id_
+				INNER JOIN par_value c
+					ON a.brand_id_ = c.id_
+				INNER JOIN par_value d
+					ON a.model_id_ = d.id_
+				INNER JOIN par_value e
+					ON a.color_id_ = e.id_
+				INNER JOIN par_value f
+					ON a.deposit_id_ = f.id_
+		WHERE process_id_ = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="Process" useGeneratedKeys="true">
+
+		INSERT INTO process
+		            (num_process_,
+		             cont_cob_,
+		             file_locale_id_,
+		             file_folder_id_,
+		             state_id_,
+		             city_id_,
+		             county_id_,
+		             notarys_office_id_,
+		             court_id_,
+		             recovered_property_,
+		             related_process_,
+		             checked_to_export_,
+		             sentence_,
+		             acordao_,
+		             transit_,
+		             observation_,
+		             instance_,
+		             action_type_id_,
+		             object_title_id_,
+		             office_id_,
+		             object_,
+		             cost_center_id_,
+		             process_rapporteur_,
+		             place_file_id_,
+		             date_field_,
+		             observation_2_,
+		             active_passive_process_,
+		             loss_prob_,
+		             motivation_id_,
+		             lawsuit_value_,
+		             contingency_value_,
+		             final_value_,
+		             creator_id_,
+<!-- 		             process_customer_type_, -->
+<!-- 		             process_opponent_type_, -->
+<!-- 		             process_other_type_, -->
+		             link_id_,
+		             phase_id_,
+		             extra_id_,
+		             table_updated_value_,
+		             lawsuit_value_updated_,
+		             table_contingency_value_,
+		             contingency_value_updated_,
+		             end_result_)
+		VALUES      ( #{numProcess},
+		              #{contCob},
+		              #{fileLocale.id},
+		              #{fileFolder.id},
+		              #{state.id},
+		              #{city.id},
+		              #{county.id},
+		              #{notarysOffice.id},
+		              #{court.id},
+		              #{recoveredProperty},
+		              #{relatedProcess},
+		              #{checkedToExport},
+		              #{sentence},
+		              #{acordao},
+		              #{transit},
+		              #{observation},
+		              #{instance},
+		              #{actionType.id},
+		              #{objectTitle.id},
+		              #{office.id},
+		              #{object},
+		              #{costCenter.id},
+		              #{processRapporteur},
+		              #{placeFile.id},
+		              #{dateField},
+		              #{observation2},
+		              #{activePassiveProcess},
+		              #{lossProb},
+		              #{motivation.id},
+		              #{lawSuitValue},
+		              #{contingencyValue},
+		              #{finalValue},
+		              #{creator.id},
+		              #{link.id},
+		              #{phase.id},
+		              #{extra.id},
+		              #{tableUpdatedValue},
+		              #{lawSuitValueUpdated},
+		              #{tableContingencyValue},
+		              #{contingencyValueUpdated},
+		              #{endResult})
+
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT
+			currval('process_id__seq')
+		</selectKey>
+
+	</insert>
+
+	<insert id="insertProcessPartner" parameterType="ProcessPartner">
+
+		INSERT INTO pro_partner
+		            (process_id_,
+		             partner_id_,
+		             process_relationship_id_,
+		             partner_type_)
+		VALUES      ( #{process.id},
+		              #{partner.id},
+		              #{processRelationship.id},
+		              #{partnerType})  
+
+	</insert>
+
+	<insert id="insertProgress" parameterType="ProcessProgress" useGeneratedKeys="true">
+
+		INSERT INTO pro_progress
+		            (process_id_,
+		             creator_id_,
+		             creation_date_,
+		             hour_,
+		             action_type_id_,
+		             phase_id_,
+		             description_,
+		             show_repo_client_,
+		             send_email_,
+		             event_hours_)
+		VALUES      ( #{process.id},
+		              #{creator.id},
+		              #{creationDate},
+		              #{hour},
+		              #{actionType.id},
+		              #{phase.id},
+		              #{description},
+		              #{showRepoClient},
+		              #{sendEmail},
+		              #{eventHours})
+
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT
+			currval('pro_progress_id__seq')
+		</selectKey>
+
+	</insert>
+	
+	<insert id="insertProgressOwner" parameterType="ProcessProgress" useGeneratedKeys="true">
+
+		INSERT INTO progress_owner
+		            (progress_id_,
+		             user_id_)
+		VALUES      ( #{processProgress.id},
+		              #{user.id})
+
+	</insert>
+
+	<insert id="insertProcessAppointment" parameterType="ProcessAppointment" useGeneratedKeys="true">
+
+		INSERT INTO pro_appointment
+		            (process_id_,
+		             real_date_,
+		             limit_date_,
+		             hour_,
+		             type_id_,
+		             city_id_,
+		             notarys_office_id_,
+		             description_,
+		             required_time_,
+		             date_,
+		             has_term_,
+		             hearing_,
+		             providence_,
+		             email_alert_,
+		             remember_,
+		             progress_released_,
+		             status_)
+		VALUES      ( #{process.id},
+		              #{realDate},
+		              #{limitDate},
+		              #{hour},
+		              #{type.id},
+		              #{city.id},
+		              #{notarysOffice.id},
+		              #{description},
+		              #{requiredTime},
+		              #{date},
+		              #{hasTerm},
+		              #{hearing},
+		              #{providence},
+		              #{emailAlert},
+		              #{remember},
+		              #{progressReleased},
+		              #{status})
+
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT
+			currval('pro_appointment_id__seq')
+		</selectKey>
+
+	</insert>
+	
+	<insert id="insertAppointmentOwner" parameterType="ProcessAppointment" useGeneratedKeys="true">
+
+		INSERT INTO appointment_owner
+		            (appointment_id_,
+		             user_id_)
+		VALUES      ( #{processAppointment.id},
+		              #{user.id})
+
+	</insert>
+
+	<insert id="insertProcessAttached" parameterType="ProcessAttached" useGeneratedKeys="true">
+
+		INSERT INTO pro_attached
+            (parent_process_id_,
+             child_process_id_)
+		VALUES      ( #{parentProcess.id},        
+		              #{childProcess.id}) 
+
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT
+			currval('pro_attached_id__seq')
+		</selectKey>
+
+	</insert>
+
+	<insert id="insertProcessRequest" parameterType="ProcessRequest" useGeneratedKeys="true">
+
+		INSERT INTO pro_request
+            (process_id_,
+             type_id_,
+             status_id_,
+             initial_interest_,
+             asked_date_,
+             loss_prob_,
+             observation_,
+             requested_value_,
+             updated_value_,
+             updated_date_,
+             estimated_value_,
+             deferred_value_,
+             loss_prob_percentage_)
+		VALUES      ( #{process.id},
+		              #{type.id},
+		              #{status.id},
+		              #{initialInterest},
+		              #{askedDate},
+		              #{lossProb},
+		              #{observation},		              
+		              #{requestedValue},		              
+		              #{updatedValue},		              
+		              #{updatedDate},		              
+		              #{estimatedValue},		              
+		              #{deferredValue},		              
+		              #{lossProbPercentage}) 
+
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT
+			currval('pro_request_id__seq')
+		</selectKey>
+
+	</insert>
+
+	<insert id="insertProcessProperty" parameterType="ProcessProperty" useGeneratedKeys="true">
+
+		INSERT INTO pro_property
+			(process_id_,
+			 type_,
+			 status_id_,
+			 brand_id_,
+			 model_id_,
+			 num_contract,
+			 color_id_,
+			 year_,
+			 value_,
+			 date_env_,
+			 date_inad_,
+			 date_seizure_,
+			 date_sentence_,
+			 date_auction_,
+			 date_sale_,
+			 deposit_id_,
+			 observation_)
+		VALUES (#{process.id},
+				#{type},
+				#{status.id},
+				#{brand.id},
+				#{model.id},
+				#{numContract},
+				#{color.id},
+				#{year},
+				#{value},
+				#{dateEnv},
+				#{dateInad},
+				#{dateSeizure},
+				#{dateSentence},
+				#{dateAuction},
+				#{dateSale},
+				#{deposit.id},
+				#{observation})
+
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT
+			currval('pro_property_id__seq')
+		</selectKey>
+
+	</insert>
+
+<!-- 	<insert id="insertProcessOwner" parameterType="ProcessProperty" useGeneratedKeys="true"> -->
+
+<!-- 		INSERT INTO pro_owner -->
+<!--             (user_id_, -->
+<!--              process_id_, -->
+<!--              area_) -->
+<!-- 		VALUES      ( #{user.id},					   -->
+<!-- 		              #{process.id}, -->
+<!-- 		              #{area})  -->
+		              
+<!-- 	</insert> -->
+
+	<insert id="insertProcessOwner" parameterType="ProcessOwner" useGeneratedKeys="true">
+
+		INSERT INTO pro_owner
+            (user_id_,
+             process_id_,
+             area_id_)
+		VALUES      ( #{owner.id},					  
+		              #{process.id},
+		              #{area.id}) 
+		              
+	</insert>
+
+	<update id="update" parameterType="Process">
+
+		UPDATE  process 
+		SET	    num_process_ = #{numProcess},
+			    cont_cob_ = #{contCob},
+				file_locale_id_ = #{fileLocale.id},
+				file_folder_id_ = #{fileFolder.id},
+				state_id_ = #{state.id},
+				city_id_ = #{city.id},
+				county_id_ = #{county.id},
+				notarys_office_id_ = #{notarysOffice.id},
+				court_id_ = #{court.id},
+				recovered_property_ = #{recoveredProperty},
+				related_process_ = #{relatedProcess},
+				checked_to_export_ = #{checkedToExport},
+				sentence_ = #{sentence},
+				acordao_ = #{acordao},
+				transit_ = #{transit},
+				observation_ = #{observation},
+				instance_ = #{instance},
+				action_type_id_ = #{actionType.id},
+				object_title_id_ = #{objectTitle.id},
+				office_id_ = #{office.id},
+				object_ = #{object},
+				cost_center_id_ = #{costCenter.id},
+				process_rapporteur_ = #{processRapporteur},
+				place_file_id_ = #{placeFile.id},
+				date_field_ = #{dateField},
+				observation_2_ = #{observation2},
+				active_passive_process_ = #{activePassiveProcess},
+				loss_prob_ = #{lossProb},
+				motivation_id_ = #{motivation.id},
+				lawsuit_value_ = #{lawSuitValue},
+				contingency_value_ = #{contingencyValue},
+				final_value_ = #{finalValue},
+				creator_id_ = #{creator.id},
+				link_id_ = #{link.id},
+				phase_id_ = #{phase.id},
+				extra_id_ = #{extra.id},
+				table_updated_value_ = #{tableUpdatedValue},
+				lawsuit_value_updated_ = #{lawSuitValueUpdated},
+				table_contingency_value_ = #{tableContingencyValue},
+				contingency_value_updated_ = #{contingencyValueUpdated},
+				end_result_ = #{endResult}
+		WHERE   id_ = #{id}
+
+	</update>	
+
+	<update id="updateProcessProgress" parameterType="ProcessProgress">
+
+		UPDATE  pro_progress 
+		SET	    process_id_ = #{process.id},
+				creator_id_ = #{creator.id},
+				creation_date_ = #{creationDate},
+				hour_ = #{hour},
+				action_type_id_ = #{actionType.id},
+				phase_id_ = #{phase.id},
+				description_ = #{description},
+				show_repo_client_ = #{showRepoClient},
+				send_email_ = #{sendEmail},
+				event_hours_ = #{eventHours}
+		WHERE   id_ = #{id}
+
+	</update>	
+
+	<update id="updateProcessAppointment" parameterType="ProcessAppointment">
+
+		UPDATE  pro_appointment 
+		SET	    process_id_ = #{process.id},
+				real_date_ = #{realDate},
+				limit_date_ = #{limitDate},
+				hour_ = #{hour},
+				type_id_ = #{type.id},
+				city_id_ = #{city.id},
+				notarys_office_id_ = #{notarysOffice.id},
+				description_ = #{description},
+				required_time_ = #{requiredTime},
+				date_ = #{date},
+				has_term_ = #{hasTerm},
+				hearing_ = #{hearing},
+				providence_ = #{providence},
+				email_alert_ = #{emailAlert},
+				remember_ = #{remember},
+				progress_released_ = #{progressReleased},
+				status_ = #{status}
+		WHERE   id_ = #{id}
+
+	</update>	
+
+	<update id="updateProcessRequest" parameterType="ProcessRequest">
+
+		UPDATE  pro_request
+		SET	    process_id_ = #{process.id},
+				type_id_ = #{type.id},
+				status_id_ = #{status.id},
+				initial_interest_ = #{initialInterest},
+				asked_date_ = #{askedDate},
+				loss_prob_ = #{lossProb},
+				observation_ = #{observation},
+				requested_value_ = #{requestedValue},
+				updated_value_ = #{updatedValue},
+				updated_date_ = #{updatedDate},
+				estimated_value_ = #{estimatedValue},
+				deferred_value_ = #{deferredValue},
+				loss_prob_percentage_ = #{lossProbPercentage}
+		WHERE   id_ = #{id}
+
+	</update>	
+
+	<update id="updateProcessProperty" parameterType="ProcessProperty">
+
+		UPDATE  pro_property
+		SET	    process_id_ = #{process.id},
+				type_ = #{type},
+				status_id_ = #{status.id},
+				brand_id_ = #{brand.id},
+				model_id_ = #{model.id},
+				num_contract = #{numContract},
+				color_id_ = #{color.id},
+				year_ = #{year},
+				value_ = #{value},
+				date_env_ = #{dateEnv},
+				date_inad_ = #{dateInad},
+				date_seizure_ = #{dateSeizure},
+				date_sentence_ = #{dateSentence},
+				date_auction_ = #{dateAuction},
+				date_sale_ = #{dateSale},
+				deposit_id_ = #{deposit.id},
+				observation_ = #{observation}
+		WHERE   id_ = #{id}
+
+	</update>	
+	
+	<delete id="deleteProcessPartners" parameterType="Process">
+		
+		DELETE FROM pro_partner
+		WHERE   process_id_ = #{id}	
+	
+	</delete>	
+	
+	<delete id="deleteProcessOwners" parameterType="Process">
+		
+		DELETE FROM pro_owner
+		WHERE   process_id_ = #{id}	
+	
+	</delete>	
+	
+	<delete id="deleteProcessProgressOwners" parameterType="ProcessProgress">
+		
+		DELETE FROM progress_owner
+		WHERE   progress_id_ = #{id}	
+	
+	</delete>
+	
+	<delete id="deleteProcessAppointmentOwners" parameterType="ProcessAppointment">
+		
+		DELETE FROM appointment_owner
+		WHERE   appointment_id_ = #{id}	
+	
+	</delete>
+	
+	<delete id="deleteProcessAttached" parameterType="processAttached">
+		DELETE FROM pro_attached 
+		WHERE id_ = #{id}
+	</delete>
+	
+</mapper>

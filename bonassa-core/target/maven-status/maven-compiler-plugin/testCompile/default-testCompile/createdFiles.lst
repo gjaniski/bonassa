@@ -1,0 +1,7 @@
+com/esense/bonassa/core/dao/ParameterDaoTest.class
+com/esense/bonassa/core/service/ProcessServiceTest.class
+com/esense/bonassa/core/service/AuthorizationServiceTest.class
+com/esense/bonassa/core/service/UserSeviceTest.class
+com/esense/bonassa/core/service/GroupSeviceTest.class
+com/esense/bonassa/core/service/ResourceServiceTest.class
+com/esense/bonassa/core/service/CustomerServiceTest.class

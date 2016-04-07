@@ -1,0 +1,1152 @@
+<div class="page-content sidebar-page right-sidebar-page clearfix"
+	ng-controller="ReportsAdvancedCtrl">
+	<div class="page-content-wrapper">
+		<div class="page-content-inner">
+			<div id="page-header" class="clearfix"></div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default toggle panelMove ">
+						<!-- Start .panel -->
+						<div class="panel-heading">
+							<h4 class="panel-title">Formato</h4>
+						</div>
+						<div class="panel-body pt0 pb0">
+							<form class="form-horizontal group-border ">
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for="">Formulário</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="">
+													<label></label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'summary'"
+														ng-change="radioOne()" ng-model="reportAdvanced.form">
+													<label for="radio1">Somente Sumário</label>
+												</div>
+											</div>
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'simpleList'"
+														ng-change="radioOne()" ng-model="reportAdvanced.form">
+													<label for="radio1">Lista Simples (Processo,
+														Cliente, P. Adversa)</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'fullSheet'"
+														ng-change="radioOne()" ng-model="reportAdvanced.form">
+													<label for="radio1">Ficha Completa com sumário
+														(Mínimo 1 página)</label>
+												</div>
+											</div>
+											<div class="col-lg-3 col-md-2">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'customList'"
+														ng-change="radioOne()" ng-model="reportAdvanced.form">
+													<label for="radio1">Lista Personalizada (Escolhe 6
+														campos)</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio"
+														ng-value="'elegantSheetOne'" ng-change="radioOne()"
+														ng-model="reportAdvanced.form"> <label
+														for="radio1">Ficha Elegante (Centralizado - Mínimo
+														1 página)</label>
+												</div>
+											</div>
+											<div class="col-lg-3 col-md-2">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'labelPaste'"
+														ng-change="radioOne()" ng-model="reportAdvanced.form">
+													<label for="radio1">Etiqueta para Pasta</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio"
+														ng-value="'elegantSheetTwo'" ng-change="radioOne()"
+														ng-model="reportAdvanced.form"> <label
+														for="radio1">Ficha Elegante (Margem esquerda -
+														Mínimo 1 página)</label>
+												</div>
+											</div>
+											<div class="col-lg-3 col-md-2">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'overview'"
+														ng-change="radioOne()" ng-model="reportAdvanced.form">
+													<label for="radio1">Análise Geral</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio"
+														ng-value="'elegantSheetThree'" ng-change="radioOne()"
+														ng-model="reportAdvanced.form"> <label
+														for="radio1">Ficha Elegante Simplificada (Mínimo 1
+														página)</label>
+												</div>
+											</div>
+											<div class="col-lg-3 col-md-2">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'specificOne'"
+														ng-change="radioOne()" ng-model="reportAdvanced.form">
+													<label for="radio1">Específico 1</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio"
+														ng-value="'simpleSheetOne'" ng-change="radioOne()"
+														ng-model="reportAdvanced.form"> <label
+														for="radio1">Ficha Simples (Processos e partes)</label>
+												</div>
+											</div>
+											<div class="col-lg-3 col-md-2">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'specificTwo'"
+														ng-change="radioOne()" ng-model="reportAdvanced.form">
+													<label for="radio1">Específico 2</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio"
+														ng-value="'simpleSheetTwo'" ng-change="radioOne()"
+														ng-model="reportAdvanced.form"> <label>Ficha
+														Simples (Processo, Comarca e Cartório)</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for="">Andamentos</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="">
+													<label></label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-2 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio2" ng-value="'all'"
+														ng-change="radioTwo()" ng-model="reportAdvanced.onGoing">
+													<label for="radio2">Todos</label>
+												</div>
+											</div>
+											<div class="col-lg-3 col-md-2">
+												<div class="radio-custom">
+													<input type="radio" name="radio2" ng-value="'none'"
+														ng-change="radioTwo()" ng-model="reportAdvanced.onGoing">
+													<label for="radio2">Nenhum</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-2 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio2" ng-value="'lastOne'"
+														ng-change="radioTwo()" ng-model="reportAdvanced.onGoing">
+													<label for="radio2">Apenas o último</label>
+												</div>
+											</div>
+											<div class="col-lg-3 col-md-2">
+												<div class="radio-custom">
+													<input type="radio" name="radio2"
+														ng-value="'fromCustomers'" ng-change="radioTwo()"
+														ng-model="reportAdvanced.onGoing"> <label
+														for="radio2">Somente os do Cliente</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-2 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio2" ng-click="controlLast()">
+													<label for="radio2">Imprime os últimos:</label>
+												</div>
+											</div>
+											<div class="col-lg-4 col-md-4">
+												<input type="text" class="form-control input-mini"
+													ng-show="last" ng-model="setAmountLast"
+													ng-change="setLast()">
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for="">Detalhes</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="">
+													<label></label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="checkbox-custom">
+													<input class="check" type="checkbox"
+														ng-change="checkBoxOne()"
+														ng-model="reportAdvanced.vinculatedProcessList"> <label
+														for="checkbox1">Mostra lista de Processos
+														vinculados no sumário</label>
+												</div>
+												<div class="checkbox-custom">
+													<input class="check" type="checkbox"
+														ng-change="checkBoxTwo()"
+														ng-model="reportAdvanced.requestsList"> <label
+														for="checkbox2">Mostra lista de Pedidos no sumário</label>
+												</div>
+												<div class="checkbox-custom">
+													<input class="check" type="checkbox"
+														ng-change="checkBoxThree()"
+														ng-model="reportAdvanced.groupProcess"> <label
+														for="checkbox3">Agrupa Processos unificados</label>
+												</div>
+												<div class="checkbox-custom">
+													<input class="check" type="checkbox"
+														ng-change="checkBoxFour()"
+														ng-model="reportAdvanced.onlyOriginalProcess"> <label
+														for="checkbox4">Aplica filtro apenas nos Processos
+														Originais</label>
+												</div>
+											</div>
+											<div class="col-lg-4 col-md-4">
+												<div class="checkbox-custom">
+													<input class="check" type="checkbox"
+														ng-change="checkBoxFive()"
+														ng-model="reportAdvanced.othersList"> <label
+														for="checkbox5">Imprime lista de Outros no sumário</label>
+												</div>
+												<div class="checkbox-custom">
+													<input class="check" type="checkbox"
+														ng-change="checkBoxSix()"
+														ng-model="reportAdvanced.opponentsList"> <label
+														for="checkbox6">Imprime lista de P. Adversas</label>
+												</div>
+												<div class="checkbox-custom">
+													<input class="check" type="checkbox"
+														ng-change="checkBoxSeven()"
+														ng-model="reportAdvanced.customersList"> <label
+														for="checkbox6">Imprime lista de Clientes</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+							</form>
+						</div>
+					</div>
+
+					<div class="panel panel-default toggle panelMove ">
+						<!-- Start .panel -->
+						<div class="panel-heading">
+							<h4 class="panel-title">Filtro</h4>
+						</div>
+						<div class="panel-body pt0 pb0">
+							<form class="form-horizontal group-border ">
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Cliente/Outro(s)</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<input type="text" class="form-control input-xlarge"
+													ng-model="reportAdvanced.customer" required ng-trim="false">
+											</div>
+											<div class="col-lg-4 col-md-4">
+												<input type="text" class="form-control input-xlarge"
+													ng-model="reportAdvanced.other" required ng-trim="false">
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">P.
+										Adversa/Adv. Adverso. Cob.</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<input type="text" class="form-control input-xlarge"
+													ng-model="reportAdvanced.opponent" required ng-trim="false">
+											</div>
+											<div class="col-lg-4 col-md-4">
+												<input type="text" class="form-control input-xlarge"
+													ng-model="reportAdvanced.opponentLawyer" required
+													ng-trim="false">
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Estado/Comarca</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<select class="fancy-select form-control"
+														ng-model="reportAdvanced.state">
+														<option ng-repeat="state in states | orderBy: 'value'">{{state.value}}</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<select class="fancy-select form-control"
+														ng-model="reportAdvanced.county">
+														<option ng-repeat="county in counties">{{county.value}}</option>
+													</select>
+												</div>
+												<!-- /input-group -->
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Pasta</label>
+									<div class="col-lg-2 col-md-2">
+										<div class="input-group">
+											<span></span> <input type="text" class="form-control"
+												name="start" ng-model="reportAdvanced.initialFolder" /> <span
+												class="input-group-addon">Até</span> <input type="text"
+												class="form-control" name="end"
+												ng-model="reportAdvanced.finalFolder" />
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Processo</label>
+									<div class="col-lg-2 col-md-2">
+										<div class="input-group">
+											<span></span> <input type="text" class="form-control"
+												name="start" ng-model="reportAdvanced.initialProcess" /> <span
+												class="input-group-addon">Até</span> <input type="text"
+												class="form-control" name="end"
+												ng-model="reportAdvanced.finalProcess" />
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Código</label>
+									<div class="col-lg-2 col-md-2">
+										<div class="input-group">
+											<span></span> <input type="text" class="form-control"
+												name="start" ng-model="reportAdvanced.initialId" /> <span
+												class="input-group-addon">Até</span> <input type="text"
+												class="form-control" name="end"
+												ng-model="reportAdvanced.finalId" />
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Original</label>
+									<div class="col-lg-2 col-md-2">
+										<div class="input-group">
+											<span></span> <input type="text" class="form-control"
+												name="start" ng-model="reportAdvanced.initialOriginal" /> <span
+												class="input-group-addon">Até</span> <input type="text"
+												class="form-control" name="end"
+												ng-model="reportAdvanced.finalOriginal" />
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="checkbox-custom">
+													<input class="check" type="checkbox"
+														ng-change="checkBoxEight()"
+														ng-model="reportAdvanced.sentence"> <label
+														for="checkbox4">Sentença</label>
+												</div>
+												<div class="checkbox-custom">
+													<input class="check" type="checkbox"
+														ng-change="checkBoxNine()"
+														ng-model="reportAdvanced.acordao"> <label
+														for="checkbox5">Acordão</label>
+												</div>
+												<div class="checkbox-custom">
+													<input class="check" type="checkbox"
+														ng-change="checkBoxTen()"
+														ng-model="reportAdvanced.transit"> <label
+														for="checkbox6">Trânsito</label>
+												</div>
+											</div>
+											<div class="col-lg-4 col-md-4">
+												<div class="checkbox-custom">
+													<input class="check" type="checkbox"
+														ng-change="checkBoxEleven()"
+														ng-model="reportAdvanced.onlyOriginal"> <label
+														for="checkbox4">Aplica filtro somente nos
+														Processos Originais</label>
+												</div>
+												<div class="checkbox-custom">
+													<input class="check" type="checkbox"
+														ng-change="checkBoxTwelve()"
+														ng-model="reportAdvanced.checkingProcess"> <label
+														for="checkbox5">Processos à verificar</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label"></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="radio-custom radio-inline col-lg-1 col-md-1">
+											<input type="radio" name="radio3" ng-value="'first'"
+												ng-change="radioThree()" ng-model="reportAdvanced.instance">
+											<label for="radio5">1ª Instância</label>
+										</div>
+										<div class="radio-custom radio-inline col-lg-1 col-md-1">
+											<input type="radio" name="radio3" ng-value="'second'"
+												ng-change="radioThree()" ng-model="reportAdvanced.instance"><label
+												for="radio1">2ª Instância</label>
+										</div>
+										<div class="radio-custom radio-inline col-lg-1 col-md-1">
+											<input type="radio" name="radio3" ng-value="'third'"
+												ng-change="radioThree()" ng-model="reportAdvanced.instance">
+											<label for="radio3">3ª Instância</label>
+										</div>
+										<div class="radio-custom radio-inline col-lg-2 col-md-2">
+											<input type="radio" name="radio3" ng-value="'unimportant'"
+												ng-change="radioThree()" ng-model="reportAdvanced.instance">
+											<label for="radio3">Não Importa</label>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label"></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="radio-custom radio-inline col-lg-1 col-md-1">
+											<input type="radio" name="radio4" ng-value="'active'"
+												ng-change="radioFour()" ng-model="reportAdvanced.status">
+											<label for="radio5">Ativos</label>
+										</div>
+										<div class="radio-custom radio-inline col-lg-1 col-md-1">
+											<input type="radio" name="radio4" ng-value="'disabled'"
+												ng-change="radioFour()" ng-model="reportAdvanced.status"><label
+												for="radio1">Mortos</label>
+										</div>
+										<div class="radio-custom radio-inline col-lg-1 col-md-1">
+											<input type="radio" name="radio4" ng-value="'both'"
+												ng-change="radioFour()" ng-model="reportAdvanced.status">
+											<label for="radio3">Ambos</label>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+							</form>
+						</div>
+					</div>
+
+					<div class="panel panel-default toggle panelMove ">
+						<!-- Start .panel -->
+						<div class="panel-heading">
+							<h4 class="panel-title">Filtros Extras</h4>
+						</div>
+						<div class="panel-body pt0 pb0">
+
+							<form class="form-horizontal group-border ">
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Valor
+										da Causa</label>
+									<div class="col-lg-3 col-md-3">
+										<div class="input-group">
+											<span></span> <input type="text" class="form-control"
+												name="start" ng-model="reportAdvanced.initialCauseValue" />
+											<span class="input-group-addon">Até</span> <input type="text"
+												class="form-control" name="end"
+												ng-model="reportAdvanced.finalCauseValue" />
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Valor
+										Final</label>
+									<div class="col-lg-3 col-md-3">
+										<div class="input-group">
+											<span></span> <input type="text" class="form-control"
+												name="start" ng-model="reportAdvanced.initialValue" /> <span
+												class="input-group-addon">Até</span> <input type="text"
+												class="form-control" name="end"
+												ng-model="reportAdvanced.finalValue" />
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Valor
+										da Contingência</label>
+									<div class="col-lg-3 col-md-3">
+										<div class="input-group">
+											<span></span> <input type="text" class="form-control"
+												name="start"
+												ng-model="reportAdvanced.initialContingencyValue" /> <span
+												class="input-group-addon">Até</span> <input type="text"
+												class="form-control" name="end"
+												ng-model="reportAdvanced.finalContingencyValue" />
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Data
+										último Andamento</label>
+									<div class="col-lg-3 col-md-3">
+										<div class="input-group">
+											<span></span> <input type="text" class="form-control"
+												name="start"
+												ng-model="reportAdvanced.initialLastOnGoingDate" /> <span
+												class="input-group-addon">Até</span> <input type="text"
+												class="form-control" name="end"
+												ng-model="reportAdvanced.finalLastOnGoingDate" />
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Data
+										Cadastramento</label>
+									<div class="col-lg-3 col-md-3">
+										<div class="input-group">
+											<span></span> <input type="text" class="form-control"
+												name="start"
+												ng-model="reportAdvanced.initialRegistrationDate" /> <span
+												class="input-group-addon">Até</span> <input type="text"
+												class="form-control" name="end"
+												ng-model="reportAdvanced.finalRegistrationDate" />
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Data
+										Ajuizamento</label>
+									<div class="col-lg-3 col-md-3">
+										<div class="input-group">
+											<span></span> <input type="text" class="form-control"
+												name="start" ng-model="reportAdvanced.initialFilingDate" />
+											<span class="input-group-addon">Até</span> <input type="text"
+												class="form-control" name="end"
+												ng-model="reportAdvanced.finalFilingDate" />
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Data
+										Inativo</label>
+									<div class="col-lg-3 col-md-3">
+										<div class="input-group">
+											<span></span> <input type="text" class="form-control"
+												name="start" ng-model="reportAdvanced.initialInativeDate" />
+											<span class="input-group-addon">Até</span> <input type="text"
+												class="form-control" name="end"
+												ng-model="reportAdvanced.finalInativeDate" />
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Data
+										Morto</label>
+									<div class="col-lg-3 col-md-3">
+										<div class="input-group">
+											<span></span> <input type="text" class="form-control"
+												name="start" ng-model="reportAdvanced.initialDisabledDate" />
+											<span class="input-group-addon">Até</span> <input type="text"
+												class="form-control" name="end"
+												ng-model="reportAdvanced.finalDisabledDate" />
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Cartório/Tribunal</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group ">
+													<div class="input-group input-xlarge">
+														<select class="fancy-select form-control"
+															ng-model="reportAdvanced.notarysOffice">
+															<option ng-repeat="notary in notaries | orderBy: 'value'">{{notary.value}}</option>
+														</select>
+													</div>
+												</div>
+												<!-- /input-group -->
+											</div>
+											<div class="col-lg-2 col-md-2">
+												<div class="input-group input-xlarge">
+													<select class="fancy-select form-control"
+														ng-model="reportAdvanced.court">
+														<option ng-repeat="court in courts | orderBy: 'value'">{{court.value}}</option>
+													</select>
+												</div>
+												<!-- /input-group -->
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Tipo/Área</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<div class="input-group input-xlarge">
+														<select class="fancy-select form-control"
+															ng-model="reportAdvanced.actionType">
+															<option ng-repeat="action in actions | orderBy: 'value'">{{action.value}}</option>
+														</select>
+													</div>
+												</div>
+												<!-- /input-group -->
+											</div>
+											<div class="col-lg-2 col-md-2">
+												<div class="input-group input-xlarge">
+													<div class="input-group input-xlarge">
+														<select class="fancy-select form-control"
+															ng-model="reportAdvanced.areaProcess">
+															<option ng-repeat="area in areas | orderBy: 'value'">{{area.value}}</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Fase/Título Objeto</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<div class="input-group input-xlarge">
+														<select class="fancy-select form-control"
+															ng-model="reportAdvanced.phase">
+															<option ng-repeat="phase in phases | orderBy: 'value'">{{phase.value}}</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-2 col-md-2">
+												<div class="input-group input-xlarge">
+													<div class="input-group input-xlarge">
+														<select class="fancy-select form-control"
+															ng-model="reportAdvanced.objectTitle">
+															<option
+																ng-repeat="object in objectTitles | orderBy: 'value'">{{object.value}}</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Responsável/Escritório</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<div class="input-group input-xlarge">
+														<select class="fancy-select form-control"
+															ng-model="reportAdvanced.responsable">
+															<option
+																ng-repeat="responsable in responsables | orderBy: 'name'">{{responsable.name}}</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-2 col-md-2">
+												<div class="input-group input-xlarge">
+													<div class="input-group input-xlarge">
+														<select class="fancy-select form-control"
+															ng-model="reportAdvanced.office">
+															<option ng-repeat="office in offices | orderBy: 'value'">{{office.value}}</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+<!-- 								<div class="form-group"> -->
+<!-- 									<label class="col-lg-2 col-md-3 control-label" for="">Departamento/Função</label> -->
+<!-- 									<div class="col-lg-10 col-md-9"> -->
+<!-- 										<div class="row"> -->
+<!-- 											<div class="col-lg-4 col-md-4"> -->
+<!-- 												<div class="input-group input-xlarge"> -->
+<!-- 													<select class="fancy-select form-control" -->
+<!-- 														ng-model="process.county"> -->
+<!-- 														<option ng-repeat="county in counties">{{county.value}}</option> -->
+<!-- 													</select> -->
+<!-- 												</div> -->
+<!-- 												/input-group -->
+<!-- 											</div> -->
+<!-- 											<div class="col-lg-2 col-md-2"> -->
+<!-- 												<div class="input-group "> -->
+<!-- 													<div class="input-group input-xlarge"> -->
+<!-- 														<select class="fancy-select form-control" -->
+<!-- 															ng-model="process.notarysOffice"> -->
+<!-- 															<option ng-repeat="notary in notaries | orderBy: 'value'">{{notary.value}}</option> -->
+<!-- 														</select> -->
+<!-- 													</div> -->
+<!-- 												</div> -->
+<!-- 												/input-group -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 								End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Vínculo/Motivo</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<select class="fancy-select form-control"
+														ng-model="reportAdvanced.link">
+														<option ng-repeat="link in links | orderBy: 'value'">{{link.value}}</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-lg-2 col-md-2">
+												<div class="input-group input-xlarge">
+													<select class="fancy-select form-control"
+														ng-model="reportAdvanced.motivation">
+														<option
+															ng-repeat="motivation in motivations | orderBy: 'value'">{{motivation.value}}</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Extra/Centro
+										de Custo</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<div class="input-group input-xlarge">
+														<select class="fancy-select form-control"
+															ng-model="reportAdvanced.extra">
+															<option ng-repeat="extra in extras | orderBy: 'value'">{{extra.value}}</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-2 col-md-2">
+												<div class="input-group input-xlarge">
+													<div class="input-group input-xlarge">
+														<select class="fancy-select form-control"
+															ng-model="reportAdvanced.costCenter">
+															<option
+																ng-repeat="costCenter in costCenterList | orderBy: 'value'">{{costCenter.value}}</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="checkbox-custom">
+													<input class="check" type="checkbox"
+														ng-change="checkBoxThirteen()" ng-model="reportAdvanced.hasContingency">
+													<label for="checkbox4">Possui Contingência</label>
+												</div>
+												<div class="checkbox-custom">
+													<input class="check" type="checkbox"
+														ng-change="checkBoxFourteen()" ng-model="reportAdvanced.finalized">
+													<label for="checkbox5">Finalizado mas ainda está no
+														Arquivo Ativo</label>
+												</div>
+												<div class="checkbox-custom">
+													<input class="check" type="checkbox"
+														ng-change="checkBoxFifteen()" ng-model="reportAdvanced.recoveredProperty">
+													<label for="checkbox6">Bem Recuperado</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Texto
+										no Objeto</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<input type="text" class="form-control input-xlarge"
+													ng-model="reportAdvanced.objectText" required ng-trim="false">
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label">Probabilidade
+										de Perda</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="radio-custom radio-inline col-lg-1 col-md-1">
+											<input type="radio" name="radio5" ng-value="'remote'"
+												ng-change="radioFive()" ng-model="reportAdvanced.lossProb">
+											<label for="radio5">Remota</label>
+										</div>
+										<div class="radio-custom radio-inline col-lg-1 col-md-1">
+											<input type="radio" name="radio5" ng-value="'probable'"
+												ng-change="radioFive()" ng-model="reportAdvanced.lossProb"><label
+												for="radio1">Provável</label>
+										</div>
+										<div class="radio-custom radio-inline col-lg-1 col-md-1">
+											<input type="radio" name="radio5" ng-value="'possible'"
+												ng-change="radioFive()" ng-model="reportAdvanced.lossProb">
+											<label for="radio3">Possível</label>
+										</div>
+										<div class="radio-custom radio-inline col-lg-2 col-md-2">
+											<input type="radio" name="radio5" ng-value="'right'"
+												ng-change="radioFive()" ng-model="reportAdvanced.lossProb">
+											<label for="radio3">Certa</label>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label">Resultado
+										Final</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="radio-custom radio-inline col-lg-1 col-md-1">
+											<input type="radio" name="radio6" ng-value="'victory'"
+												ng-change="radioSix()" ng-model="reportAdvanced.endResult">
+											<label for="radio5">Vitória</label>
+										</div>
+										<div class="radio-custom radio-inline col-lg-1 col-md-1">
+											<input type="radio" name="radio6" ng-value="'parcialLost'"
+												ng-change="radioSix()" ng-model="reportAdvanced.endResult"><label
+												for="radio1">Perda Parcial</label>
+										</div>
+										<div class="radio-custom radio-inline col-lg-1 col-md-1">
+											<input type="radio" name="radio6" ng-value="'defeat'"
+												ng-change="radioSix()" ng-model="reportAdvanced.endResult">
+											<label for="radio3">Derrota</label>
+										</div>
+										<div class="radio-custom radio-inline col-lg-1 col-md-1">
+											<input type="radio" name="radio6" ng-value="'deal'"
+												ng-change="radioSix()" ng-model="reportAdvanced.endResult">
+											<label for="radio3">Acordo</label>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+							</form>
+						</div>
+					</div>
+
+
+
+					<div class="panel panel-default toggle panelMove ">
+						<!-- Start .panel -->
+						<div class="panel-heading">
+							<h4 class="panel-title">Impressão</h4>
+						</div>
+						<div class="panel-body pt0 pb0">
+
+
+							<form class="form-horizontal group-border ">
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'paper'"
+														ng-change="radioSeven()" ng-model="reportAdvanced.printingType"> <label
+														for="radio1">Relatório em Papel</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'managementReports'"
+														ng-change="radioSeven()" ng-model="reportAdvanced.printingType"> <label
+														for="radio1">Relatórios Gerenciais</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'table'"
+														ng-change="radioSeven()" ng-model="reportAdvanced.printingType"> <label
+														for="radio1">Gera Tabela Excel</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'graphics'"
+														ng-change="radioSeven()" ng-model="reportAdvanced.printingType"> <label
+														for="radio1">Gera Gráficos</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'htmlFiles'"
+														ng-change="radioSeven()" ng-model="reportAdvanced.printingType"> <label
+														for="radio1">Gera Arquivos HTML</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'order'"
+														ng-change="radioSeven()" ng-model="reportAdvanced.printingType"> <label
+														for="radio1">Ordenação</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label">Tipo de
+										Pesquisa</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="radio-custom radio-inline col-lg-1 col-md-1">
+											<input type="radio" name="radio1" ng-value="'normal'"
+												ng-change="radioEight()" ng-model="reportAdvanced.researchType">
+											<label for="radio5">Consulta Normal</label>
+										</div>
+										<div class="radio-custom radio-inline col-lg-1 col-md-1">
+											<input type="radio" name="radio1" ng-value="'liticonsortes'"
+												ng-change="radioEight()" ng-model="reportAdvanced.researchType"><label
+												for="radio1">Consulta Liticonsortes</label>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-2 col-md-2"></div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="button-footer-right">
+									<button type="button" class="btn btn-default"
+										ng-click="cancel()">Cancelar</button>
+									<button type="button" class="btn btn-primary"
+										ng-click="sendReport(reportAdvanced)">Emitir</button>
+								</div>
+
+							</form>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

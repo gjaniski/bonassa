@@ -1,0 +1,26 @@
+<div ng-show="list!=undefined">
+	<div class="row setTopMargin">
+		<div class="col-lg-7 col-md-7" ng-show="showPageSize">
+			<div class="input-group input-small">
+				<select class="form-control" ng-init="pageSize=15"
+					ng-model="pageSize" ng-change="changePageSize(pageSize)">
+					<option value="10">10</option>
+					<option value="15">15</option>
+					<option value="20">20</option>
+					<option value="30">30</option>
+					<option value="50">50</option>
+				</select>
+			</div>
+		</div>
+		<div class="setRightMargin ">
+			<button type="button" class="btn btn-white"
+				ng-disabled="previousButton" ng-click="previous()"><<
+				Anterior</button>
+	
+			<button type="button" class="btn btn-white">{{currentPage+1}}/{{numberOfPages()}}</button>
+	
+			<button type="button" class="btn btn-white"
+				ng-disabled="nextButton" ng-click="next()">Próximo >></button>
+		</div>
+	</div>
+</div>

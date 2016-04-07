@@ -1,0 +1,149 @@
+/* -----------------------------------------
+   Custom.css - put your own changes here 
+----------------------------------------- */
+.modal-backdrop.am-fade {
+		opacity: .5;
+		transition: opacity linear;
+		&.
+		ng-enter
+		{
+			opacity
+			:
+			0;
+			&.
+			ng-enter-active
+			{
+				opacity
+				:
+				.5;
+			}
+
+		}
+		&
+		.ng-leave {
+			opacity: .5;
+			&.
+			ng-leave-active
+			{
+			opacity
+			:
+			0;
+		}
+		
+	}
+}
+
+.button-footer-right {
+	padding: 15px;
+	text-align: right;
+}
+
+.table .col-md-1 { width: 2%; }
+.table .col-md-2 { width: 30%; }
+.table .col-md-3 { width: 50%; }
+
+.desabilitado {
+    background: #EEE; 
+    cursor: not-allowed; 
+    color: #777;
+}
+
+.selected {
+/*     background-color:#C0C0C0 !important; */
+    background-color:#D3D3D3 !important;
+/*     font-weight:bold; */
+}
+
+.selectedMenu {
+    background-color:#262d37 !important;
+/*     background-color:#1c2128 !important; */
+    color: #ffffff !important;
+}
+
+.selectedMenu > i {
+  color: #ffffff !important;
+}
+
+.withoutRightSpace {
+  margin-right: 0 !important;/*Distância para o menu da direita*/
+}
+
+.withRightSpace {
+  margin-right: 160 !important;/*Distância para o menu da direita*/
+}
+
+.setBgColorWhite{
+    background-color:#ffffff !important;
+}
+
+.table-hoverBlue > tbody > tr:hover {
+/*   background-color: #87CEEB; */
+  background-color: #f08080;
+}
+
+.teste > input:hover { 
+    background-color: #87CEEB !important;
+}
+
+.btn-white {
+  color: #333333;
+/*   color: #87CEEB; */
+  background-color: #ffffff;
+  border-color: #e8e8e8;
+}
+
+.btn-whine {
+  color: #ffffff;
+/*   color: #87CEEB; */
+  background-color: #b22222;
+  border-color: #b22222;
+}
+
+.setRightMargin {
+  float: right;
+  padding-right: 15px !important;
+}
+
+.setLeftMargin {
+  padding-left: 23px !important;
+}
+
+.setTopMargin {
+  margin-top: 25px !important;
+}
+
+.setTopMargin-md-2 {
+  margin-top: -15px !important;
+}
+
+.dropdown-menu > li > a:hover {	
+  background-color: #f08080 !important;/*cor background dropdown quando passa o mouse*/
+}
+
+.setDireita{
+	padding-right: 2px !important;
+}
+
+.setTabMargin {
+  padding-left: 20px !important;
+  padding-top: 10px !important;
+  padding-bottom: 0px !important;
+  margin-bottom: 0px !important;  
+  font-size: 16px !important;
+}
+
+.setCloseButtonMargin {
+  padding-right: 14px !important;
+  padding-top: 8px !important;
+/*   padding-bottom: 0px !important; */
+/*   margin-bottom: 0px !important;   */
+  font-size: 22px !important;
+  color: black !important;
+  border-color: black !important;
+}
+
+
+.selectedTab {
+    background-color:#ffffff !important;
+    color: #ffffff !important;
+}

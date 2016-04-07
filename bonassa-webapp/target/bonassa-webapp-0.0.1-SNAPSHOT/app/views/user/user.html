@@ -1,0 +1,258 @@
+<div class="page-content sidebar-page right-sidebar-page clearfix">
+	<div class="page-content-wrapper">
+		<div class="page-content-inner">
+			<div id="page-header" class="clearfix"></div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div
+						class="panel panel-default toggle panelMove panelClose panelRefresh">
+						<!-- Start .panel -->
+						<div class="panel-heading setBgColorWhite">
+							<h4 class="panel-title">{{tag}}</h4>
+						</div>
+						<div class="panel-body">
+							<div class="panel panel-default toggle panelMove ">
+								<div class="panel-body pt0 pb0">
+									<form class="form-horizontal group-border" name="userForm" novalidate>
+													
+										<div class="form-group">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6" ng-class="{ 'has-error' : (userForm.name.$invalid && !userForm.name.$pristine) || (formInvalid && userForm.name.$invalid) }">
+													<div>
+														<label>Nome</label> 
+														<input ng-hide="hideInputs" type="text" name="name" class="form-control" ng-model="user.name" required>
+														<p ng-show="(userForm.name.$invalid && !userForm.name.$pristine) || (formInvalid && userForm.name.$invalid)" class="help-block">O nome é obrigatório!</p>
+														<p ng-show="hideInputs">{{user.name}}</p>
+													</div>
+												</div>
+												<div class="col-xs-6" ng-class="{ 'has-error' : (userForm.email.$invalid && !userForm.email.$pristine) || (formInvalid && userForm.email.$invalid) }">
+													<div>
+														<label>Email</label>
+														<input ng-hide="hideInputs" type="text" name="email" class="form-control" ng-model="user.email" required>
+														<p ng-show="(userForm.email.$invalid && !userForm.email.$pristine) || (formInvalid && userForm.email.$invalid)" class="help-block">O email é obrigatório!</p>
+														<p ng-show="hideInputs">{{user.email}}</p>
+													</div>
+												</div>
+											</div>
+										</div>
+																									
+										<div class="form-group">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6">
+													<div>
+														<label>Endereço</label>
+														<input ng-hide="hideInputs" type="text" name="numProcess" class="form-control" ng-model="user.address">
+														<p ng-show="hideInputs">{{user.address}}</p>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div>
+														<label>Número</label>
+														<input ng-hide="hideInputs" type="text" name="contCob" class="form-control" ng-model="user.homeNumber">
+														<p ng-show="hideInputs">{{user.homeNumber}}</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6">
+													<div>
+														<label>Bairro</label>
+														<input ng-hide="hideInputs" type="text" name="numProcess" class="form-control" ng-model="user.neighborhood">
+														<p ng-show="hideInputs">{{user.neighborhood}}</p>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div>
+														<label>CEP</label>
+														<input ng-hide="hideInputs" type="text" name="contCob" class="form-control" ng-model="user.zipCode">
+														<p ng-show="hideInputs">{{user.zipCode}}</p>
+													</div>
+												</div>
+											</div>
+										</div>
+													
+										<div class="form-group">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6">
+													<div>
+														<label>Estado</label>
+														<select ng-hide="hideInputs" type="text"name="state" class="form-control" ng-model="user.state.id" ng-change="setCityList()"
+																ng-options="state.id as state.value for state in states | orderBy: 'value'"></select>
+														<p ng-show="hideInputs">{{user.state.value}}</p>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div>
+														<label>Cidade</label> 
+														<!-- <select ng-hide="hideInputs" type="text" name="city" class="form-control" ng-model="user.city">
+															<option ng-show="user.state!=undefined" ng-repeat="city in cities | cityFilter:user | orderBy: 'value'">{{city.value}}</option>
+														</select>
+														<p ng-show="hideInputs">{{user.city.value}}</p>--->
+														<select ng-hide="hideInputs" type="text"name="city" class="form-control" ng-model="user.city.id""
+																ng-options="city.id as city.value for city in cities | cityFilter:user | orderBy: 'value'"></select>
+														<p ng-show="hideInputs">{{user.city.value}}</p>
+													</div>
+												</div>
+											</div>
+										</div>										
+										
+										<div class="form-group">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6">
+													<div>
+														<label>Telefone</label>
+														<input ng-hide="hideInputs" type="text" name="numProcess" class="form-control" ng-model="user.phoneNumber">
+														<p ng-show="hideInputs">{{user.phoneNumber}}</p>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div>
+														<label>Celular</label>
+														<input ng-hide="hideInputs" type="text" name="contCob" class="form-control" ng-model="user.cellPhoneNumber">
+														<p ng-show="hideInputs">{{user.cellPhoneNumber}}</p>
+													</div>
+												</div>
+											</div>
+										</div>	
+										
+										<div class="form-group">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6">
+													<div>
+														<label>CPF</label>
+														<input ng-hide="hideInputs" type="text" name="numProcess" class="form-control" ng-model="user.federalId">
+														<p ng-show="hideInputs">{{user.federalId}}</p>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div>
+														<label>RG</label>
+														<input ng-hide="hideInputs" type="text" name="contCob" class="form-control" ng-model="user.rg">
+														<p ng-show="hideInputs">{{user.rg}}</p>
+													</div>
+												</div>
+											</div>
+										</div>
+													
+										<div class="form-group">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6">
+													<div>
+														<label>Estado Civil</label> 
+														<!-- <select ng-hide="hideInputs" type="text" name="placeFile" class="form-control" ng-model="user.civilStatus">
+															<option	ng-repeat="status in civilStatusList | orderBy: 'value'">{{status.value}}</option>
+														</select>
+														<p ng-show="hideInputs">{{user.civilStatus.value}}</p>-->
+														<select ng-hide="hideInputs" type="text" name="placeFile" class="form-control" ng-model="user.civilStatus.id""
+																ng-options="civilStatus.id as civilStatus.value for civilStatus in civilStatusList | orderBy: 'value'"></select>
+														<p ng-show="hideInputs">{{user.civilStatus.value}}</p>
+													</div>
+												</div>																								
+												<div class="col-xs-6">															
+													<div style="float:left; width:80%; padding-right:20px!important;">
+														<label>Data de Nascimento</label>
+														<input ng-hide="hideInputs" type="text" name="dateField" class="form-control" ng-model="user.birthDate">
+														<p ng-show="hideInputs">{{user.birthDate}}</p>
+													</div>																
+													<div style="float:right; width:20%; padding-top:27px!important;">								
+							          						<button ng-hide="hideInputs" style="float:right;" class="btn btn-default" ng-datepicker ng-options="datepickerOptions" ng-model="user.birthDate"><i class="glyphicon glyphicon-calendar"></i></button>
+													</div>
+												</div>
+											</div>
+										</div>										
+													
+										<div class="form-group">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6">
+													<div>
+														<label>Profissão</label> 
+														<select ng-hide="hideInputs" type="text" name="state" class="form-control" ng-model="user.profession">
+															<option value="Advogado">Advogado</option>
+														</select>
+														<p ng-show="hideInputs">{{user.profession}}</p>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div>
+														<label>Função</label> 
+														<select ng-hide="hideInputs" type="text" name="city" class="form-control" ng-model="user.function">
+															<option value="Advogado">Advogado</option>
+														</select>
+														<p ng-show="hideInputs">{{user.function}}</p>
+													</div>
+												</div>
+											</div>
+										</div>		
+										
+										<div class="form-group">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6" ng-class="{ 'has-error' : (userForm.login.$invalid && !userForm.login.$pristine) || (formInvalid && userForm.login.$invalid) }">
+													<div>
+														<label>Login</label>
+														<input ng-hide="hideInputs" type="text" name="login" class="form-control" ng-model="user.login" required>
+														<p ng-show="(userForm.login.$invalid && !userForm.login.$pristine) || (formInvalid && userForm.login.$invalid)" class="help-block">O login é obrigatório!</p>
+														<p ng-show="hideInputs">{{user.login}}</p>
+													</div>
+												</div>
+												<div class="col-xs-6" ng-class="{ 'has-error' : (userForm.pwd.$invalid && !userForm.pwd.$pristine) || (formInvalid && userForm.pwd.$invalid) }">
+													<div>
+														<label>Senha</label>
+														<input ng-hide="hideInputs" type="text" name="pwd" class="form-control" ng-model="user.pwd" required>
+														<p ng-show="(userForm.pwd.$invalid && !userForm.pwd.$pristine) || (formInvalid && userForm.pwd.$invalid)" class="help-block">A senha é obrigatória!</p>
+														<p ng-show="hideInputs">{{user.pwd}}</p>
+													</div>
+												</div>
+											</div>
+										</div>	
+										
+										<div class="form-group" ng-repeat="group in user.groups track by $index" ng-class="{ 'has-error' : (userForm.groups{{$index}}.$invalid && !userForm.groups{{$index}}.$pristine) || (formInvalid && userForm.groups{{$index}}.$invalid) }">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >															
+												<div class="col-xs-6">				
+													<div style="float:left; width:80%; padding-right:20px!important;" append-source>
+														<label>Grupo de Acesso {{$index+1}}</label>
+														<select ng-hide="hideInputs" type="text" name="groups{{$index}}" class="form-control" ng-model="user.groups[$index].id"
+																ng-options="group.id as group.name for group in groupList | orderBy: 'name'" required></select>
+														<p ng-show="(userForm.groups{{$index}}.$invalid && !userForm.groups{{$index}}.$pristine) || (formInvalid && userForm.groups{{$index}}.$invalid)" class="help-block">O grupo de acesso é obrigatório!</p>
+														<p ng-show="hideInputs">{{user.groups[$index].name}}</p>
+													</div>																
+													<div style="float:right; width:20%; padding-top:27px!important;">
+														<button ng-show="!$first && !hideInputs" class="btn btn-default clicavel" ng-click="removeGroup($index)">-</button>
+														<button style="float:right; padding-left:10px!important;" ng-show="$last && !hideInputs" class="btn btn-default clicavel" ng-click="addGroup()">+</button>
+													</div>
+												</div>
+											</div>
+										</div>		
+										
+										<div class="form-group">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-12">
+													<div>
+														<label>Observação</label>
+														<textarea ng-hide="hideInputs" style="resize: none!important;" class="form-control" rows="3"	ng-model="user.observation"></textarea>
+														<p ng-show="hideInputs">{{user.observation}}</p>
+													</div>
+												</div>
+											</div>
+										</div>	
+						
+									</form>
+								</div>
+							</div>
+							<div class="setTopMargin-md-2">
+								<br>
+								<div class="modal-footer" style="border-top:0px!important; padding-right:0px!important;">
+									<button type="button" class="btn btn-default" ng-click="exit()">Cancelar</button>
+									<button ng-hide="hideInputs" type="button" class="btn btn-info" ng-click="verifyRequiredFields(!userForm.$invalid)">Salvar</button>
+									<button ng-show="hideInputs" type="button" class="btn btn-info" ng-click="edit()">Editar</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

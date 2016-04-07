@@ -1,0 +1,259 @@
+<div class="page-content sidebar-page right-sidebar-page clearfix">
+	<div class="page-content-wrapper">
+		<div class="page-content-inner">
+			<div id="page-header" class="clearfix"></div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div
+						class="panel panel-default toggle panelMove panelClose panelRefresh">
+						<!-- Start .panel -->
+						<div class="panel-heading setBgColorWhite">
+							<h4 class="panel-title">{{tag}}</h4>
+						</div>
+						<div class="panel-body">
+							<div class="panel panel-default toggle panelMove ">
+								<div class="panel-body pt0 pb0">
+									<form class="form-horizontal group-border" name="opponentForm" novalidate>
+									
+										<div class="form-group">						
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >															
+												<div class="col-xs-6">	
+													<label>Tipo</label>												
+													<div class="form-inline" style="padding-top:10px!important;">
+														<div style="float:left; width:50%;">
+<!-- 															<br> -->
+															<div class="radio-custom">
+																<input ng-disabled="hideInputs" type="radio" ng-model="opponent.type" value="f" ng-disabled="hideInputs">
+																<label>Pessoa Física</label>
+															</div>
+														</div>
+														<div style="float:right; width:50%;">
+<!-- 															<br> -->
+															<div class="radio-custom">
+																<input ng-disabled="hideInputs" type="radio" ng-model="opponent.type" value="j" ng-disabled="hideInputs">
+																<label>Pessoa Jurídica</label>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-xs-6" ng-class="{ 'has-error' : (opponentForm.name.$invalid && !opponentForm.name.$pristine) || (formInvalid && opponentForm.name.$invalid) }">
+													<div ng-show="opponent.type=='f'">
+														<label>Nome</label> 
+														<input ng-hide="hideInputs" type="text" name="name" class="form-control" ng-model="opponent.name" required>
+														<p ng-show="(opponentForm.name.$invalid && !opponentForm.name.$pristine) || (formInvalid && opponentForm.name.$invalid)" class="help-block">O nome é obrigatório!</p>
+														<p ng-show="hideInputs">{{opponent.name}}</p>
+													</div>
+													<div ng-show="opponent.type=='j'">
+														<label>Razão Social</label> 
+														<input ng-hide="hideInputs" type="text" name="name" class="form-control" ng-model="opponent.name" required>
+														<p ng-show="(opponentForm.name.$invalid && !opponentForm.name.$pristine) || (formInvalid && opponentForm.name.$invalid)" class="help-block">A razão social é obrigatória!</p>
+														<p ng-show="hideInputs">{{opponent.name}}</p>
+													</div>
+												</div>
+											</div>
+										</div>
+																					
+										<div class="form-group">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6">
+													<div>
+														<label>Endereço</label>
+														<input ng-hide="hideInputs" type="text" name="numProcess" class="form-control" ng-model="opponent.address">
+														<p ng-show="hideInputs">{{opponent.address}}</p>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div>
+														<label>Número</label>
+														<input ng-hide="hideInputs" type="text" name="contCob" class="form-control" ng-model="opponent.homeNumber">
+														<p ng-show="hideInputs">{{opponent.homeNumber}}</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6">
+													<div>
+														<label>Bairro</label>
+														<input ng-hide="hideInputs" type="text" name="numProcess" class="form-control" ng-model="opponent.neighborhood">
+														<p ng-show="hideInputs">{{opponent.neighborhood}}</p>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div>
+														<label>CEP</label>
+														<input ng-hide="hideInputs" type="text" name="contCob" class="form-control" ng-model="opponent.zipCode">
+														<p ng-show="hideInputs">{{opponent.zipCode}}</p>
+													</div>
+												</div>
+											</div>
+										</div>
+													
+										<div class="form-group">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6">
+													<div>
+														<label>Estado</label> 
+<!-- 														<select ng-hide="hideInputs" type="text" name="state" class="form-control" ng-model="opponent.state"> -->
+<!-- 															<option	ng-repeat="state in states | orderBy: 'value'">{{state.value}}</option> -->
+<!-- 														</select> -->
+<!-- 														<p ng-show="hideInputs">{{opponent.state}}</p> -->
+
+														<select ng-hide="hideInputs" type="text"name="state" class="form-control" ng-model="opponent.state.id"  ng-change="setCityList()" "
+																ng-options="state.id as state.value for state in states | orderBy: 'value'"></select>
+														<p ng-show="hideInputs">{{opponent.state.value}}</p>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div>
+														<label>Cidade</label> 
+<!-- 														<select ng-hide="hideInputs" type="text" name="city" class="form-control" ng-model="opponent.city"> -->
+<!-- 															<option ng-show="opponent.state!=undefined" ng-repeat="city in cities | cityFilter:opponent | orderBy: 'value'">{{city.value}}</option> -->
+<!-- 														</select> -->
+<!-- 														<p ng-show="hideInputs">{{opponent.city}}</p> -->
+														<select ng-hide="hideInputs" type="text"name="city" class="form-control" ng-model="opponent.city.id""
+																ng-options="city.id as city.value for city in cities | cityFilter:opponent | orderBy: 'value'"></select>
+														<p ng-show="hideInputs">{{opponent.city.value}}</p>
+													</div>
+												</div>
+											</div>
+										</div>										
+										
+										<div class="form-group">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6">
+													<div>
+														<label>Telefone</label>
+														<input ng-hide="hideInputs" type="text" name="numProcess" class="form-control" ng-model="opponent.phoneNumber">
+														<p ng-show="hideInputs">{{opponent.phoneNumber}}</p>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div>
+														<label>Celular</label>
+														<input ng-hide="hideInputs" type="text" name="contCob" class="form-control" ng-model="opponent.cellPhoneNumber">
+														<p ng-show="hideInputs">{{opponent.cellPhoneNumber}}</p>
+													</div>
+												</div>
+											</div>
+										</div>	
+										
+										<div class="form-group" ng-show="opponent.type=='j'">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6">
+													<div>
+														<label>I.E.</label>
+														<input ng-hide="hideInputs" type="text" name="numProcess" class="form-control" ng-model="opponent.stateId">
+														<p ng-show="hideInputs">{{opponent.stateId}}</p>
+													</div>
+												</div>
+												<div class="col-xs-6" ng-class="{ 'has-error' : (opponentForm.federalId.$invalid && !opponentForm.federalId.$pristine) || (formInvalid && opponentForm.federalId.$invalid) }">
+													<div>
+														<label>CNPJ</label>
+														<input ng-hide="hideInputs" type="text" name="federalId" class="form-control" ng-model="opponent.federalId" required>
+														<p ng-show="(opponentForm.federalId.$invalid && !opponentForm.federalId.$pristine) || (formInvalid && opponentForm.federalId.$invalid)" class="help-block">O cnpj é obrigatório!</p>
+														<p ng-show="hideInputs">{{opponent.federalId}}</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										
+										<div class="form-group" ng-show="opponent.type=='f'">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6" ng-class="{ 'has-error' : (opponentForm.federalId.$invalid && !opponentForm.federalId.$pristine) || (formInvalid && opponentForm.federalId.$invalid) }">
+													<div>
+														<label>CPF</label>
+														<input ng-hide="hideInputs" type="text" name="federalId" class="form-control" ng-model="opponent.federalId" required>
+														<p ng-show="(opponentForm.federalId.$invalid && !opponentForm.federalId.$pristine) || (formInvalid && opponentForm.federalId.$invalid)" class="help-block">O cpf é obrigatório!</p>
+														<p ng-show="hideInputs">{{opponent.federalId}}</p>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div>
+														<label>RG</label>
+														<input ng-hide="hideInputs" type="text" name="contCob" class="form-control" ng-model="opponent.rg">
+														<p ng-show="hideInputs">{{opponent.rg}}</p>
+													</div>
+												</div>
+											</div>
+										</div>
+													
+										<div class="form-group" ng-show="opponent.type=='f'">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6">
+													<div>
+														<label>Estado Civil</label> 
+<!-- 														<select ng-hide="hideInputs" type="text" name="placeFile" class="form-control" ng-model="opponent.civilStatus"> -->
+<!-- 															<option	ng-repeat="status in civilStatusList | orderBy: 'value'">{{status.value}}</option> -->
+<!-- 														</select> -->
+<!-- 														<p ng-show="hideInputs">{{opponent.civilStatus}}</p> -->
+														
+														<select ng-hide="hideInputs" type="text" name="placeFile" class="form-control" ng-model="opponent.civilStatus.id""
+																ng-options="civilStatus.id as civilStatus.value for civilStatus in civilStatusList | orderBy: 'value'"></select>
+														<p ng-show="hideInputs">{{opponent.civilStatus.value}}</p>
+													</div>
+												</div>																								
+												<div class="col-xs-6">															
+													<div style="float:left; width:80%; padding-right:20px!important;">
+														<label>Data de Nascimento</label>
+														<input ng-hide="hideInputs" type="text" name="dateField" class="form-control" ng-model="opponent.birthDate">
+														<p ng-show="hideInputs">{{opponent.birthDate}}</p>
+													</div>																
+													<div style="float:right; width:20%; padding-top:27px!important;">								
+							          						<button ng-hide="hideInputs" style="float:right;" class="btn btn-default" ng-datepicker ng-options="datepickerOptions" ng-model="opponent.birthDate"><i class="glyphicon glyphicon-calendar"></i></button>
+													</div>
+												</div>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-6">
+													<div>
+														<label>Email</label>
+														<input ng-hide="hideInputs" type="text" name="numProcess" class="form-control" ng-model="opponent.email">
+														<p ng-show="hideInputs">{{opponent.email}}</p>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div>
+														<label>Site</label>
+														<input ng-hide="hideInputs" type="text" name="contCob" class="form-control" ng-model="opponent.websiteUrl">
+														<p ng-show="hideInputs">{{opponent.websiteUrl}}</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+												<div class="col-xs-12">
+													<div>
+														<label>Observação</label>
+														<textarea ng-hide="hideInputs" style="resize: none!important;" class="form-control" rows="3"	ng-model="opponent.observation"></textarea>
+														<p ng-show="hideInputs">{{opponent.observation}}</p>
+													</div>
+												</div>
+											</div>
+										</div>	
+						
+									</form>
+								</div>
+							</div>
+							<div class="setTopMargin-md-2">
+								<br>
+								<div class="modal-footer" style="border-top:0px!important; padding-right:0px!important;">
+									<button type="button" class="btn btn-default" ng-click="exit()">Cancelar</button>
+									<button ng-hide="hideInputs" type="button" class="btn btn-info" ng-click="verifyRequiredFields(!opponentForm.$invalid)">Salvar</button>
+									<button ng-show="hideInputs" type="button" class="btn btn-info" ng-click="edit()">Editar</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

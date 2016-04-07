@@ -1,0 +1,37 @@
+[
+  {
+    "nome": "Fernando Battistela",
+    "cpf": "0001",
+    "advogado" : "Douglas Cardoso"
+  },
+  {
+    "nome": "Gerson Janiski",
+    "cpf": "0002",
+    "advogado" : "Douglas Cardoso"
+  },
+  {
+    "nome": "Marcelino Ulica",
+    "cpf": "0003",
+    "advogado" : "Douglas Cardoso"
+  },
+  {
+    "nome": "Gerson Janiski",
+    "cpf": "0004",
+    "advogado" : "Douglas Cardoso"
+  },
+  {
+    "nome": "Fernando Battistela",
+    "cpf": "0005",
+    "advogado" : "Douglas Cardoso"
+  },
+  {
+    "nome": "Marcelino Ulica",
+    "cpf": "0006",
+    "advogado" : "Douglas Cardoso"
+  },
+  {
+    "nome": "Gerson Janiski",
+    "cpf": "0007",
+    "advogado" : "Fernando Battistela"
+  }
+]

@@ -1,0 +1,291 @@
+<div class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div ng-show="invisible">
+				<div class="modal-header setBgColorWhite">
+					<button type="button" class="close" aria-hidden="true"
+						ng-click="exit()">×</button>
+					<text class="modal-title">{{tag}}{{process.id}}</text>
+				</div>
+				<div class="modal-body">
+
+					<div class="panel panel-default toggle panelMove ">
+						<div class="panel-body pt0 pb0">
+							<form class="form-horizontal group-border ">
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Tipo/Status</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<select class="fancy-select form-control"
+														ng-model="request.type" ng-disabled="disabledField">
+														<option ng-repeat="type in types | orderBy: 'value'">{{type.value}}</option>
+													</select>
+												</div>
+												<!-- /input-group -->
+											</div>
+											<div class="col-lg-2 col-md-2">
+												<div class="input-group input-xlarge">
+													<div class="input-group input-xlarge">
+														<select class="fancy-select form-control"
+															ng-model="request.status"  ng-disabled="disabledField">
+															<option
+																ng-repeat="status in requestStatus | orderBy: 'value'">{{status.value}}</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Valor
+										Pedido/Juros Iniciais</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-medium">
+													<input type="text" class="form-control input-medium"
+														ng-model="request.requestedValue"  ng-disabled="disabledField">
+												</div>
+												<!-- /input-group -->
+											</div>
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-medium">
+													<div class="input-group input-medium">
+														<input type="text" class="form-control input-medium"
+															ng-model="request.initialInterest"  ng-disabled="disabledField">													</div>
+												</div>
+											</div>
+											<div class="col-lg-3 col-md-3">
+												<div class="input-group input-medium">
+													<input type="text" class="form-control input-medium"
+														ng-value="request.updatedValue" readonly>
+												</div>
+												<!-- /input-group -->
+											</div>
+
+											<div class="col-lg-1 col-md-1"></div>
+											<div id="valorcausareal" class="col-lg-1 col-md-1">
+												<button type="button"
+													class="btn btn-default mr5 mb10 pull-right"
+													ng-click="updateValue()"  ng-disabled="disabledField">Atualizar</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Data
+										Pedido /Atualizado até</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-3 col-md-6">
+												<div class="input-group input-xlarge">
+													<div class="input-group input-icon input-medium">
+														<span class="input-group-addon"><i
+															class="fa fa-calendar s16"></i></span> <input
+															class="form-control" id="mask-date" type="text"
+															ng-value="request.askedDate | date:'dd/MM/yyyy'" readonly>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-1 col-md-1">
+												<div class="input-group input-icon"></div>
+											</div>
+											<div class="col-lg-2 col-md-2">
+												<div class="input-group input-icon input-medium">
+													<input id="mask-date" class="form-control setDireita"
+														type="date" ng-model="request.updatedDate"  ng-disabled="disabledField">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Valor
+										estimado /Valor Deferido</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<div class="input-group input-xlarge">
+														<input type="text" class="form-control input-medium"
+															ng-model="request.estimatedValue" ng-disabled="disabledField">
+													</div>
+												</div>
+												<!-- /input-group -->
+											</div>
+											<div class="col-lg-2 col-md-2">
+												<div class="input-group input-xlarge">
+													<div class="input-group input-xlarge">
+														<input type="text" class="form-control input-medium"
+															ng-model="request.deferredValue" ng-disabled="disabledField">
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label">Probabilidade
+										de Perda</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="radio-custom radio-inline col-lg-2 col-md-2">
+											<input type="radio" name="radio1" ng-value="'remote'"
+												ng-change="radioOne()" ng-model="request.lossProb" ng-disabled="disabledField">
+											<label for="radio5">Remota</label>
+										</div>
+										<div class="radio-custom radio-inline col-lg-2 col-md-2">
+											<input type="radio" name="radio1" ng-value="'possible'"
+												ng-change="radioOne()" ng-model="request.lossProb" ng-disabled="disabledField">
+											<label for="radio4">Possível</label>
+										</div>
+										<div class="radio-custom radio-inline col-lg-2 col-md-2">
+											<input type="radio" name="radio1" ng-value="'probable'"
+												ng-change="radioOne()" ng-model="request.lossProb" ng-disabled="disabledField">
+											<label for="radio3">Provável</label>
+										</div>
+										<div class="col-lg-2 col-md-2">
+											<div class="input-group input-icon input-small">
+												<input class="form-control" id="mask-date" type="text"
+													ng-value="request.lossProbPercentage" readonly>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Observação</label>
+									<div class="col-lg-10 col-md-9">
+										<textarea class="form-control" rows="3"
+											ng-model="request.observation" ng-disabled="disabledField"></textarea>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div ng-show="visible">
+				<div class="modal-header setBgColorWhite">
+					<button type="button" class="close" aria-hidden="true"
+						ng-click="exit()">×</button>
+					<text class="modal-title">Lista de Pedidos do Processo nº
+					{{process.id}}</text>
+				</div>
+				<div class="modal-body">
+					<div class="row ">
+						<div class="col-lg-7 col-md-7">
+							<button type="button" class="btn btn-default" ng-disabled="false"
+								ng-click="newRequest()">Novo</button>
+							<button type="button" class="btn btn-default"
+								ng-disabled="buttons" ng-click="editProcessRequest()">Editar</button>
+							<button type="button" class="btn btn-default"
+								ng-disabled="buttons" ng-click="viewProcessRequest()">Visualizar</button>
+						</div>
+						<div class="setRightMargin" append-source>
+							<!-- 							<div class="form-group input-large"> -->
+							<!-- 								<input ng-init="query=''" type="text" class="form-control" -->
+							<!-- 									ng-model="query" ng-change="autocompleteList()" -->
+							<!-- 									bs-options="lista for lista in listas" -->
+							<!-- 									placeholder="Pesquisar..." bs-typeahead> -->
+							<!-- 							</div> -->
+							<div class="form-group input-large">
+								<input type="text" class="form-control input-large "
+									data-placement="right" data-type="info" data-container="body"
+									placeholder="Pesquisar" data-trigger="focus" ng-model="query">
+							</div>
+						</div>
+					</div>
+
+					<div class="panel panel-default toggle panelMove">
+						<table id="tabletools"
+							class="table table-striped table-hoverBlue mouse" cellspacing="0"
+							width="100%">
+
+							<thead>
+								<tr>
+									<th>Tipo</th>
+									<th>Status</th>
+									<th>Prob. de Perda</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="processRequest in processRequests | filter:query | orderBy: 'name' | paginationFilter:currentPage*pageSize | limitTo:pageSize"
+									ng-class="{'selected':$index == selectedRow}"
+									ng-click="setClickedRow($index)">
+									<td ng-click="setRequest(processRequest)">{{processRequest.type}}</td>
+									<td ng-click="setRequest(processRequest)">{{processRequest.status}}</td>
+									<td ng-click="setRequest(processRequest)">{{processRequest.lossProb}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group">
+						<div class="col-lg-10 col-md-9">
+							<div class="row">
+								<div class="col-lg-2 col-md-2"></div>
+							</div>
+						</div>
+					</div>
+					<div class="row setTopMargin">
+						<div class="col-lg-7 col-md-7" ng-show="showPageSize">
+							<div class="input-group input-small">
+								<select class="form-control" ng-init="pageSize=15"
+									ng-model="pageSize" ng-change="changePageSize(pageSize)">
+									<option value="10">10</option>
+									<option value="15">15</option>
+									<option value="20">20</option>
+									<option value="30">30</option>
+									<option value="50">50</option>
+								</select>
+							</div>
+						</div>
+						<div class="setRightMargin ">
+							<button type="button" class="btn btn-white"
+								ng-disabled="previousButton" ng-click="previous()"><<
+								Anterior</button>
+
+							<button type="button" class="btn btn-white">{{currentPage+1}}/{{numberOfPages()}}</button>
+
+							<button type="button" class="btn btn-white"
+								ng-disabled="nextButton" ng-click="next()">Próximo >></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer" ng-show="visible">
+				<button type="button" class="btn btn-default" ng-click="exit()">Fechar</button>
+			</div>
+			<div class="setTopMargin-md-2" ng-show="invisible">
+				<div class="modal-footer" ng-show="footerNewRequest">
+					<button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+					<button type="button" class="btn btn-info"
+						ng-click="newProcessRequest(request)">Incluir</button>
+				</div>
+				<div class="modal-footer" ng-show="footerViewRequest">
+					<button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+					<button type="button" class="btn btn-info"
+						ng-click="editProcessRequest()">Editar</button>
+				</div>
+				<div class="modal-footer" ng-show="footerEditRequest">
+					<button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+					<button type="button" class="btn btn-info"
+						ng-click="updateProcessRequest(request)">Gravar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

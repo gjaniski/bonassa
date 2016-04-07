@@ -1,0 +1,921 @@
+<div class="modal" tabindex="-1" role="dialog" ng-controller="ProcessCtrl">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div ng-show="processModal">
+				<div class="modal-header setBgColorWhite">
+					<button type="button" class="close" aria-hidden="true"
+						ng-click="exit()">×</button>
+					<text class="modal-title">{{tag}}{{process.id}}</text>
+				</div>
+
+				<div id="tabs">
+					<ul class="nav nav-tabs setTabMargin">
+						<li ng-repeat="tab in tabs"
+							ng-class="{active:isActiveTab(tab.url)}"
+							ng-click="onClickTab(tab)"><a>{{tab.title}}</a></li>
+						<!-- 						<li><a ng-class="{active:isActiveTab('one')}" ng-click="onClickTab('one')"><span class="txt">Novo Processo</span></a></li> -->
+						<!-- 						<li><a ng-class="{active:isActiveTab('two')}" ng-click="onClickTab('two')"><span class="txt">Dados Extras</span></a></li> -->
+						<!-- 						<li>{{process.id}}</li> -->
+						<!-- 						<button type="button" class="close setCloseButtonMargin" -->
+						<!-- 							ng-click="exit()">×</button> -->
+
+					</ul>
+				</div>
+
+				<div type="text/ng-template" id="one" ng-show="showTab">
+					<div id="viewOne">
+						<!-- 						<div class="modal-header setBgColorWhite" -->
+						<!-- 							ng-show="headerEditOrViewProcess"> -->
+						<!-- 							<button type="button" class="close" aria-hidden="true" -->
+						<!-- 								ng-click="exit()">×</button> -->
+						<!-- 							<text class="modal-title">{{tag}}{{process.id}}</text> -->
+						<!-- 						</div> -->
+						<!-- 				<div class="modal-header setBgColorWhite" ng-show="headerNewProcess"> -->
+						<!-- 					<button type="button" class="close" aria-hidden="true" -->
+						<!-- 						ng-click="exit()">×</button> -->
+						<!-- 					<text class="modal-title">Novo Processo</text> -->
+						<!-- 				</div> -->
+						<div class="modal-body">
+							<div class="panel panel-default toggle panelMove">
+								<div class="panel-body pt0 pb0">
+									<form class="form-horizontal group-border ">
+
+										<div class="form-group"
+											ng-repeat="processCustomer in processCustomers track by $index">
+											<label class="col-lg-2 col-md-3 control-label" for="">Cliente/Tipo</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4" append-source>
+														<div class="input-group input-xlarge">
+															<input type="text" class="form-control"
+																ng-model="processCustomers[$index].partner"
+																ng-change="showAddProcessCustomer()"
+																bs-options="customer.name for customer in customerList"
+																placeholder="Pesquisar..." bs-typeahead
+																ng-disabled="disabledField" required>
+														</div>
+													</div>
+													<div class="col-lg-2 col-md-2">
+														<button class="btn btn-default clicavel"
+															ng-click="showModalNewCustomer()"
+															ng-disabled="disabledField">Novo</button>
+													</div>
+													<div class="col-lg-2 col-md-2">
+														<div class="input-group input-medium">
+															<select class="fancy-select form-control"
+																ng-model="processCustomer.processRelationship"
+																ng-change="controlOpponentTypeList()"
+																ng-disabled="disabledField">
+																<option
+																	ng-repeat="type in customerTypes | orderBy: 'name'">{{type.value}}</option>
+															</select>
+														</div>
+													</div>
+													<!-- 											<div class="col-lg-2 col-md-2"></div> -->
+
+													<div class="col-lg-1 col-md-1">
+														<div></div>
+													</div>
+													<div class="col-lg-1 col-md-1">
+														<div ng-show="$last && removeCustomer">
+															<button class="btn btn-default clicavel"
+																ng-click="removeProcessCustomer($index)"
+																ng-disabled="disabledField">-</button>
+														</div>
+													</div>
+													<div class="col-lg-1 col-md-1"
+														ng-show="$last && addCustomer">
+														<div>
+															<button class="btn btn-default clicavel"
+																ng-click="addProcessCustomer()"
+																ng-disabled="disabledField">+</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group"
+											ng-repeat="processOpponent in processOpponents track by $index">
+											<label class="col-lg-2 col-md-3 control-label" for="">P.Adversa/Tipo</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4" append-source>
+														<div class="input-group input-xlarge">
+															<input type="text" class="form-control"
+																ng-model="processOpponents[$index].partner"
+																ng-change="showAddProcessOpponent()"
+																bs-options="opponent.name for opponent in opponentList"
+																placeholder="Pesquisar..." bs-typeahead
+																ng-disabled="disabledField">
+														</div>
+													</div>
+													<div class="col-lg-2 col-md-2">
+														<button class="btn btn-default clicavel"
+															ng-click="showModalNewOpponent()"
+															ng-disabled="disabledField">Novo</button>
+													</div>
+													<div class="col-lg-2 col-md-2">
+														<div class="input-group input-medium">
+															<select class="fancy-select form-control"
+																ng-model="processOpponent.processRelationship"
+																ng-disabled="disabledField">
+																<option ng-show="opponentTypesList"
+																	ng-repeat="type in opponentTypes | orderBy: 'value'">{{type.value}}</option>
+																<!-- 															ng-repeat="type in opponentTypes | opponentFilter:processCustomer | orderBy: 'value'" -->
+															</select>
+														</div>
+													</div>
+													<!-- 											<div class="col-lg-2 col-md-2"></div> -->
+
+													<div class="col-lg-1 col-md-1">
+														<div></div>
+													</div>
+													<div class="col-lg-1 col-md-1">
+														<div ng-show="$last && removeOpponent">
+															<button class="btn btn-default clicavel"
+																ng-click="removeProcessOpponent($index)"
+																ng-disabled="disabledField">-</button>
+														</div>
+													</div>
+													<div class="col-lg-1 col-md-1"
+														ng-show="$last && addOpponent">
+														<div>
+															<button class="btn btn-default clicavel"
+																ng-click="addProcessOpponent()"
+																ng-disabled="disabledField">+</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group"
+											ng-repeat="processOther in processOthers track by $index">
+											<label class="col-lg-2 col-md-3 control-label" for="">Terceiro/Tipo</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4" append-source>
+														<div class="input-group input-xlarge">
+															<input type="text" class="form-control"
+																ng-model="processOthers[$index].partner"
+																ng-change="showAddProcessOther()"
+																bs-options="other.name for other in otherList"
+																placeholder="Pesquisar..." bs-typeahead
+																ng-disabled="disabledField">
+														</div>
+													</div>
+													<div class="col-lg-2 col-md-2">
+														<button class="btn btn-default clicavel"
+															ng-click="showModalNewOther()"
+															ng-disabled="disabledField">Novo</button>
+													</div>
+													<div class="col-lg-2 col-md-2">
+														<div class="input-group input-medium">
+															<select class="fancy-select form-control"
+																ng-model="processOther.processRelationship"
+																ng-disabled="disabledField">
+																<option ng-show="otherTypesList"
+																	ng-repeat="type in otherTypes | orderBy: 'value'">{{type.value}}</option>
+															</select>
+														</div>
+													</div>
+													<!-- 											<div class="col-lg-2 col-md-2"></div> -->
+
+													<div class="col-lg-1 col-md-1">
+														<div></div>
+													</div>
+													<div class="col-lg-1 col-md-1">
+														<div ng-show="$last && removeOther">
+															<button class="btn btn-default clicavel"
+																ng-click="removeProcessOther($index)"
+																ng-disabled="disabledField">-</button>
+														</div>
+													</div>
+													<div class="col-lg-1 col-md-1" ng-show="$last && addOther">
+														<div>
+															<button class="btn btn-default clicavel"
+																ng-click="addProcessOther()" ng-disabled="disabledField">+</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Processo/Contr.
+												Cob.</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4">
+														<input type="text" class="form-control input-xlarge"
+															ng-model="process.numProcess" required ng-trim="false"
+															ng-disabled="disabledField">
+													</div>
+													<div class="col-lg-4 col-md-4">
+														<input type="text" class="form-control input-medium"
+															ng-model="process.contCob" required ng-trim="false"
+															ng-disabled="disabledField">
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Arquivo
+												Físico/Pasta</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4">
+														<div class="input-group input-xlarge">
+															<select class="fancy-select form-control"
+																ng-model="process.fileLocale"
+																ng-change="controlFoldersList()"
+																ng-disabled="disabledField">
+																<option ng-repeat="file in files | orderBy: 'value'">{{file.value}}</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-lg-4 col-md-4">
+														<div class="input-group input-xlarge">
+															<select class="fancy-select form-control"
+																ng-model="process.fileFolder"
+																ng-disabled="disabledField">
+																<option ng-show="foldersList"
+																	ng-repeat="folder in folders | folderFilter:process  | orderBy: 'value'">{{folder.value}}</option>
+															</select>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Estado/Cidade</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4">
+														<div class="input-group input-xlarge">
+															<select class="fancy-select form-control"
+																ng-model="process.state" ng-change="controlCityList()"
+																ng-disabled="disabledField">
+																<option ng-repeat="state in states | orderBy: 'value'">{{state.value}}</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-lg-4 col-md-4">
+														<div class="input-group input-xlarge">
+															<select class="fancy-select form-control"
+																ng-model="process.city" ng-disabled="disabledField">
+																<option ng-show="cityList"
+																	ng-repeat="city in cities | cityFilter:process | orderBy: 'value'">{{city.value}}</option>
+															</select>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Comarca/Cartório</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4">
+														<div class="input-group input-xlarge">
+															<select class="fancy-select form-control"
+																ng-model="process.county"
+																ng-change="controlNotariesList()"
+																ng-disabled="disabledField">
+																<option ng-repeat="county in counties">{{county.value}}</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-lg-2 col-md-2">
+														<div class="input-group ">
+															<div class="input-group input-xlarge">
+																<select class="fancy-select form-control"
+																	ng-model="process.notarysOffice"
+																	ng-disabled="disabledField">
+																	<option ng-show="notariesList"
+																		ng-repeat="notary in notaries | notaryFilter:process | orderBy: 'value'">{{notary.value}}</option>
+																</select>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Tribunal/Vínculo</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4">
+														<div class="input-group input-xlarge">
+															<select class="fancy-select form-control"
+																ng-model="process.court" ng-disabled="disabledField">
+																<option ng-repeat="court in courts | orderBy: 'value'">{{court.value}}</option>
+															</select>
+														</div>
+
+													</div>
+													<div class="col-lg-2 col-md-2">
+														<div class="input-group input-xlarge">
+															<select class="fancy-select form-control"
+																ng-model="process.link" ng-disabled="disabledField">
+																<option ng-repeat="link in links | orderBy: 'value'">{{link.value}}</option>
+															</select>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for=""></label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4">
+														<div class="checkbox-custom">
+															<input class="check" type="checkbox"
+																ng-click="checkBoxOne()" ng-model="recoveredProperty"
+																ng-disabled="disabledField"> <label
+																for="checkbox1">Bem Recuperado</label>
+														</div>
+														<div class="checkbox-custom">
+															<input class="check" type="checkbox"
+																ng-click="checkBoxTwo()" ng-model="relatedProcess"
+																ng-disabled="disabledField"> <label
+																for="checkbox2">Processos Relacionados</label>
+														</div>
+														<div class="checkbox-custom">
+															<input class="check" type="checkbox"
+																ng-click="checkBoxThree()" ng-model="checkedToExport"
+																ng-disabled="disabledField"> <label
+																for="checkbox3">Marcado para Exportação</label>
+														</div>
+													</div>
+													<div class="col-lg-2 col-md-2">
+														<div class="checkbox-custom">
+															<input class="check" type="checkbox"
+																ng-click="checkBoxFour()" ng-model="sentence"
+																ng-disabled="disabledField"> <label
+																for="checkbox4">Sentença</label>
+														</div>
+														<div class="checkbox-custom">
+															<input class="check" type="checkbox"
+																ng-click="checkBoxFive()" ng-model="acordao"
+																ng-disabled="disabledField"> <label
+																for="checkbox5">Acordão</label>
+														</div>
+														<div class="checkbox-custom">
+															<input class="check" type="checkbox"
+																ng-click="checkBoxSix()" ng-model="transit"
+																ng-disabled="disabledField"> <label
+																for="checkbox6">Trânsito</label>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label"></label>
+											<div class="col-lg-10 col-md-9">
+												<div class="radio-custom radio-inline col-lg-2 col-md-2">
+													<input type="radio" name="radio1" ng-value="'first'"
+														ng-change="radioOne('first')" ng-model="instance"
+														ng-disabled="disabledField"> <label for="radio5">1ª
+														Instância</label>
+												</div>
+												<div class="radio-custom radio-inline col-lg-2 col-md-2">
+													<input type="radio" name="radio1" ng-value="'second'"
+														ng-change="radioOne('second')" ng-model="instance"
+														ng-disabled="disabledField"><label for="radio1">2ª
+														Instância</label>
+												</div>
+												<div class="radio-custom radio-inline col-lg-2 col-md-2">
+													<input type="radio" name="radio1" ng-value="'third'"
+														ng-click="radioOne('third')" ng-model="instance"
+														ng-disabled="disabledField"> <label for="radio3">3ª
+														Instância</label>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Observação</label>
+											<div class="col-lg-10 col-md-9">
+												<textarea class="form-control" rows="3"
+													ng-model="process.observation" required ng-trim="false"
+													ng-disabled="disabledField"></textarea>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ******************************** -->
+				<div type="text/ng-template" id="two" ng-show="!showTab">
+					<div id="viewTwo">
+						<!-- 				<div class="modal-header setBgColorWhite"></div> -->
+						<!-- 				<div class="modal-header setBgColorWhite"> -->
+						<!-- 					<text class="modal-title">Dados Extras</text> -->
+						<!-- 				</div> -->
+						<div class="modal-body">
+							<div class="panel panel-default toggle panelMove ">
+								<div class="panel-body pt0 pb0">
+									<form class="form-horizontal group-border">
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Tipo
+												de Ação/Fase</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4">
+														<div class="input-group input-xlarge">
+															<div class="input-group input-xlarge">
+																<select class="fancy-select form-control"
+																	ng-model="process.actionType"
+																	ng-disabled="disabledField">
+																	<option
+																		ng-repeat="action in actions | orderBy: 'value'">{{action.value}}</option>
+																</select>
+															</div>
+														</div>
+
+													</div>
+													<div class="col-lg-2 col-md-2">
+														<div class="input-group input-xlarge">
+															<div class="input-group input-xlarge">
+																<select class="fancy-select form-control"
+																	ng-model="process.phase" ng-disabled="disabledField">
+																	<option ng-repeat="phase in phases | orderBy: 'value'">{{phase.value}}</option>
+																</select>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group"
+											ng-repeat="owner in owners track by $index">
+											<label class="col-lg-2 col-md-3 control-label" for="">Responsável/Área</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-3 col-md-6">
+														<div class="input-group input-xlarge">
+															<select class="fancy-select form-control"
+																ng-model="owners[$index]" ng-change="showAdd()"
+																ng-disabled="disabledField">
+																<option ng-repeat="item in ownersList"
+																	ng-value="{{item}}">{{item.name}}</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-lg-1 col-md-1">
+														<div></div>
+													</div>
+													<!-- 											<div class="col-lg-2 col-md-2"> -->
+													<!-- 												<div class="input-group input-xlarge"> -->
+													<!-- 													<div class="input-group input-xlarge"> -->
+													<!-- 														<select class="fancy-select form-control" -->
+													<!-- 															ng-model="owners[$index].area"> -->
+													<!-- 															<option ng-repeat="area in areas | orderBy: 'value'">{{area.value}}</option> -->
+													<!-- 														</select> -->
+													<!-- 													</div> -->
+													<!-- 												</div> -->
+													<!-- 											</div> -->
+													<div class="col-lg-1 col-md-1">
+														<div></div>
+													</div>
+													<div class="col-lg-1 col-md-1">
+														<div></div>
+													</div>
+													<div class="col-lg-1 col-md-1">
+														<div ng-show="$last && remove">
+															<button class="btn btn-default clicavel"
+																ng-click="removeItem($index)"
+																ng-disabled="disabledField">-</button>
+														</div>
+													</div>
+													<div class="col-lg-1 col-md-1" ng-show="$last && add">
+														<div>
+															<button class="btn btn-default clicavel"
+																ng-click="addItem()" ng-disabled="disabledField">+</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Título
+												do Objeto/Escritório</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4">
+														<div class="input-group input-xlarge">
+															<div class="input-group input-xlarge">
+																<select class="fancy-select form-control"
+																	ng-model="process.objectTitle"
+																	ng-disabled="disabledField">
+																	<option
+																		ng-repeat="object in objectTitles | orderBy: 'value'">{{object.value}}</option>
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="col-lg-2 col-md-2">
+														<div class="input-group input-xlarge">
+															<div class="input-group input-xlarge">
+																<select class="fancy-select form-control"
+																	ng-model="process.office" ng-disabled="disabledField">
+																	<option
+																		ng-repeat="office in offices | orderBy: 'value'">{{office.value}}</option>
+																</select>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Objeto</label>
+											<div class="col-lg-10 col-md-9">
+												<textarea class="form-control" rows="3"
+													ng-model="process.object" required ng-trim="false"
+													ng-disabled="disabledField"></textarea>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Extra/Centro
+												de Custo</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4">
+														<div class="input-group input-xlarge">
+															<div class="input-group input-xlarge">
+																<select class="fancy-select form-control"
+																	ng-model="process.extra" ng-disabled="disabledField">
+																	<option ng-repeat="extra in extras | orderBy: 'value'">{{extra.value}}</option>
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="col-lg-2 col-md-2">
+														<div class="input-group input-xlarge">
+															<div class="input-group input-xlarge">
+																<select class="fancy-select form-control"
+																	ng-model="process.costCenter"
+																	ng-disabled="disabledField">
+																	<option
+																		ng-repeat="costCenter in costCenterList | orderBy: 'value'">{{costCenter.value}}</option>
+																</select>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Relator</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4">
+														<div class="input-group input-xlarge">
+															<input type="text" class="form-control input-xlarge"
+																placeholder="Digite o Relator"
+																ng-model="process.processRapporteur" required
+																ng-trim="false" ng-disabled="disabledField">
+														</div>
+
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Local
+												do Autos/Data Ajuiz.</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4">
+														<div class="input-group input-xlarge">
+															<div class="input-group input-xlarge">
+																<select class="fancy-select form-control"
+																	ng-model="process.placeFile"
+																	ng-disabled="disabledField">
+																	<option ng-repeat="place in places | orderBy: 'value'">{{place.value}}</option>
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="col-lg-2 col-md-1">
+														<div class="input-group input-icon input-medium">
+															<input id="mask-date" class="form-control setDireita"
+																type="date" ng-model="process.dateField"
+																ng-disabled="disabledField">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Observação</label>
+											<div class="col-lg-10 col-md-9">
+												<textarea class="form-control" rows="3"
+													ng-model="process.observation2" required ng-trim="false"
+													ng-disabled="disabledField"></textarea>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Valor
+												da Causa/Calc. Atualiz.</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4">
+														<div class="input-group input-medium">
+															<input type="text" class="form-control input-medium"
+																placeholder="Digite o Valor"
+																ng-model="process.lawSuitValue" required ng-trim="false"
+																ng-disabled="disabledField">
+														</div>
+
+													</div>
+													<div class="col-lg-3 col-md-3">
+														<div class="input-group input-medium">
+															<div class="input-group input-medium">
+																<select class="fancy-select form-control"
+																	ng-model="process.tableUpdatedValue"
+																	ng-disabled="disabledField">
+																	<option ng-repeat="table in tables | orderBy: 'value'">{{table.value}}</option>
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="col-lg-2 col-md-2">
+														<div class="input-group input-medium">
+															<input ng-value="process.lawSuitValueUpdated" type="text"
+																class="form-control input-medium" readonly
+																ng-disabled="disabledField">
+														</div>
+
+													</div>
+
+													<div class="col-lg-1 col-md-1"></div>
+													<div id="valorcausareal" class="col-lg-1 col-md-1">
+														<button type="button" class="btn btn-default"
+															ng-click="updateOne()" ng-disabled="disabledField">Atualizar</button>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Contingência/Calc.
+												Atualiz.</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4">
+														<div class="input-group input-medium">
+															<input type="text" class="form-control input-medium"
+																placeholder="Digite o Valor"
+																ng-model="process.contingencyValue" required
+																ng-trim="false" ng-disabled="disabledField">
+														</div>
+
+													</div>
+													<div class="col-lg-3 col-md-3">
+														<div class="input-group input-medium">
+															<div class="input-group input-medium">
+																<select class="fancy-select form-control"
+																	ng-model="process.tableContingencyValue"
+																	ng-disabled="disabledField">
+																	<option ng-repeat="table in tables | orderBy: 'value'">{{table.value}}</option>
+																</select>
+															</div>
+														</div>
+													</div>
+
+													<div class="col-lg-2 col-md-2">
+														<div class="input-group input-medium">
+															<input ng-value="process.contingencyValueUpdated"
+																type="text" class="form-control input-medium" readonly
+																ng-disabled="disabledField">
+														</div>
+
+													</div>
+
+													<div class="col-lg-1 col-md-1"></div>
+													<div id="valorcontingenciareal" class="col-lg-1 col-md-1">
+														<button type="button" class="btn btn-default"
+															ng-click="updateTwo()" ng-disabled="disabledField">Atualizar</button>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label">Tipo
+												Processo</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="radio-custom radio-inline col-lg-2 col-md-2">
+													<input type="radio" name="radio2" ng-value="'active'"
+														ng-change="radioTwo('active')"
+														ng-model="activePassiveProcess"
+														ng-disabled="disabledField"> <label for="radio10">Ativo</label>
+												</div>
+												<div class="radio-custom radio-inline col-lg-2 col-md-2">
+													<input type="radio" name="radio2" ng-value="'passive'"
+														ng-change="radioTwo('passive')"
+														ng-model="activePassiveProcess"
+														ng-disabled="disabledField"> <label for="radio11">Passivo</label>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label">Probabilidade
+												de Perda</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="radio-custom radio-inline col-lg-2 col-md-2">
+													<input type="radio" name="radio5" ng-value="'remote'"
+														ng-change="radioThree('remote')" ng-model="lossProb"
+														ng-disabled="disabledField"> <label for="radio12">Remota</label>
+												</div>
+												<div class="radio-custom radio-inline col-lg-2 col-md-2">
+													<input type="radio" name="radio5" ng-value="'probable'"
+														ng-change="radioThree('probable')" ng-model="lossProb"
+														ng-disabled="disabledField"> <label for="radio13">Provável</label>
+												</div>
+												<div class="radio-custom radio-inline col-lg-2 col-md-2">
+													<input type="radio" name="radio5" ng-value="'possible'"
+														ng-change="radioThree('possible')" ng-model="lossProb"
+														ng-disabled="disabledField"> <label for="radio14">Possível</label>
+												</div>
+												<div class="radio-custom radio-inline col-lg-2 col-md-2">
+													<input type="radio" name="radio5" ng-value="'right'"
+														ng-change="radioThree('right')" ng-model="lossProb"
+														ng-disabled="disabledField"> <label for="radio15">Certa</label>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label">Resultado
+												Final</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="radio-custom radio-inline col-lg-2 col-md-2">
+													<input type="radio" name="radio6" ng-value="'victory'"
+														ng-change="radioFour('victory')" ng-model="endResult"
+														ng-disabled="disabledField"> <label for="radio16">Vitória</label>
+												</div>
+												<div class="radio-custom radio-inline col-lg-2 col-md-2">
+													<input type="radio" name="radio6" ng-value="'partialLoss'"
+														ng-change="radioFour('partialLoss')" ng-model="endResult"
+														ng-disabled="disabledField"> <label for="radio17">Perda
+														Parcial</label>
+												</div>
+												<div class="radio-custom radio-inline col-lg-2 col-md-2">
+													<input type="radio" name="radio6" ng-value="'defeat'"
+														ng-change="radioFour('defeat')" ng-model="endResult"
+														ng-disabled="disabledField"> <label for="radio18">Derrota</label>
+												</div>
+												<div class="radio-custom radio-inline col-lg-2 col-md-2">
+													<input type="radio" name="radio6" ng-value="'agreeement'"
+														ng-change="radioFour('agreement')" ng-model="endResult"
+														ng-disabled="disabledField"> <label for="radio19">Acordo</label>
+												</div>
+												<div class="radio-custom radio-inline col-lg-2 col-md-2">
+													<input type="radio" name="radio6" ng-value="'unfinished'"
+														ng-change="radioFour('unfinished')" ng-model="endResult"
+														ng-disabled="disabledField"> <label for="radio20">Inacabado</label>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Motivo</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4">
+														<div class="input-group input-xlarge">
+															<select class="fancy-select form-control"
+																ng-model="process.motivation"
+																ng-disabled="disabledField">
+																<option
+																	ng-repeat="motivation in motivations | orderBy: 'value'">{{motivation.value}}</option>
+															</select>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label class="col-lg-2 col-md-3 control-label" for="">Valor
+												Final</label>
+											<div class="col-lg-10 col-md-9">
+												<div class="row">
+													<div class="col-lg-4 col-md-4">
+														<div class="input-group input-xlarge">
+															<input type="text" class="form-control input-xlarge"
+																placeholder="Digite o Valor Final"
+																ng-model="process.finalValue" required ng-trim="false"
+																ng-disabled="disabledField">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="setTopMargin-md-2">
+					<div class="modal-footer" ng-show="footerNewProcess">
+						<button type="button" class="btn btn-default" ng-click="exit()">Cancelar</button>
+						<button type="button" class="btn btn-info"
+							ng-click="newProcess(process,processCustomers,processOpponents,processOthers,owners)">Incluir</button>
+					</div>
+					<div class="modal-footer" ng-show="footerViewProcess">
+						<button type="button" class="btn btn-default" ng-click="exit()">Cancelar</button>
+						<button type="button" class="btn btn-info"
+							ng-click="editProcess()">Editar</button>
+					</div>
+					<div class="modal-footer" ng-show="footerEditProcess">
+						<button type="button" class="btn btn-default" ng-click="exit()">Cancelar</button>
+						<button type="button" class="btn btn-info"
+							ng-click="updateProcess(process,processCustomers,processOpponents,processOthers,owners)">Gravar</button>
+					</div>
+				</div>
+			</div>
+			<div ng-show="newCustomerModal">
+				<div class="modal-header setBgColorWhite">
+					<button type="button" class="close" aria-hidden="true"
+						ng-click="exit()">×</button>
+					<text class="modal-title">Novo Cliente</text>
+				</div>
+				<newcustomer></newcustomer>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+					<button type="button" class="btn btn-info"
+						ng-click="newCustomer(customer)">Incluir</button>
+				</div>
+			</div>
+			<div ng-show="newOpponentModal">
+				<div class="modal-header setBgColorWhite">
+					<button type="button" class="close" aria-hidden="true"
+						ng-click="exit()">×</button>
+					<text class="modal-title">Nova Parte Adversa</text>
+				</div>
+				<newopponent></newopponent>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+					<button type="button" class="btn btn-info"
+						ng-click="newOpponent(opponent)">Incluir</button>
+				</div>
+			</div>
+			<div ng-show="newOtherModal">
+				<div class="modal-header setBgColorWhite">
+					<button type="button" class="close" aria-hidden="true"
+						ng-click="exit()">×</button>
+					<text class="modal-title">Novo Terceiro</text>
+				</div>
+				<newothers></newothers>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+					<button type="button" class="btn btn-info"
+						ng-click="newOther(other)">Incluir</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

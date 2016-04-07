@@ -1,0 +1,30 @@
+[
+  {
+    "tipo" : "Veículo",
+    "contrato" : "10101010",
+    "marca" : "Chevrolet",
+    "modelo" : "Corsa",
+    "ano" : "2014"
+  },
+ {
+    "tipo" : "Veículo",
+    "contrato" : "10101011",
+    "marca" : "Volkswagen",
+    "modelo" : "Gol",
+    "ano" : "2014"
+  },
+  {
+    "tipo" : "Veículo",
+    "contrato" : "10101110",
+    "marca" : "Chevrolet",
+    "modelo" : "Corsa",
+    "ano" : "2014"
+  },
+  {
+    "tipo" : "Veículo",
+    "contrato" : "10101111",
+    "marca" : "Chevrolet",
+    "modelo" : "Vectra",
+    "ano" : "2014"
+  }
+]

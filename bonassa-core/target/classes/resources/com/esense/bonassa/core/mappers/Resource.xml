@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.esense.bonassa.core.dao.ResourceDao">
+
+	<resultMap type="Resource" id="resultResource">
+		<id column="id_" property="id" />
+		<result column="name_" property="name" />
+		<result column="status_" property="status" />
+		<collection property="groups" ofType="Group" column="id_"
+			select="selectGroups" />
+	</resultMap>
+
+	<resultMap type="Group" id="resultGroup">
+		<id column="id_" property="id" />
+		<result column="name_" property="name" />
+		<result column="status_" property="status" />
+	</resultMap>
+
+	<sql id="whereClause">
+		<where>
+			<foreach collection="criterions" item="criterion">
+				and
+				${criterion.condition} ${criterion.value}
+			</foreach>
+		</where>
+	</sql>
+
+	<select id="select" parameterType="Resource" resultMap="resultResource">
+		select *
+		from resource
+		<if test="criterions.size() > 0">
+			<include refid="whereClause" />
+		</if>
+	</select>
+
+	<select id="selectGroups" parameterType="int" resultMap="resultGroup">
+		SELECT b.* 
+		FROM   resource_membership a 
+		       INNER JOIN group_ b 
+		               ON a.group_id_ = b.id_ 
+		WHERE  resource_id_ = #{id} 
+	</select>
+
+</mapper>

@@ -1,0 +1,19 @@
+[
+  {
+    "processo": "0001",
+    "comarca": "Porto Alegre",
+    "ligacao" : "Original",
+    "vinculo" : "Agravo de Instrumento"
+  },
+  {
+    "processo": "0002",
+    "comarca": "Porto Alegre",
+    "ligacao" : "Filho",
+    "vinculo" : "Embargos de Declaração"
+  },{
+    "processo": "0003",
+    "comarca": "Porto Alegre",
+    "ligacao" : "Atual",
+    "vinculo" : "Embargos de Declaração"
+  }
+]

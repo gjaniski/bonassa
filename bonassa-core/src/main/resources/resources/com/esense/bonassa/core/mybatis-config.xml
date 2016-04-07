@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<setting name="useColumnLabel" value="true" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="autoMappingBehavior" value="PARTIAL" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<!-- <setting name="defaultStatementTimeout" value="25" /> -->
+		<setting name="safeRowBoundsEnabled" value="false" />
+		<setting name="mapUnderscoreToCamelCase" value="false" />
+		<setting name="localCacheScope" value="SESSION" />
+		<setting name="jdbcTypeForNull" value="OTHER" />
+		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />
+		<setting name="logImpl" value="LOG4J" />
+	</settings>
+
+	<typeAliases>
+		<typeAlias alias="Parameter" type="com.esense.bonassa.core.entity.Parameter" />
+		<typeAlias alias="Value" type="com.esense.bonassa.core.entity.Value" />
+		<typeAlias alias="User" type="com.esense.bonassa.core.entity.User" />
+		<typeAlias alias="Group" type="com.esense.bonassa.core.entity.Group" />
+		<typeAlias alias="Partner" type="com.esense.bonassa.core.entity.Partner" />
+		<typeAlias alias="Ticket" type="com.esense.bonassa.core.entity.Ticket" />
+		<typeAlias alias="Resource" type="com.esense.bonassa.core.entity.Resource" />
+		<typeAlias alias="Process" type="com.esense.bonassa.core.entity.Process" />
+		<typeAlias alias="ProcessProgress" type="com.esense.bonassa.core.entity.ProcessProgress" />
+		<typeAlias alias="ProcessPartner" type="com.esense.bonassa.core.entity.ProcessPartner" />
+		<typeAlias alias="ProcessRequest" type="com.esense.bonassa.core.entity.ProcessRequest" />
+		<typeAlias alias="ProcessProperty" type="com.esense.bonassa.core.entity.ProcessProperty" />
+		<typeAlias alias="ProcessAppointment" type="com.esense.bonassa.core.entity.ProcessAppointment" />
+		<typeAlias alias="ProcessAttached" type="com.esense.bonassa.core.entity.ProcessAttached" />
+		<typeAlias alias="ProcessOwner" type="com.esense.bonassa.core.entity.ProcessOwner" />
+	</typeAliases>
+
+</configuration>

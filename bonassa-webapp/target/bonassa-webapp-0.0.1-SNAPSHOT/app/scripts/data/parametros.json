@@ -1,0 +1,86 @@
+[
+  {
+    "nome": "Tipo Cliente",
+    "descricao": ""
+  },
+  {
+    "nome": "Tipo Parte Adversaria",
+    "descricao": ""
+  },
+  {
+    "nome": "Tipo Outros",
+    "descricao": ""
+  },
+  {
+    "nome": "Arquivo Físico",
+    "descricao": ""
+  },
+  {
+    "nome": "Pasta",
+    "descricao": ""
+  },
+  {
+    "nome": "Estado",
+    "descricao": ""
+  },
+  {
+    "nome": "Cidade",
+    "descricao": ""
+  },
+  {
+    "nome": "Comarca",
+    "descricao": ""
+  },
+  {
+    "nome": "Cartório",
+    "descricao": ""
+  },
+  {
+    "nome": "Tribunal",
+    "descricao": ""
+  },
+  {
+    "nome": "Vínculo",
+    "descricao": ""
+  },
+  {
+    "nome": "Tipo Ação",
+    "descricao": ""
+  },
+  {
+    "nome": "Fase Ação",
+    "descricao": ""
+  },
+  {
+    "nome": "Responsável",
+    "descricao": ""
+  },
+  {
+    "nome": "Area",
+    "descricao": ""
+  },
+  {
+    "nome": "Título do Objeto",
+    "descricao": ""
+  },
+  {
+    "nome": "Escritório",
+    "descricao": ""
+  },
+  {
+    "nome": "Extra",
+    "descricao": ""
+  },
+  {
+    "nome": "Centro de Custo",
+    "descricao": ""
+  },
+  {
+    "nome": "Local do Autos",
+    "descricao": ""
+  },
+  {
+    "nome": "Cálculo Atualizado",
+    "descricao": ""
+  }
+]

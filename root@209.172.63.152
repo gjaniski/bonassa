@@ -1,0 +1,10 @@
+select to_date(pro.creation_date_, 'dd/MM/yyyy') as data, pro.*, p.num_process_,cli.name_, ac.value_ as action_type
+from pro_progress pro
+left join process p on (pro.process_id_ = p.id_) 
+left join pro_partner pp on (pp.process_id_ = p.id_)
+left join partner cli on (pp.partner_id_ = cli.id_) 
+left join par_value ac on (pro.action_type_id_ = ac.id_)
+order by p.num_process_, data
+
+
+

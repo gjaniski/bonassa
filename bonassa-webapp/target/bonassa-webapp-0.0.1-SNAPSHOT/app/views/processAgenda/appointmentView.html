@@ -1,0 +1,157 @@
+<div class="modal-body">
+	<div class="panel panel-default toggle panelMove ">
+		<div class="panel-body pt0 pb0">
+			<form class="form-horizontal group-border ">			
+																		
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<label>Data Real</label>
+							<p>{{appointment.realDate}}</p>
+						</div>
+						<div class="col-xs-6">
+							<label>Data Limite</label>
+							<p>{{appointment.realDate}}</p>
+						</div>
+					</div>
+				</div>							
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<div>
+								<label>Hora</label>
+								<p>{{appointment.hour}}</p>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Fase</label> 
+								<p>{{appointment.type.value}}</p>
+							</div>
+						</div>
+					</div>
+				</div>	
+																
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<div>
+								<label>Local</label>
+								<p>{{appointment.city.value}}</p>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Cartório</label> 
+								<p>{{appointment.notarysOffice.value}}</p>
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="form-group" ng-repeat="owner in appointment.owners track by $index">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >		
+						<div class="col-xs-6">												
+							<label>Responsável {{$index+1}}</label> 
+							<p>{{owner.name}}</p>
+						</div>
+					</div>
+				</div>	
+		
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-12">
+							<div>
+								<label>Descrição</label>
+								<p>{{appointment.description}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<div>
+								<label>Tempo em Horas</label>
+								<p>{{appointment.requiredTime}}</p>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Data de Cadastro</label>
+								<p>{{appointment.date | date:'dd/MM/yyyy'}}</p>
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">																
+							<div class="form-inline">
+								<div class="checkbox-custom">
+									<input  class="check" type="checkbox" ng-model="appointment.hasTerm" ng-disabled="true">
+									<label>Tem Prazo</label>
+								</div>
+								<div class="checkbox-custom">
+									<input class="check" type="checkbox" ng-model="appointment.hearing" ng-disabled="true">
+									<label>É Audiência</label>
+								</div>
+								<div class="checkbox-custom">
+									<input class="check" type="checkbox" ng-model="appointment.providence" ng-disabled="true">
+									<label>Providência</label>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">															
+							<div class="form-inline">
+								<div class="checkbox-custom">
+									<input  class="check" type="checkbox" ng-model="appointment.emailAlert" ng-disabled="true">
+									<label>Avisa o Responsável por E-mail</label>
+								</div>
+								<div class="checkbox-custom">
+									<input class="check" type="checkbox" ng-model="appointment.remember" ng-disabled="true">
+									<label>Lembrar Antes</label>
+								</div>
+								<div class="checkbox-custom">
+									<input class="check" type="checkbox" ng-model="appointment.progressReleased" ng-disabled="true">
+									<label>Andamento Lançado</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">						
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >															
+						<div class="col-xs-6">	
+							<label>Status</label>												
+							<div class="form-inline" style="padding-top:10px!important;">
+								<div style="float:left; width:50%;">
+									<div class="radio-custom">
+										<input type="radio" ng-model="appointment.status" value="1" ng-disabled="true">
+										<label>Pendente</label>
+									</div>
+								</div>
+								<div style="float:right; width:50%;">
+									<div class="radio-custom">
+										<input type="radio" ng-model="appointment.status" value="2" ng-disabled="true">
+										<label>Concluído</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+			</form>
+		</div>
+	</div>
+</div>
+<div class="setTopMargin-md-2">
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+		<button type="button" class="btn btn-info" ng-click="editAppointment()">Editar</button>
+	</div>
+</div>

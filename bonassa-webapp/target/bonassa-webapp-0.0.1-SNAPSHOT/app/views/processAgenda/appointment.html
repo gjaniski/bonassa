@@ -1,0 +1,190 @@
+<div class="modal-body">
+	<div class="panel panel-default toggle panelMove ">
+		<div class="panel-body pt0 pb0">
+			<form class="form-horizontal group-border " name="appointmentForm" novalidate>			
+																		
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">															
+							<div style="float:left; width:80%; padding-right:20px!important;">
+								<label>Data Real</label>
+								<input type="text" name="numProcess" class="form-control" ng-model="appointment.realDate">
+							</div>																
+							<div style="float:right; width:20%; padding-top:27px!important;">								
+           						<button style="float:right;" class="btn btn-default" ng-datepicker ng-options="datepickerOptions" ng-model="appointment.realDate"><i class="glyphicon glyphicon-calendar"></i></button>
+							</div>
+						</div>
+						<div class="col-xs-6">															
+							<div style="float:left; width:80%; padding-right:20px!important;">
+								<label>Data Limite</label>
+								<input type="text" name="contCob" class="form-control" ng-model="appointment.limitDate">
+							</div>																
+							<div style="float:right; width:20%; padding-top:27px!important;">								
+           						<button style="float:right;" class="btn btn-default" ng-datepicker ng-options="datepickerOptions" ng-model="appointment.limitDate"><i class="glyphicon glyphicon-calendar"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>							
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<div>
+								<label>Hora</label>
+								<input type="text" name="contCob" class="form-control" ng-model="appointment.hour">
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Fase</label> 
+<!-- 								<select type="text" name="costCenter" class="form-control" ng-model="appointment.type"> -->
+<!-- 									<option ng-repeat="type in types | orderBy: 'value'">{{type.value}}</option> -->
+<!-- 								</select> -->
+								<select type="text" name="extra" class="form-control" ng-model="appointment.type.id"
+										ng-options="type.id as type.value for type in types | orderBy: 'value'"></select>
+							</div>
+						</div>
+					</div>
+				</div>	
+																
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<div>
+								<label>Local</label> 
+<!-- 								<select type="text" name="extra" class="form-control" ng-model="appointment.city"> -->
+<!-- 									<option ng-repeat="city in cities | orderBy: 'value'">{{city.value}}</option> -->
+<!-- 								</select> -->
+								<select type="text" name="extra" class="form-control" ng-model="appointment.city.id"
+										ng-options="city.id as city.value for city in cities | cityFilter:process | orderBy: 'value'"></select>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Cartório</label> 
+<!-- 								<select type="text" name="costCenter" class="form-control" ng-model="appointment.notarysOffice"> -->
+<!-- 									<option ng-repeat="notary in notaries | orderBy: 'value'">{{notary.value}}</option> -->
+<!-- 								</select> -->
+								<select type="text" name="extra" class="form-control" ng-model="appointment.notarysOffice.id"
+										ng-options="notary.id as notary.value for notary in notaries | orderBy: 'value'"></select>
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="form-group" ng-repeat="owner in appointment.owners track by $index">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >		
+						<div class="col-xs-6" ng-class="{ 'has-error' : (appointmentForm.owner{{$index}}.$invalid && !appointmentForm.owner{{$index}}.$pristine) || (formInvalid && appointmentForm.owner{{$index}}.$invalid) }">		
+							<label>Responsável {{$index+1}}</label> 
+							<select type="text" name="owner{{$index}}" class="form-control" ng-model="appointment.owners[$index].id" 
+									ng-options="owner.id as owner.name for owner in owners | orderBy: 'name'"required></select>
+							<p ng-show="(appointmentForm.owner{{$index}}.$invalid && !appointmentForm.owner{{$index}}.$pristine) || (formInvalid && appointmentForm.owner{{$index}}.$invalid)" class="help-block">O responsável é obrigatório!</p>
+						</div>			
+						<div class="col-xs-6">																
+							<div style="float:left; width:25%; padding-top:27px!important;" >
+								<button style="float:left!important;" ng-show="!$first  && !hideInputs" class="btn btn-default clicavel" ng-click="removeOwner($index)">-</button>
+							</div>																
+							<div style="float:right; width:75%; padding-top:27px!important;">								
+								<button style="float:left;" ng-show="$last && !hideInputs" class="btn btn-default clicavel" ng-click="addOwner()">+</button>
+							</div>
+						</div>
+					</div>
+				</div>	
+		
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-12">
+							<div>
+								<label>Descrição</label>
+								<textarea style="resize: none!important;" class="form-control" rows="3" ng-model="appointment.description"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<div>
+								<label>Tempo em Horas</label>
+								<input type="text" name="numProcess" class="form-control" ng-model="appointment.requiredTime">
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Data de Cadastro</label>
+<!-- 								<input type="text" name="contCob" class="form-control" ng-model="appointment.date" ng-disabled="true"> -->
+								<p>{{appointment.date | date:'dd/MM/yyyy'}}</p>
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">																
+							<div class="form-inline">
+								<div class="checkbox-custom">
+									<input  class="check" type="checkbox" ng-model="appointment.hasTerm">
+									<label>Tem Prazo</label>
+								</div>
+								<div class="checkbox-custom">
+									<input class="check" type="checkbox" ng-model="appointment.hearing">
+									<label>É Audiência</label>
+								</div>
+								<div class="checkbox-custom">
+									<input class="check" type="checkbox" ng-model="appointment.providence">
+									<label>Providência</label>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">															
+							<div class="form-inline">
+								<div class="checkbox-custom">
+									<input  class="check" type="checkbox" ng-model="appointment.emailAlert">
+									<label>Avisa o Responsável por E-mail</label>
+								</div>
+								<div class="checkbox-custom">
+									<input class="check" type="checkbox" ng-model="appointment.remember">
+									<label>Lembrar Antes</label>
+								</div>
+								<div class="checkbox-custom">
+									<input class="check" type="checkbox" ng-model="appointment.progressReleased">
+									<label>Andamento Lançado</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">						
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >															
+						<div class="col-xs-6">	
+							<label>Status</label>												
+							<div class="form-inline" style="padding-top:10px!important;">
+								<div style="float:left; width:50%;">
+									<div class="radio-custom">
+										<input type="radio" ng-model="appointment.status" value="1">
+										<label>Pendente</label>
+									</div>
+								</div>
+								<div style="float:right; width:50%;">
+									<div class="radio-custom">
+										<input type="radio" ng-model="appointment.status" value="2">
+										<label>Concluído</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+			</form>
+		</div>
+	</div>
+</div>
+<div class="setTopMargin-md-2">
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+		<button type="button" class="btn btn-info" ng-click="verifyRequiredFields(!appointmentForm.$invalid)">Salvar</button>
+	</div>
+</div>

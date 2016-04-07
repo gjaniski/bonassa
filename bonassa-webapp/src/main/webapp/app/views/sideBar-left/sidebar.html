@@ -1,0 +1,85 @@
+<!-- .page-sidebar -->
+<aside id="sidebar" class="page-sidebar hidden-md hidden-sm hidden-xs" ng-controller="SidebarCtrl">
+	<!-- Start .sidebar-inner -->
+	<div class="sidebar-inner">
+		<!-- Start .sidebar-scrollarea -->
+		<div class="sidebar-scrollarea">
+			<!--  .sidebar-panel -->
+			<div class="sidebar-panel">
+				<h5 class="sidebar-panel-title">Menu</h5>
+			</div>
+			<!-- / .sidebar-panel -->
+			<!-- .side-nav -->
+			<div>
+				<div class="side-nav">
+					<ul class="nav">
+						<li><a ng-class="{ selectedMenu: activePath=='/home' }" href="#/home"><i class="fa fa-windows"></i><span
+								class="txt">Home</span></a></li>
+						<li><a ng-class="{ selectedMenu: activePath=='/process/list' || activePath=='/process/new' || activePath=='/process/edit' || activePath=='/process/view'}" href="#/process/list"><i class="fa fa-list-alt"></i>
+								<span class="txt">Processos</span></a> <!-- 							<ul class="sub"> -->
+							<!-- 								<li><a href="#/process"><span class="txt">Novo</span></a></li> -->
+							<!-- 							</ul> --></li>
+						<!-- 					<li><a href="#/relatorios"><i -->
+						<!-- 							class="l-software-layout-header-3columns"></i><span class="txt">Relatórios</span></a> -->
+						<!-- 						<ul class="sub"> -->
+						<!-- 							<li><a href="#/tables-basic.html"><span class="txt">Financeiro</span></a> -->
+						<!-- 							</li> -->
+						<!-- 							<li><a href="#/tables-data.html"><span class="txt">Gerencial</span></a> -->
+						<!-- 							</li> -->
+						<!-- 						</ul></li> -->
+						<!-- 					<li><a href="#/login"><i class="l-software-layers2"></i><span -->
+						<!-- 							class="txt">Agenda</span></a> -->
+						<!-- 						<ul class="sub"> -->
+						<!-- 							<li><a href="#/login"><span class="txt">Registrar</span></a> -->
+						<!-- 							</li> -->
+						<!-- 							<li><a href="#/login"><span class="txt">Consultar</span></a> -->
+						<!-- 							</li> -->
+						<!-- 						</ul> -->
+						<!-- 					<li><a href="#/login"><i class="l-basic-webpage"></i><span -->
+						<!-- 							class="txt">Tarefas</span></a> -->
+						<!-- 						<ul class="sub"> -->
+						<!-- 							<li><a href="#/login"><span class="txt">Registrar</span></a> -->
+						<!-- 							</li> -->
+						<!-- 							<li><a href="#/login"><span class="txt">Consultar</span></a> -->
+						<!-- 							</li> -->
+						<!-- 						</ul></li> -->
+						<!-- 					<li><a href="#/login"><i class="l-basic-webpage"></i><span -->
+						<!-- 							class="txt">Timesheet</span></a> -->
+						<!-- 						<ul class="sub"> -->
+						<!-- 							<li><a href="#/login"><span class="txt">Consultar</span></a> -->
+						<!-- 							</li> -->
+						<!-- 							<li><a href="#/login"><span class="txt">Registrar</span></a> -->
+						<!-- 							</li> -->
+						<!-- 						</ul></li> -->
+						<li><a ng-class="{ selectedMenu: activePath=='/customer/list' || activePath=='/customer/new' || activePath=='/customer/edit' || activePath=='/customer/view' }" href="#/customer/list"><i
+								class="fa fa-user"></i><span class="txt">Clientes</span></a>
+							<!-- 							<ul class="sub"> --> <!-- 								<li><a href="#/customer"><span class="txt">Novo</span></a> -->
+							<!-- 								</li> --> <!-- 							</ul> --></li>
+
+
+						<li><a ng-class="{ selectedMenu: activePath=='/opponent/list' || activePath=='/opponent/new' || activePath=='/opponent/edit' || activePath=='/opponent/view' }" href="#/opponent/list"><i
+								class="fa fa-user"></i> <span class="txt">Partes
+									Adversas</span></a> <!-- 							<ul class="sub"> --> <!-- 								<li><a href="#/opponent"><span class="txt">Novo</span></a></li> -->
+							<!-- 							</ul> --></li>
+						<li><a ng-class="{ selectedMenu: activePath=='/other/list' || activePath=='/other/new' || activePath=='/other/edit' || activePath=='/other/view' }" href="#/other/list"><i class="fa fa-user"></i><span
+								class="txt">Terceiros</span></a> <!-- 							<ul class="sub"> --> <!-- 								<li><a href="#/others"><span class="txt">Novo</span></a></li> -->
+							<!-- 							</ul> --></li>
+						<li><a ng-class="{ selectedMenu: activePath=='/user/list' || activePath=='/user/new' || activePath=='/user/edit' || activePath=='/user/view'}" href="#/user/list"><i class="fa fa-user"></i>
+								<span class="txt">Usuários</span></a> <!-- 							<ul class="sub"> -->
+							<!-- 								<li><a href="#/user"><span class="txt">Novo</span></a></li> -->
+							<!-- 							</ul> --></li>
+						<li><a ng-class="{ selectedMenu: activePath=='/reports' || activePath=='/reports/advanced' }" href="#/reports"><i class="fa fa-file"></i><span
+								class="txt">Relatórios</span></a> <!-- 							<ul class="sub"> --> <!-- 								<li><a href="#/others"><span class="txt">Novo</span></a></li> -->
+							<!-- 							</ul> --></li>
+						<li><a ng-class="{ selectedMenu: activePath=='/parameter/list' }" href="#/parameter/list"><i class="fa  fa-wrench"></i><span
+								class="txt">Parâmetros</span></a></li>
+					</ul>
+				</div>
+				<!-- 			</div> -->
+			</div>
+			<!-- End .sidebar-scrollarea -->
+		</div>
+		<!-- End .sidebar-inner -->
+	</div>
+</aside>
+<!-- / page-sidebar -->

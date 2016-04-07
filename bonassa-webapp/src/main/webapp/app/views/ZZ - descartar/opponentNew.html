@@ -1,0 +1,292 @@
+<!-- <div class="modal" tabindex="-1" role="dialog"> -->
+<!-- 	<div class="modal-dialog"> -->
+<!-- 		<div class="modal-content"> -->
+<!-- 			<div> -->
+<!-- 				<div class="modal-header setBgColorWhite"> -->
+<!-- 					<button type="button" class="close" aria-hidden="true" -->
+<!-- 						ng-click="exit()">×</button> -->
+<!-- 					<text class="modal-title">{{tag}}</text> -->
+<!-- 				</div> -->
+				<div class="modal-body">
+
+					<div class="panel panel-default toggle panelMove ">
+						<div class="panel-body pt0 pb0">
+							<form class="form-horizontal group-border">
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label">Tipo</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="radio-custom radio-inline">
+											<input type="radio" ng-value="'f'" ng-change="isShownOpponent()"
+												ng-model="opponent.type" name="radio1" id="radio1">
+											<label for="radio1">Pessoa Física</label>
+										</div>
+										<div class="radio-custom radio-inline">
+											<input type="radio" ng-value="'j'" ng-change="isShownOpponent()"
+												ng-model="opponent.type" name="radio2" id="radio2">
+											<label for="radio2">Pessoa Jurídica</label>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group" ng-show="isShownOpponent('f')">
+									<label class="col-lg-2 col-md-3 control-label" for="">Nome</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+
+												<div class="input-group input-xlarge">
+													<input name="input" ng-model="opponent.name" required
+														ng-trim="false" class="form-control">
+												</div>
+												<!-- /input-group -->
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group" ng-show="isShownOpponent('j')">
+									<label class="col-lg-2 col-md-3 control-label" for="">Razão
+										Social</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<input name="input" ng-model="opponent.name" required
+														ng-trim="false" class="form-control">
+												</div>
+												<!-- /input-group -->
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Endereço/Número</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<input name="input" ng-model="opponent.address" required
+														ng-trim="false" class="form-control">
+												</div>
+												<!-- /input-group -->
+											</div>
+											<div class="col-lg-2 col-md-2">
+												<div class="input-group ">
+													<input name="input" ng-model="opponent.homeNumber" required
+														ng-trim="false" class="form-control">
+												</div>
+												<!-- /input-group -->
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Bairro/CEP</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<input name="input" ng-model="opponent.neighborhood"
+														required ng-trim="false" class="form-control">
+												</div>
+												<!-- /input-group -->
+											</div>
+											<div class="col-lg-2 col-md-2">
+												<div class="input-group ">
+													<input name="input" ng-model="opponent.zipCode" required
+														ng-trim="false" class="form-control">
+												</div>
+												<!-- /input-group -->
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Estado/Cidade</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<select class="fancy-select form-control"
+														ng-model="opponent.state" ng-change="controlCityList()">
+														<option ng-repeat="state in states | orderBy: 'value'">{{state.value}}</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<select class="fancy-select form-control"
+														ng-model="opponent.city">
+														<option ng-show="cityList"
+															ng-repeat="city in cities | cityFilter:opponent | orderBy: 'value'">{{city.value}}</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Telefone/Celular</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<input name="input" ng-model="opponent.phoneNumber"
+														required ng-trim="false" class="form-control">
+												</div>
+												<!-- /input-group -->
+											</div>
+											<div class="col-lg-2 col-md-2">
+												<div class="input-group ">
+													<input name="input" ng-model="opponent.cellPhoneNumber"
+														required ng-trim="false" class="form-control">
+												</div>
+												<!-- /input-group -->
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group" ng-show="isShownOpponent('j')">
+									<label class="col-lg-2 col-md-3 control-label" for="">I.E./CNPJ</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<input name="input" ng-model="opponent.stateId" required
+														ng-trim="false" class="form-control">
+												</div>
+												<!-- /input-group -->
+											</div>
+											<div class="col-lg-2 col-md-2">
+												<div class="input-group ">
+													<input name="input" ng-model="opponent.federalId" required
+														ng-trim="false" class="form-control">
+												</div>
+												<!-- /input-group -->
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group" ng-show="isShownOpponent('f')">
+									<label class="col-lg-2 col-md-3 control-label" for="">CPF/RG</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<input name="input" ng-model="opponent.federalId" required
+														ng-trim="false" class="form-control">
+												</div>
+												<!-- /input-group -->
+											</div>
+											<div class="col-lg-2 col-md-2">
+												<div class="input-group ">
+													<input name="input" ng-model="opponent.rg" required
+														ng-trim="false" class="form-control">
+												</div>
+												<!-- /input-group -->
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group" ng-show="isShownOpponent('f')">
+									<label class="col-lg-2 col-md-3 control-label" for="">Estado
+										Civil/Data Nasc.</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-3 col-md-6">
+												<div class="input-group input-xlarge">
+													<select class="fancy-select form-control"
+														ng-model="opponent.civilStatus">
+														<option ng-repeat="status in civilStatusList | orderBy: 'value'">{{status.value}}</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-lg-1 col-md-1">
+												<div class="input-group input-icon"></div>
+											</div>
+											<div class="col-lg-2 col-md-2">
+												<div class="input-group input-icon input-medium">
+													<input id="mask-date" class="form-control setDireita"
+														type="date" ng-model="opponent.birthDate">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Email/Site</label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-4 col-md-4">
+												<div class="input-group input-xlarge">
+													<input name="input" ng-model="opponent.email" required
+														ng-trim="false" class="form-control"
+														placeholder="Digite o E-mail">
+												</div>
+												<!-- /input-group -->
+											</div>
+											<div class="col-lg-2 col-md-2">
+												<div class="input-group ">
+													<input name="input" ng-model="opponent.websiteUrl" required
+														ng-trim="false" class="form-control"
+														placeholder="Digite o Site">
+												</div>
+												<!-- /input-group -->
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 control-label" for="">Observação</label>
+									<div class="col-lg-10 col-md-9">
+										<textarea class="form-control" rows="3"
+											ng-model="opponent.observation" required ng-trim="false"></textarea>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="setTopMargin-md-2">
+					<div class="modal-footer" ng-show="footerNewOpponent">
+						<button type="button" class="btn btn-default" ng-click="exit()">Cancelar</button>
+						<button type="button" class="btn btn-info"
+							ng-click="newOpponent(opponent)">Incluir</button>
+					</div>
+					<div class="modal-footer" ng-show="footerViewOpponent">
+						<button type="button" class="btn btn-default" ng-click="exit()">Cancelar</button>
+						<button type="button" class="btn btn-info"
+							ng-click="editOpponent()">Editar</button>
+					</div>
+					<div class="modal-footer" ng-show="footerEditOpponent">
+						<button type="button" class="btn btn-default" ng-click="exit()">Cancelar</button>
+						<button type="button" class="btn btn-info"
+							ng-click="updateOpponent(opponent)">Gravar</button>
+					</div>
+				</div>
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- </div> -->

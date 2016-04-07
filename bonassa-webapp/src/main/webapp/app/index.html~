@@ -1,0 +1,203 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title></title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+<!-- build:css(.) styles/vendor.css -->
+<!-- bower:css -->
+<!-- endbower -->
+<!-- endbuild -->
+<!-- build:css(.tmp) styles/main.css -->
+<!-- 	<link rel="stylesheet" href="styles/main.css"> -->
+<!-- endbuild -->
+<link
+	href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700'
+	rel='stylesheet' type='text/css'>
+<link href="styles/css/icons.css" rel="stylesheet" />
+<link href="styles/css/bootstrap.css" rel="stylesheet" />
+<link href="styles/css/plugins.css" rel="stylesheet" />
+<link href="styles/css/main.css" rel="stylesheet" />
+<link href="styles/css/custom.css" rel="stylesheet" />
+<!-- 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"> -->
+<!--     <link rel="stylesheet" href="//mgcrea.github.io/angular-strap/static/styles/angular-motion.min.css"> -->
+<!--     <link rel="stylesheet" href="//mgcrea.github.io/angular-strap/static/styles/bootstrap-additions.min.css"> -->
+<!--     <link rel="stylesheet" href="//mgcrea.github.io/angular-strap/styles/libraries.min.css"> -->
+<!--     <link rel="stylesheet" href="//mgcrea.github.io/angular-strap/styles/main.min.css"> -->
+</head>
+
+<body ng-app="webappApp" ng-controller="AuthCtrl">
+
+	<loginpage ng-show="!isAuthenticated"></loginpage>
+
+	<header ng-show="isAuthenticated"></header>
+
+	<sidebar ng-show="isAuthenticated"></sidebar>
+
+	<div ng-view="" ng-show="isAuthenticated"></div>
+
+	<footer></footer>
+
+	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+	<script>
+		!function(A, n, g, u, l, a, r) {
+			A.GoogleAnalyticsObject = l, A[l] = A[l] || function() {
+				(A[l].q = A[l].q || []).push(arguments)
+			}, A[l].l = +new Date, a = n.createElement(g), r = n
+					.getElementsByTagName(g)[0], a.src = u, r.parentNode
+					.insertBefore(a, r)
+		}(window, document, 'script',
+				'//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-XXXXX-X');
+		ga('send', 'pageview');
+	</script>
+
+	<!-- Javascripts -->
+	<!-- Load pace first -->
+	<script src="styles/plugins/core/pace/pace.min.js"></script>
+	<!-- Important javascript libs(put in all pages) -->
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script>
+		window.jQuery
+				|| document
+						.write('<script src="js/libs/jquery-2.1.1.min.js">\x3C/script>')
+	</script>
+	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<script>
+		window.jQuery
+				|| document
+						.write('<script src="js/libs/jquery-ui-1.10.4.min.js">\x3C/script>')
+	</script>
+	<!-- Bootstrap plugins -->
+	<script src="styles/js/bootstrap/bootstrap.js"></script>
+	<!-- Form plugins -->
+	<script src="styles/plugins/forms/validation/jquery.validate.js"></script>
+	<script src="styles/plugins/forms/validation/additional-methods.min.js"></script>
+	<!-- Init plugins olny for this page -->
+<!-- 	<script src="styles/js/pages/login.js"></script> -->
+	<!-- Core plugins ( not remove ) -->
+	<script src="styles/js/libs/modernizr.custom.js"></script>
+	<!-- Handle responsive view functions -->
+	<script src="styles/js/jRespond.min.js"></script>
+	<!-- Custom scroll for sidebars,tables and etc. -->
+	<script src="styles/plugins/core/slimscroll/jquery.slimscroll.min.js"></script>
+	<script
+		src="styles/plugins/core/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+	<!-- Remove click delay in touch -->
+	<script src="styles/plugins/core/fastclick/fastclick.js"></script>
+	<!-- Increase jquery animation speed -->
+	<script src="styles/plugins/core/velocity/jquery.velocity.min.js"></script>
+	<!-- Quick search plugin (fast search for many widgets) -->
+	<script src="styles/plugins/core/quicksearch/jquery.quicksearch.js"></script>
+	<!-- Bootbox fast bootstrap modals -->
+	<script src="styles/plugins/ui/bootbox/bootbox.js"></script>
+	<!-- Other plugins ( load only nessesary plugins for every page) -->
+	<script src="styles/js/libs/date.js"></script>
+	<script src="styles/plugins/charts/flot/jquery.flot.custom.js"></script>
+	<script src="styles/plugins/charts/flot/jquery.flot.pie.js"></script>
+	<script src="styles/plugins/charts/flot/jquery.flot.resize.js"></script>
+	<script src="styles/plugins/charts/flot/jquery.flot.time.js"></script>
+	<script src="styles/plugins/charts/flot/jquery.flot.growraf.js"></script>
+	<script src="styles/plugins/charts/flot/jquery.flot.categories.js"></script>
+	<script src="styles/plugins/charts/flot/jquery.flot.stack.js"></script>
+	<script src="styles/plugins/charts/flot/jquery.flot.orderBars.js"></script>
+	<script src="styles/plugins/charts/flot/jquery.flot.tooltip.min.js"></script>
+	<script src="styles/plugins/charts/flot/jquery.flot.curvedLines.js"></script>
+	<script src="styles/plugins/charts/sparklines/jquery.sparkline.js"></script>
+	<script src="styles/plugins/charts/progressbars/progressbar.js"></script>
+	<script src="styles/plugins/ui/waypoint/waypoints.js"></script>
+	<script src="styles/plugins/ui/weather/skyicons.js"></script>
+	<script src="styles/plugins/ui/notify/jquery.gritter.js"></script>
+	<script
+		src="styles/plugins/misc/vectormaps/jquery-jvectormap-1.2.2.min.js"></script>
+	<script
+		src="styles/plugins/misc/vectormaps/maps/jquery-jvectormap-world-mill-en.js"></script>
+	<script src="styles/plugins/misc/countTo/jquery.countTo.js"></script>
+	<script src="styles/js/jquery.dynamic.js"></script>
+	<script src="styles/js/main.js"></script>
+	<script src="styles/js/pages/dashboard.js"></script>
+	<script src="styles/plugins/tables/datatables/jquery.dataTables.js"></script>
+	<script src="styles/plugins/tables/datatables/dataTables.tableTools.js"></script>
+	<script src="styles/plugins/tables/datatables/dataTables.bootstrap.js"></script>
+	<script src="styles/plugins/tables/datatables/dataTables.responsive.js"></script>
+	<script src="styles/js/pages/tables-data.js"></script>
+	<script src="styles/plugins/charts/sparklines/jquery.sparkline.js"></script>
+<!-- 	<script type="text/javascript" src="https://rawgit.com/betsol/angular-input-date/master/src/angular-input-date.js"></script> -->
+
+	<!-- build:js(.) scripts/vendor.js -->
+	<!-- bower:js -->
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script
+		src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+	<script src="bower_components/angular-resource/angular-resource.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+	<script src="bower_components/angular-touch/angular-touch.js"></script>
+	<script src="bower_components/angular-strap/dist/angular-strap.js"></script>
+	<script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+	<script src="bower_components/angular-smart-table/dist/smart-table.js"></script>
+	<script src="bower_components/lodash/lodash.js"></script>
+	<script src="bower_components/restangular/dist/restangular.js"></script>
+	<script
+		src="bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.min.js"></script>
+	<script
+		src="bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.tpls.min.js"></script>
+	<!-- endbower -->
+	<!-- endbuild -->
+
+	<!-- build:js({.tmp,app}) scripts/scripts.js -->
+	<script src="scripts/app.js"></script>
+	<script src="scripts/directives/sidebar.js"></script>
+	<script src="scripts/directives/footer.js"></script>
+	<script src="scripts/directives/loginpage.js"></script>
+	<script src="scripts/directives/header.js"></script>	
+	<script src="scripts/directives/rightsidebar.js"></script>
+	<script src="scripts/directives/newcustomer.js"></script>
+	<script src="scripts/directives/newothers.js"></script>
+	<script src="scripts/directives/newopponent.js"></script>
+	<script src="scripts/controllers/authController.js"></script>
+	<script src="scripts/controllers/main.js"></script>
+	<script src="scripts/controllers/login.js"></script>
+	<script src="scripts/controllers/logout.js"></script>
+	<script src="scripts/controllers/customer.js"></script>
+	<script src="scripts/controllers/parameters.js"></script>
+	<script src="scripts/controllers/process.js"></script>
+	<script src="scripts/controllers/processAgenda.js"></script>
+	<script src="scripts/controllers/processOnGoing.js"></script>
+	<script src="scripts/controllers/processProperty.js"></script>
+	<script src="scripts/controllers/processRelated.js"></script>
+	<script src="scripts/controllers/processRequest.js"></script>		
+	<script src="scripts/controllers/user.js"></script>
+	<script src="scripts/controllers/opponent.js"></script>
+	<script src="scripts/controllers/rightsidebar.js"></script>
+	<script src="scripts/controllers/processDocuments.js"></script>
+	<script src="scripts/controllers/reports.js"></script>
+	<script src="scripts/controllers/reportsAdvanced.js"></script>	
+	<script src="scripts/controllers/sidebar.js"></script>
+	<script src="scripts/controllers/other.js"></script>
+	<script src="scripts/services/authService.js"></script>
+	<script src="scripts/services/sessionService.js"></script>
+	<script src="scripts/services/customerFactory.js"></script>
+	<script src="scripts/services/requestService.js"></script>
+	<script src="scripts/services/parameterService.js"></script>
+	<script src="scripts/services/parameterFactory.js"></script>
+	<script src="scripts/services/processFactory.js"></script>
+	<script src="scripts/services/processOnGoingFactory.js"></script>
+	<script src="scripts/services/processAgendaFactory.js"></script>
+	<script src="scripts/services/processRequestFactory.js"></script>
+	<script src="scripts/services/processPropertyFactory.js"></script>
+	<script src="scripts/services/processRelatedFactory.js"></script>
+	<script src="scripts/services/processDocumentFactory.js"></script>
+	<script src="scripts/services/opponentFactory.js"></script>
+	<script src="scripts/services/otherFactory.js"></script>
+<script src="scripts/services/userfactory.js"></script>
+	<!-- endbuild -->
+
+</body>
+</html>

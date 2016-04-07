@@ -1,0 +1,22 @@
+<div class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg"	style="height: 300px !important; width: 600px !important;">
+		<div class="modal-content">
+			<div class="modal-header setBgColorWhite">
+				<button type="button" class="close" aria-hidden="true"
+					ng-click="exit()">×</button>
+				<text class="modal-title">{{tag}}{{process.numProcess}}</text>
+			</div>
+			<div ng-show="!showList">
+				<div ng-show="!view">
+					<process-appointment></process-appointment>
+				</div>
+				<div ng-show="view">
+					<process-appointment-view></process-appointment-view>
+				</div>
+			</div>
+			<div ng-show="showList">
+				<process-appointment-list></process-appointment-list>
+			</div>
+		</div>
+	</div>
+</div>

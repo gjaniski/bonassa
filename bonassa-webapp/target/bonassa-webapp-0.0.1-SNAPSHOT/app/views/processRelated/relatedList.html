@@ -1,0 +1,50 @@
+<div class="modal-body">
+	<div class="row ">
+		<div class="col-lg-7 col-md-7">
+			<button type="button" class="btn btn-default" ng-click="newRelated()">Novo</button>
+			<button type="button" class="btn btn-danger" ng-disabled="selectedRow==null" ng-click="deleteRelated()">Excluir</button>
+		</div>
+		<div class="setRightMargin">
+			<div class="form-group input-large">
+				<input type="text" class="form-control" ng-model="search" placeholder="Filtrar">
+			</div>
+		</div>
+	</div>
+
+	<div class="panel panel-default toggle panelMove">
+		<table class="table table-striped table-hoverBlue mouse" cellspacing="0" width="100%">
+
+			<thead>
+				<tr>
+					<th>Processo</th>
+<!-- 					<th>Comarca</th> -->
+<!-- 					<th>Ligação</th> -->
+<!-- 					<th>Vinculo</th> -->
+				</tr>
+			</thead>
+			<tbody>			
+				<tr ng-show="(list | filter:search).length == 0">
+					<td colspan="6"><b>Nenhum</b> resultado encontrado!</td>
+				</tr>
+				<tr ng-repeat="related in list | filter:search | orderBy: 'name' | paginationFilter:currentPage*pageSize | limitTo:pageSize"
+					ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)">
+					<td ng-click="setRelated(related)">{{related.childProcess.numProcess}}</td>
+<!-- 					<td ng-click="setRelated(related)">{{related.parentProcess.id}}</td> -->
+<!-- 					<td ng-click="setRelated(related)">{{related.id}}</td> -->
+<!-- 					<td ng-click="setRelated(related)">{{related.id}}</td> -->
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-10 col-md-9">
+			<div class="row">
+				<div class="col-lg-2 col-md-2"></div>
+			</div>
+		</div>
+	</div>
+	<pagination></pagination>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click="exit()">Fechar</button>
+</div>

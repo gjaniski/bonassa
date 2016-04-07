@@ -1,0 +1,49 @@
+<div class="modal-body">
+	<div class="row ">
+		<div class="col-lg-7 col-md-7">
+		</div>
+		<div class="setRightMargin">
+			<div class="form-group input-large">
+				<input type="text" class="form-control" ng-model="searchProcess" placeholder="Filtrar">
+			</div>
+		</div>
+	</div>
+
+	<div class="panel panel-default toggle panelMove">
+		<table class="table table-striped table-hoverBlue mouse" cellspacing="0" width="100%">
+
+			<thead>
+				<tr>
+					<th>Cliente</th>
+					<th>Numero</th>
+					<th>Adversario</th>
+					<th>Data</th>
+				</tr>
+			</thead>
+			<tbody>		
+				<tr ng-show="(list_2 | filter:searchProcess).length == 0">
+					<td colspan="6"><b>Nenhum</b> resultado encontrado!</td>
+				</tr>
+				<tr ng-repeat="process in list2 | filter:searchProcess | orderBy: 'name' | paginationFilter:currentPage2*pageSize2 | limitTo:pageSize2"
+					ng-class="{'selected':$index == selectedRow2}" ng-click="setClickedRow2($index)">
+					<td ng-click="setProcessAttached(process)">{{process.id}}</td>
+					<td ng-click="setProcessAttached(process)">{{process.id}}</td>
+					<td ng-click="setProcessAttached(process)">{{process.id}}</td>
+					<td ng-click="setProcessAttached(process)">{{process.id}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-10 col-md-9">
+			<div class="row">
+				<div class="col-lg-2 col-md-2"></div>
+			</div>
+		</div>
+	</div>
+	<pagination2></pagination2>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+	<button type="button" class="btn btn-info" ng-click="save()">Salvar</button>
+</div>

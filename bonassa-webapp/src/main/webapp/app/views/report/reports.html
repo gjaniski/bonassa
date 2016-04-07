@@ -1,0 +1,172 @@
+<div class="page-content sidebar-page right-sidebar-page clearfix withoutRightSpace">
+	<div class="page-content-wrapper">
+		<div class="page-content-inner">
+			<div id="page-header" class="clearfix"></div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default toggle panelMove "
+						ng-controller="ReportsCtrl">
+						<div class="panel-heading">
+							<h3 class="panel-title">Menu de Relatórios</h3>
+						</div>
+						<div class="panel-body pt0 pb0">
+							<form class="form-horizontal group-border ">
+								<!-- inicio do teste -->
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'simple'"
+												ng-change="radioOne()" ng-model="selected.type"> <label for="radio1">Processos
+														Simples</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'advanced'"
+												ng-change="radioOne()" ng-model="selected.type"> <label for="radio1">Processos
+														Avançados</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End .form-group  -->
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'onGoing'"
+												ng-change="radioOne()" ng-model="selected.type"> <label for="radio1">Andamentos</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-5 col-md-1">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'compromisses'"
+												ng-change="radioOne()" ng-model="selected.type"> <label for="radio1">Pauta de
+														Compromissos Processuais</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-3 col-md-2">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'tasks'"
+												ng-change="radioOne()" ng-model="selected.type">
+													<label for="radio1">Tarefas Extrajudiciais</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-3 col-md-2">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'customers'"
+												ng-change="radioOne()" ng-model="selected.type">
+													<label for="radio1">Clientes</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-3 col-md-2">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'opponents'"
+												ng-change="radioOne()" ng-model="selected.type">
+													<label for="radio1">Lista de Partes Adversas</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-3 col-md-2">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'properties'"
+												ng-change="radioOne()" ng-model="selected.type">
+													<label for="radio1">Bens</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-1 col-md-3 control-label" for=""></label>
+									<div class="col-lg-10 col-md-9">
+										<div class="row">
+											<div class="col-lg-3 col-md-2">
+												<div class="radio-custom">
+													<input type="radio" name="radio" ng-value="'requests'"
+												ng-change="radioOne()" ng-model="selected.type">
+													<label for="radio1">Pedidos</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+<!-- 								<div class="form-group"> -->
+<!-- 									<label class="col-lg-2 col-md-3 control-label" for=""></label> -->
+<!-- 									<div class="col-lg-10 col-md-9"> -->
+<!-- 										<div class="row"> -->
+<!-- 											<div class="col-lg-2 col-md-2"></div> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+								<!-- End .form-group  -->
+
+								<div class="button-footer-right">
+									<button type="button" class="btn btn-primary"
+										ng-click="selectedNew(selected)">Selecionar</button>
+								</div>
+
+							</form>
+						</div>
+						<!-- End .form-group  -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

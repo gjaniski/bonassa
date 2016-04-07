@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.esense.bonassa.core.dao.UserDao">
+
+	<resultMap type="User" id="resultUser">
+		<id column="id_" property="id" />
+		<result column="name_" property="name" />
+		<result column="login_" property="login" />
+		<result column="password_" property="pwd" />
+		<result column="email_" property="email" />
+		<result column="status_" property="status" />		
+		<result column="address_" property="address" />
+		<result column="zip_code_" property="zipCode" />
+		<!--<result column="city_" property="city" />  -->
+		<!-- <result column="state_" property="state" /> -->
+		<result column="phone_number_" property="phoneNumber" />
+		<result column="cell_phone_number_" property="cellPhoneNumber" />
+		<result column="federal_id_" property="federalId" />
+		<result column="rg_" property="rg" />
+		<result column="birth_date_" property="birthDate" />
+		<!--  <result column="civil_status_" property="civilStatus" />-->
+		<result column="home_number_" property="homeNumber" />
+		<result column="neighborhood_" property="neighborhood" />
+		<result column="observation_" property="observation" />
+		<result column="profession_" property="profession" />
+		<result column="function_" property="function" />
+		<association column="city_id_" property="city" javaType="Value" select="selectCity" />
+		<association column="state_id_" property="state" javaType="Value" select="selectState" />
+		<association column="civil_status_id_" property="civilStatus" javaType="Value" select="selectCivilStatus" />
+	   <collection property="groups" ofType="Group" column="id_" select="selectGroups" />
+	</resultMap>
+	
+	<resultMap type="Value" id="resultValue">
+		<id property="id" column="id_"/>
+    	<result property="value" column="value_"/>
+	</resultMap>
+	
+	<resultMap type="Group" id="resultGroup">
+		<id column="id_" property="id" />
+		<result column="name_" property="name" />
+		<result column="status_" property="status" />
+	</resultMap>
+
+	<sql id="whereClause">
+		<where>
+			<foreach collection="criterions" item="criterion">
+				and
+				${criterion.condition} ${criterion.value}
+			</foreach>
+		</where>
+	</sql>
+	
+	<select id="selectCity" parameterType="int" resultMap="resultValue">
+		select * from par_value where id_ = #{id}
+	</select>
+	
+	<select id="selectState" parameterType="int" resultMap="resultValue">
+		select * from par_value where id_ = #{id}
+	</select>
+	
+	<select id="selectCivilStatus" parameterType="int" resultMap="resultValue">
+		select * from par_value where id_ = #{id}
+	</select>
+
+	<select id="select" parameterType="User" resultMap="resultUser">
+		select *
+		from user_
+		<if test="criterions.size() > 0">
+			<include refid="whereClause" />
+		</if>
+	</select>
+
+	<select id="selectGroups" parameterType="int" resultMap="resultGroup">
+		SELECT	a.*
+		FROM 	group_ a
+				INNER JOIN user_membership b
+					ON a.id_ = b.group_id_
+		WHERE b.user_id_ = #{id}
+	</select>
+
+	<select id="selectTicketByPrimaryKey" parameterType="int"
+		resultType="String">
+		select ticket_
+		from user_ticket
+		where id_ = #{id}
+	</select>
+
+	<insert id="insert" parameterType="User"  useGeneratedKeys="true">
+	
+		insert into
+		user_  (name_,
+				email_,
+				password_, 
+				status_,
+				login_,
+				address_,
+				zip_code_,
+				city_id_,
+				state_id_,
+				phone_number_,
+				cell_phone_number_,
+				federal_id_,
+				rg_,
+				birth_date_,
+				civil_status_id_,
+				home_number_,
+				neighborhood_,
+				observation_,
+				profession_,
+				function_)
+		values (#{name},
+				#{email}, 
+				#{pwd}, 
+				#{status},
+				#{login},
+				#{address},
+				#{zipCode},
+				#{city.id},
+				#{state.id},
+				#{phoneNumber},
+				#{cellPhoneNumber},
+				#{federalId},
+				#{rg},
+				#{birthDate},
+				#{civilStatus.id},
+				#{homeNumber},
+				#{neighborhood},
+				#{observation},
+				#{profession},
+				#{function})
+				
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT
+			currval('user__id__seq')
+		</selectKey>
+		
+	</insert>
+
+	<insert id="insertUserGroup">
+		insert into user_membership(user_id_, group_id_)
+		values(#{userId}, #{groupId})
+	</insert>
+
+	<insert id="generateTicket" parameterType="User">
+		insert into
+		user_ticket(user_id_, ticket_, datetime_)
+		values(#{id},
+		#{ticket.ticket}, #{ticket.date})
+		<selectKey keyProperty="ticket.id" resultType="int" order="AFTER">
+			SELECT
+			currval('user_ticket_id__seq')
+		</selectKey>
+	</insert>
+	
+	<update id="update" parameterType="User">
+
+		UPDATE  user_
+		SET	    name_ = #{name},
+				email_ = #{email},
+				password_ = #{pwd}, 
+				status_ = #{status},
+				login_ = #{login},
+				address_ = #{address},
+				zip_code_ = #{zipCode},
+				city_id_ = #{city.id},
+				state_id_ = #{state.id},
+				phone_number_ = #{phoneNumber},
+				cell_phone_number_ = #{cellPhoneNumber},
+				federal_id_ = #{federalId},
+				rg_ = #{rg},
+				birth_date_ = #{birthDate},
+				civil_status_id_ = #{civilStatus.id},
+				home_number_ = #{homeNumber},
+				neighborhood_ = #{neighborhood},
+				observation_ = #{observation},
+				profession_ = #{profession},
+				function_ = #{function}
+		WHERE   id_ = #{id}
+	</update>
+	
+	<delete id="deleteUserGroups" parameterType="User">
+		
+		DELETE FROM user_membership
+		WHERE   user_id_ = #{id}	
+	
+	</delete>
+
+</mapper>

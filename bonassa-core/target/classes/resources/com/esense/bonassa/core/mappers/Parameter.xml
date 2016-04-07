@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.esense.bonassa.core.dao.ParameterDao">
+
+	<resultMap id="resultParameter" type="Parameter">
+		<id column="id_" property="id" />
+		<result column="name_" property="name" />
+		<result column="status_" property="status" />
+		<result column="description_" property="description" />
+		<association column="parent_id_" property="parent" select="parentParam" />
+		<collection property="values" ofType="Value" column="id_" select="valueByParameter" />
+	</resultMap>
+
+	<resultMap id="resultParentParam" type="Parameter">
+		<id column="id_" property="id" />
+		<result column="name_" property="name" />
+		<result column="status_" property="status" />
+		<result column="description_" property="description" />
+	</resultMap>
+
+	<resultMap id="resultValue" type="Value">
+		<id column="id_" property="id" />
+		<result column="value_" property="value" />
+		<result column="status_" property="status" />
+		<association column="par_value_parent_id_" property="parent" select="parentValue" />
+	</resultMap>
+
+	<resultMap id="resultParentValue" type="Value">
+		<id column="id_" property="id" />
+		<result column="value_" property="value" />
+		<result column="status_" property="status" />
+	</resultMap>
+
+	<sql id="whereClause">
+		<where>
+			<foreach collection="criterions" item="criterion">
+				and
+				${criterion.condition} ${criterion.value}
+			</foreach>
+		</where>
+	</sql>
+
+	<sql id="valueFields">
+		id_,
+		par_value_parent_id_,
+		parameter_id_,
+		value_,
+		status_
+	</sql>
+
+	<sql id="parameterFields">
+		id_,
+		parent_id_,
+		name_,
+		status_,
+		description_
+	</sql>
+
+	<select id="select" parameterType="Parameter" resultMap="resultParameter">
+		select
+		<include refid="parameterFields" />
+		from parameter
+		<if test="criterions.size() > 0">
+			<include refid="whereClause" />
+		</if>
+	</select>
+
+<!-- 	<select id="list" parameterType="Parameter" resultMap="resultParameter"> -->
+<!-- 		select -->
+<!-- 		<include refid="parameterFields" /> -->
+<!-- 		from parameter -->
+<!-- 		<if test="criterions.size() > 0"> -->
+<!-- 			<include refid="whereClause" /> -->
+<!-- 		</if> -->
+<!-- 	</select> -->
+
+	<select id="parentParam" resultMap="resultParentParam">
+		select
+		<include refid="parameterFields" />
+		from parameter
+		where id_ = #{id}
+	</select>
+
+	<select id="valueByParameter" parameterType="int" resultMap="resultValue">
+		select *
+		from par_value
+		where parameter_id_= #{id}
+	</select>
+
+	<select id="valueById" parameterType="int" resultMap="resultValue">
+		select
+		<include refid="valueFields" />
+		from
+		par_value
+		where id_ = #{id}
+	</select>
+
+	<select id="parentValue" parameterType="int" resultMap="resultParentValue">
+		select
+		<include refid="valueFields" />
+		from
+		par_value
+		where id_ = #{id}
+	</select>
+
+	<insert id="insert">
+		insert into parameter(
+		name_,
+		status_,
+		description_
+		)
+		values(
+		#{name},
+		#{status},
+		#{description}
+		)
+	</insert>
+
+	<insert id="insertValue">
+		insert into par_value(
+		par_value_parent_id_,
+		parameter_id_,
+		value_,
+		status_
+		)
+		values(
+		#{parentId},
+		#{paramId},
+		#{value},
+		1
+		)
+	</insert>
+
+	<update id="updateValue">
+		UPDATE par_value 
+		SET	value_ = #{value},
+			par_value_parent_id_ = #{parentId}
+		WHERE id_ = #{paramId}
+	</update>
+
+</mapper>

@@ -1,0 +1,36 @@
+[
+  {
+    "nome": "Gerson Janiski",
+    "descricao": "Testemunha",
+    "tipo" : "Defesa"
+  },
+ {
+    "nome": "Gerson Janiski",
+    "descricao": "Parte Interessada",
+    "tipo" : "Acusação"
+  },{
+    "nome": "Gerson Janiski",
+    "descricao": "Testemunha",
+    "tipo" : "Defesa"
+  },{
+    "nome": "Gerson Janiski",
+    "descricao": "Testemunha",
+    "tipo" : "Acusação"
+  },{
+    "nome": "Gerson Janiski",
+    "descricao": "Testemunha",
+    "tipo" : "Defesa"
+  },{
+    "nome": "Gerson Janiski",
+    "descricao": "Testemunha",
+    "tipo" : "Acusação"
+  },{
+    "nome": "Gerson Janiski",
+    "descricao": "Parte Interessada",
+    "tipo" : "Defesa"
+  },{
+    "nome": "Gerson Janiski",
+    "descricao": "Testemunha",
+    "tipo" : "Acusação"
+  }
+]

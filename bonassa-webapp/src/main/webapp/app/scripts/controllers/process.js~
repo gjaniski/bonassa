@@ -1,0 +1,1184 @@
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name webappApp.controller:ProcessCtrl
+ * @description # ProcessCtrl Controller of the webappApp
+ */
+angular
+		.module('webappApp')
+		.controller(
+				'ProcessCtrl',
+				[
+						'$scope',
+						'$rootScope',
+						'$modal',
+						'$location',
+						'$routeParams',
+						'ProcessFactory',
+						'parameterFactory',
+						'customerFactory',
+						'userFactory',
+						'opponentFactory',
+						'otherFactory',
+						'$cookies',
+						'$cookieStore',
+
+						function($scope, $rootScope, $modal, $location,
+								$routeParams, ProcessFactory, parameterFactory,
+								customerFactory, userFactory, opponentFactory,
+								otherFactory, $cookies, $cookieStore) {
+
+							$scope.recoveredProperty = false;
+							$scope.relatedProcess = false;
+							$scope.checkedToExport = false;
+							$scope.sentence = false;
+							$scope.acordao = false;
+							$scope.transit = false;
+							$scope.instance = 'first';
+							$scope.activePassiveProcess = 'active';
+							$scope.lossProb = 'remote';
+							$scope.endResult = 'victory';
+
+							$scope.showRightSidebar = 'withoutRightSpace';
+							$scope.buttons = true;
+														
+							$scope.route = function(path) {
+								$location.path(path);
+							};
+							
+							/***********TABS**********/
+							
+						    $scope.tabs = [{
+						            title: 'Principal',
+						            url: 'one'
+						        }, {
+						            title: 'Dados Extras',
+						            url: 'two'
+						    }];
+
+						    $scope.currentTab = 'one';
+						    
+						    $scope.showTab = true;
+
+						    $scope.onClickTab = function (tab) {
+						    	
+						    	if($scope.currentTab != tab.url){
+						    		$scope.showTab = !$scope.showTab;
+						    	}
+						        $scope.currentTab = tab.url;
+						    }
+						    
+						    $scope.isActiveTab = function(tabUrl) {
+						        return tabUrl == $scope.currentTab;
+						    }
+						    
+						    /**************************/
+
+							var myModal = $modal({
+								scope : $scope,
+								backdrop : 'static',
+								template : 'views/processNew.html',
+								show : false
+							});
+
+							$scope.showModal = function() {
+								myModal.$promise.then(myModal.show);
+							};
+
+							$scope.selectedRow = null;
+							$scope.setClickedRow = function(index) {
+								$scope.showRightSidebar = 'withRightSpace';
+								$scope.selectedRow = index;
+								$scope.buttons = false;
+							}
+
+							if ($routeParams.process != undefined) {
+								$scope.process = $routeParams.process;
+								$scope.tag = 'Editar Processo';
+							}
+
+							$scope.checkBoxOne = function() {
+								if ($scope.recoveredProperty == true) {
+									$scope.recoveredProperty = false;
+									$scope.process.recoveredProperty = 0;
+								} else {
+									$scope.recoveredProperty = true;
+									$scope.process.recoveredProperty = 1;
+								}
+							};
+
+							$scope.checkBoxTwo = function() {
+								if ($scope.relatedProcess == true) {
+									$scope.relatedProcess = false;
+									$scope.process.relatedProcess = 0;
+								} else {
+									$scope.relatedProcess = true;
+									$scope.process.relatedProcess = 1;
+								}
+							};
+
+							$scope.checkBoxThree = function() {
+								if ($scope.checkedToExport == true) {
+									$scope.checkedToExport = false;
+									$scope.process.checkedToExport = 0;
+								} else {
+									$scope.checkedToExport = true;
+									$scope.process.checkedToExport = 1;
+								}
+							};
+
+							$scope.checkBoxFour = function() {
+								if ($scope.sentence == true) {
+									$scope.sentence = false;
+									$scope.process.sentence = 0;
+								} else {
+									$scope.sentence = true;
+									$scope.process.sentence = 1;
+								}
+							};
+
+							$scope.checkBoxFive = function() {
+								if ($scope.acordao == true) {
+									$scope.acordao = false;
+									$scope.process.acordao = 0;
+								} else {
+									$scope.acordao = true;
+									$scope.process.acordao = 1;
+								}
+							};
+
+							$scope.checkBoxSix = function() {
+								if ($scope.transit == true) {
+									$scope.transit = false;
+									$scope.process.transit = 0;
+								} else {
+									$scope.transit = true;
+									$scope.process.transit = 1;
+								}
+							};
+
+							$scope.radioOne = function(param) {
+								if (param == 'second') {
+									$scope.process.instance = 1;
+									$scope.instance = 'second';
+								} else if (param == 'third') {
+									$scope.process.instance = 2;
+									$scope.instance = 'third';
+								} else {
+									$scope.process.instance = 0;
+									$scope.instance = 'first';
+								}
+							};
+
+							$scope.radioTwo = function(param) {
+								if (param == 'passive') {
+									$scope.process.activePassiveProcess = 1;
+									$scope.activePassiveProcess = 'passive';
+								} else {
+									$scope.process.activePassiveProcess = 0;
+									$scope.activePassiveProcess = 'active';
+								}
+							};
+
+							$scope.radioThree = function(param) {
+								if (param == 'probable') {
+									$scope.process.lossProb = 1;
+									$scope.lossProb = 'probable';
+								} else if (param == 'possible') {
+									$scope.process.lossProb = 2;
+									$scope.lossProb = 'possible';
+								} else if (param == 'right') {
+									$scope.process.lossProb = 3;
+									$scope.lossProb = 'right';
+								} else {
+									$scope.process.lossProb = 0;
+									$scope.lossProb = 'remote';
+								}
+							};
+
+							$scope.radioFour = function(param) {
+								if (param == 'partialLoss') {
+									$scope.process.endResult = 1;
+									$scope.endResult = 'partialLoss';
+								} else if (param == 'defeat') {
+									$scope.process.endResult = 2;
+									$scope.endResult = 'defeat';
+								} else if (param == 'agreeement') {
+									$scope.process.endResult = 3;
+									$scope.endResult = 'agreeement';
+								} else if (param == 'unfinished') {
+									$scope.process.endResult = 4;
+									$scope.endResult = 'unfinished';
+								} else {
+									$scope.process.endResult = 0;
+									$scope.endResult = 'victory';
+								}
+							};
+
+							$scope.verifyAllCheckBoxAndRadios = function() {
+								if ($scope.process.recoveredProperty == 1)
+									$scope.recoveredProperty = true;
+								else
+									$scope.recoveredProperty = false;
+
+								if ($scope.process.relatedProcess == 1)
+									$scope.relatedProcess = true;
+								else
+									$scope.relatedProcess = false;
+
+								if ($scope.process.checkedToExport == 1)
+									$scope.checkedToExport = true;
+								else
+									$scope.checkedToExport = false;
+
+								if ($scope.process.sentence == 1)
+									$scope.sentence = true;
+								else
+									$scope.sentence = false;
+
+								if ($scope.process.acordao == 1)
+									$scope.acordao = true;
+								else
+									$scope.acordao = false;
+
+								if ($scope.process.transit == 1)
+									$scope.transit = true;
+								else
+									$scope.transit = false;
+
+								if ($scope.process.instance == 1)
+									$scope.instance = 'second';
+								else if ($scope.process.instance == 2)
+									$scope.instance = 'third';
+								else
+									$scope.instance = 'first';
+
+								if ($scope.process.activePassiveProcess == 1)
+									$scope.activePassiveProcess = 'passive';
+								else
+									$scope.activePassiveProcess = 'active';
+
+								if ($scope.process.lossProb == 1)
+									$scope.lossProb = 'probable';
+								else if ($scope.process.lossProb == 2)
+									$scope.lossProb = 'possible';
+								else if ($scope.process.lossProb == 3)
+									$scope.lossProb = 'right';
+								else
+									$scope.lossProb = 'remote';
+
+								if ($scope.process.endResult == 1)
+									$scope.endResult = 'partialLoss';
+								else if ($scope.process.endResult == 2)
+									$scope.endResult = 'defeat';
+								else if ($scope.process.endResult == 3)
+									$scope.endResult = 'agreeement';
+								else if ($scope.process.endResult == 4)
+									$scope.endResult = 'unfinished';
+								else
+									$scope.endResult = 'victory';
+
+							};
+
+							ProcessFactory.ProcessList().success(
+									function(params) {
+										$scope.processList = params;
+									});
+
+							// $scope.editProcess = function(process) {
+							// $location.path("/process").search({
+							// process : process
+							// });
+							// $scope.verifyAllCheckBox();
+							// };
+							//
+							// $scope.viewProcess = function(process) {
+							// $location.path("/process").search({
+							// process : process
+							// });
+							// };
+
+							// console.log(parameterFactory);
+
+							$scope.createNewProcess = function() {
+								$scope.processModal = true;
+								$scope.newCustomerMOdal = false;
+								$scope.owners = [ {} ];
+								$scope.processCustomers = [ {} ];
+								$scope.processOpponents = [ {} ];
+								$scope.processOthers = [ {} ];
+								$scope.add = false;
+								$scope.remove = false;
+								$scope.buttons = true;
+								//$scope.selectedRow = null;
+								$scope.footerNewProcess = true;
+								$scope.footerViewProcess = false;
+								$scope.footerEditProcess = false;
+								$scope.headerNewProcess = true;
+								$scope.headerEditOrViewProcess = false;
+								$scope.disabledField = false;
+								$scope.tag = 'Novo Processo';
+							    $scope.currentTab = 'one';
+							    $scope.showTab = true;
+								$scope.process = {
+									recoveredProperty : 0,
+									relatedProcess : 0,
+									checkedToExport : 0,
+									sentence : 0,
+									acordao : 0,
+									transit : 0,
+									instance : 0,
+									activePassiveProcess : 0,
+									lossProb : 0,
+									endResult : 0,
+
+								};
+								//$scope.showRightSidebar = 'withoutRightSpace';
+								$scope.showModal();
+							};
+
+							$scope.editProcess = function() {
+								$scope.setOwnersTable();
+								$scope.setProcessCustomersTable();
+								$scope.setProcessOpponentsTable();
+								$scope.setProcessOthersTable();
+								$scope.cancel();
+								$scope.footerNewProcess = false;
+								$scope.footerViewProcess = false;
+								$scope.footerEditProcess = true;
+								$scope.headerNewProcess = false;
+								$scope.headerEditOrViewProcess = true;
+								$scope.disabledField = false;
+								$scope.tag = 'Edição do Processo nº ';
+							    $scope.currentTab = 'one';
+							    $scope.showTab = true;
+								$scope.verifyAllCheckBoxAndRadios();
+								$scope.showModal();
+							};
+
+							$scope.viewProcess = function() {
+								$scope.setOwnersTable();
+								$scope.setProcessCustomersTable();
+								$scope.setProcessOpponentsTable();
+								$scope.setProcessOthersTable();
+								$scope.cancel();
+								$scope.footerNewProcess = false;
+								$scope.footerViewProcess = true;
+								$scope.footerEditProcess = false;
+								$scope.headerNewProcess = false;
+								$scope.headerEditOrViewProcess = true;
+								$scope.disabledField = true;
+								$scope.tag = 'Visualização do Processo nº ';
+							    $scope.currentTab = 'one';
+							    $scope.showTab = true;
+								$scope.verifyAllCheckBoxAndRadios();
+								$scope.showModal();
+								$scope.alert();
+							};
+
+							$scope.exit = function() {
+								myModal.$promise.then(myModal.hide);
+							}
+
+							$scope.newProcess = function(process,
+									processCustomers, processOpponents,
+									processOthers, owners) {
+								$scope.process.processCustomer = processCustomers;
+								$scope.process.processOpponent = processOpponents;
+								$scope.process.processOther = processOthers;
+								$scope.process.owners = owners;
+								ProcessFactory
+										.NewProcess(process)
+										.success(
+												function() {
+													console
+															.log("Processo cadastrado com sucesso");
+													// $location
+													// .path("/processList");
+												})
+										.error(
+												function() {
+													console
+															.log("Erro! Processo não cadastrado");
+												});
+								$scope.exit();
+							};
+
+							$scope.updateProcess = function(process,
+									processCustomers, processOpponents,
+									processOthers, owners) {
+								$scope.process.processCustomer = processCustomers;
+								$scope.process.processOpponent = processOpponents;
+								$scope.process.processOther = processOthers;
+								$scope.process.owners = owners;
+								ProcessFactory
+										.UpdateProcess(process)
+										.success(
+												function() {
+													console
+															.log("Processo atualizado com sucesso");
+													// $location
+													// .path("/processList");
+												})
+										.error(
+												function() {
+													console
+															.log("Erro! Processo não atualizado");
+												});
+								$scope.exit();
+							};
+
+							// $scope.cancel = function() {
+							// $location.path("/processList");
+							// };
+
+							// $scope.$on('newCustomer:updated', function(event,
+							// customer) {
+							// $scope.process.processCustomer = customer.name;
+							// });
+							//
+							// $scope.$on('newOpponent:updated', function(event,
+							// opponent) {
+							// $scope.process.opponent = opponent.name;
+							// });
+							//
+							// $scope.$on('newOther:updated', function(event,
+							// other) {
+							// $scope.process.other = other.name;
+							// });
+
+							$scope.cancel = function() {
+								$scope.processModal = true;
+								$scope.newCustomerModal = false;
+								$scope.newOpponentModal = false;
+								$scope.newOtherModal = false;
+							};
+
+							/** *************************** */
+
+							$scope.newCustomer = function(customer) {
+								console.log(customer);
+								customerFactory
+										.NewCustomer(customer)
+										.success(
+												function() {
+													console
+															.log("Cliente cadastrado com sucesso");
+													$scope.process = {
+														processCustomer : {
+															partner : customer,
+														}
+													};
+												})
+										.error(
+												function() {
+													console
+															.log("Erro! Cliente nao cadastrado");
+												});
+
+								$scope.cancel();
+							};
+
+							$scope.newOpponent = function(opponent) {
+								console.log(opponent);
+								opponentFactory
+										.NewOpponent(opponent)
+										.success(
+												function() {
+													console
+															.log("Parte Adversa cadastrada com sucesso");
+													$scope.process = {
+														processOpponent : {
+															partner : opponent,
+														}
+													};
+												})
+										.error(
+												function() {
+													console
+															.log("Erro! Parte Adversa não cadastrada");
+												});
+
+								$scope.cancel();
+							};
+
+							$scope.newOther = function(other) {
+								console.log(other);
+								otherFactory
+										.NewOther(other)
+										.success(
+												function() {
+													console
+															.log("Terceiro cadastrado com sucesso");
+													$scope.process = {
+														processOther : {
+															partner : other,
+														}
+													};
+												})
+										.error(
+												function() {
+													console
+															.log("Erro! Terceiro não cadastrado");
+												});
+
+								$scope.cancel();
+							};
+
+							parameterFactory.getParameterById(51).success(
+									function(data) {
+										$scope.civilStatusList = data.values;
+									});
+
+							$scope.ShownCustomer = function() {
+								$scope.isShownCustomer = function(customer) {
+									return customer === $scope.customer.type;
+								};
+							};
+
+							$scope.ShownOpponent = function() {
+								$scope.isShownOpponent = function(opponent) {
+									return opponent === $scope.opponent.type;
+								};
+							};
+
+							$scope.ShownOther = function() {
+								$scope.isShownOther = function(other) {
+									return other === $scope.other.type;
+								};
+							};
+														
+							$scope.showModalNewCustomer = function() {
+								$scope.customer = {};
+								$scope.customer = {
+									type : 'f',
+									category : 'customer',
+									status : 1,
+								};
+								$scope.processModal = false;
+								$scope.newCustomerModal = true;
+								$scope.newOpponentModal = false;
+								$scope.newOtherModal = false;
+								$scope.ShownCustomer();
+							};
+
+							$scope.showModalNewOpponent = function() {
+								$scope.opponent = {};
+								$scope.opponent = {
+									type : 'f',
+									category : 'opponent',
+									status : 1,
+								};
+								$scope.processModal = false;
+								$scope.newCustomerModal = false;
+								$scope.newOpponentModal = true;
+								$scope.newOtherModal = false;
+								$scope.ShownOpponent();
+							};
+
+							$scope.showModalNewOther = function() {
+								$scope.other = {};
+								$scope.other = {
+									type : 'f',
+									category : 'other',
+									status : 1,
+								};
+								$scope.processModal = false;
+								$scope.newCustomerModal = false;
+								$scope.newOpponentModal = false;
+								$scope.newOtherModal = true;
+								$scope.ShownOther();
+							};
+
+							/** *************************** */
+
+							$scope.addProcessCustomer = function() {
+								$scope.processCustomers.push('');
+								$scope.removeCustomer = true;
+								$scope.addCustomer = false;
+								console.log("Aqui");
+								console.log($scope.processCustomers.length);
+							};
+
+							$scope.removeProcessCustomer = function(index) {
+								$scope.processCustomers.splice(index, 1);
+								console.log($scope.processCustomers.length);
+								if (index == 1) {
+									$scope.removeCustomer = false;
+								}
+								$scope.addCustomer = true;
+							};
+
+							$scope.showAddProcessCustomer = function() {
+								$scope.addCustomer = true;
+							};
+
+							/** *************************** */
+
+							$scope.addProcessOpponent = function() {
+								$scope.processOpponents.push('');
+								$scope.removeOpponent = true;
+								$scope.addOpponent = false;
+								console.log("Aqui");
+								console.log($scope.processOpponents.length);
+							};
+
+							$scope.removeProcessOpponent = function(index) {
+								$scope.processOpponents.splice(index, 1);
+								console.log($scope.processOpponents.length);
+								if (index == 1) {
+									$scope.removeOpponent = false;
+								}
+								$scope.addOpponent = true;
+							};
+
+							$scope.showAddProcessOpponent = function() {
+								$scope.addOpponent = true;
+							};
+
+							/** *************************** */
+
+							$scope.addProcessOther = function() {
+								$scope.processOthers.push('');
+								$scope.removeOther = true;
+								$scope.addOther = false;
+								console.log("Aqui");
+								console.log($scope.processOthers.length);
+							};
+
+							$scope.removeProcessOther = function(index) {
+								$scope.processOthers.splice(index, 1);
+								console.log($scope.processOthers.length);
+								if (index == 1) {
+									$scope.removeOther = false;
+								}
+								$scope.addOther = true;
+							};
+
+							$scope.showAddProcessOther = function() {
+								$scope.addOther = true;
+							};
+
+							/** *************************** */
+
+							$scope.loadValues = function(process) {
+								$scope.currentProcess = process.id;
+								if ($scope.currentProcess != $scope.previouslyProcess) {
+									$scope.owners = [];
+								}
+								$scope.process = process;
+								$scope.previouslyProcess = process.id;
+								//$scope.ownersList = $sco
+								console.log($scope.process);
+								
+								$rootScope.$broadcast('rightSidebar:updated',
+										process);
+							};
+
+							$scope.setOwnersTable = function() {
+								$scope.owners = [];
+
+								if ($scope.process.owners.length > 0) {
+									// for (var i = 1; i <
+									// $scope.process.owners.length; i++) {
+									// $scope.addItem();
+									// }
+									$scope.owners = $scope.process.owners;
+									console.log($scope.owners);
+								}
+								$scope.add = true;
+
+							};
+
+							$scope.setProcessCustomersTable = function() {
+								$scope.processCustomers = [];
+
+								if ($scope.process.processCustomer.length > 0) {
+									// for (var i = 1; i <
+									// $scope.process.processCustomer.length;
+									// i++) {
+									// $scope.addProcessCustomer();
+									// }
+									$scope.processCustomers = $scope.process.processCustomer;
+								}
+								$scope.addCustomer = true;
+
+							};
+
+							$scope.setProcessOpponentsTable = function() {
+								$scope.processOpponents = [];
+
+								if ($scope.process.processOpponent.length > 0) {
+									// for (var i = 1; i <
+									// $scope.process.processOpponent.length;
+									// i++) {
+									// $scope.addProcessOpponent();
+									// }
+									$scope.processOpponents = $scope.process.processOpponent;
+								}
+								$scope.addOpponent = true;
+
+							};
+
+							$scope.setProcessOthersTable = function() {
+								$scope.processOthers = [];
+
+								if ($scope.process.processOther.length > 0) {
+									// for (var i = 1; i <
+									// $scope.process.processOther.length; i++)
+									// {
+									// $scope.addProcessOther();
+									// }
+									$scope.processOthers = $scope.process.processOther;
+								}
+								$scope.addOther = true;
+
+							};
+
+							$scope.addItem = function() {
+								$scope.owners.push(undefined);
+								$scope.remove = true;
+								$scope.add = false;
+							};
+
+							$scope.removeItem = function(index) {
+								$scope.owners.splice(index, 1);
+								if (index == 1) {
+									$scope.remove = false;
+								}
+								$scope.add = true;
+							};
+
+							$scope.showAdd = function() {
+								$scope.add = true;
+							};
+
+							/** ************************* */
+
+							$scope.customerTypes = [];
+							$scope.opponentTypes = [];
+							$scope.otherTypes = [];
+							$scope.files = [];
+							$scope.folders = [];
+							$scope.states = [];
+							$scope.cities = [];
+							$scope.counties = [];
+							$scope.notaries = [];
+							$scope.courts = [];
+							$scope.links = [];
+							$scope.actions = [];
+							$scope.phases = [];
+							$scope.ownersList = [];
+							$scope.areas = [];
+							$scope.objectTitles = [];
+							$scope.offices = [];
+							$scope.extras = [];
+							$scope.costCenterList = [];
+							$scope.places = [];
+							$scope.tables = [];
+							$scope.tableValues = [];
+							$scope.motivations = [];
+
+							parameterFactory.getParameterById(25).success(
+									function(data) {
+										$scope.customerTypes = data.values;
+									});
+
+							parameterFactory.getParameterById(26).success(
+									function(data) {
+										$scope.opponentTypes = data.values;
+									});
+
+							parameterFactory.getParameterById(27).success(
+									function(data) {
+										$scope.otherTypes = data.values;
+									});
+
+							parameterFactory.getParameterById(28).success(
+									function(data) {
+										$scope.files = data.values;
+									});
+
+							parameterFactory.getParameterById(29).success(
+									function(data) {
+										$scope.folders = data.values;
+									});
+
+							parameterFactory.getParameterById(19).success(
+									function(data) {
+										$scope.states = data.values;
+									});
+
+							parameterFactory.getParameterById(1).success(
+									function(data) {
+										$scope.cities = data.values;
+									});
+
+							parameterFactory.getParameterById(22).success(
+									function(data) {
+										$scope.counties = data.values;
+									});
+
+							parameterFactory.getParameterById(23).success(
+									function(data) {
+										$scope.notaries = data.values;
+									});
+
+							parameterFactory.getParameterById(24).success(
+									function(data) {
+										$scope.courts = data.values;
+									});
+
+							parameterFactory.getParameterById(30).success(
+									function(data) {
+										$scope.links = data.values;
+									});
+
+							parameterFactory.getParameterById(31).success(
+									function(data) {
+										$scope.actions = data.values;
+									});
+
+							parameterFactory.getParameterById(32).success(
+									function(data) {
+										$scope.phases = data.values;
+									});
+
+							userFactory.UserList().success(function(data) {
+								$scope.ownersList = data;
+							});
+
+							customerFactory.CustomerList().success(
+									function(data) {
+										$scope.customerList = data;
+									});
+
+							opponentFactory.OpponentList().success(
+									function(data) {
+										$scope.opponentList = data;
+									});
+
+							otherFactory.OtherList().success(function(data) {
+								$scope.otherList = data;
+							});
+
+							parameterFactory.getParameterById(33).success(
+									function(data) {
+										$scope.areas = data.values;
+									});
+
+							parameterFactory.getParameterById(34).success(
+									function(data) {
+										$scope.objectTitles = data.values;
+									});
+
+							parameterFactory.getParameterById(35).success(
+									function(data) {
+										$scope.offices = data.values;
+									});
+
+							parameterFactory.getParameterById(36).success(
+									function(data) {
+										$scope.extras = data.values;
+									});
+
+							parameterFactory.getParameterById(37).success(
+									function(data) {
+										$scope.costCenterList = data.values;
+									});
+
+							parameterFactory.getParameterById(38).success(
+									function(data) {
+										$scope.places = data.values;
+									});
+
+							parameterFactory.getParameterById(39).success(
+									function(data) {
+										$scope.tables = data.values;
+										;
+									});
+
+							parameterFactory.getParameterById(40).success(
+									function(data) {
+										$scope.motivations = data.values;
+									});
+
+							parameterFactory.getParameterById(41).success(
+									function(data) {
+										$scope.tableValues = data.values;
+									});
+
+							$scope.controlCityList = function() {
+								$scope.cityList = true;
+							};
+
+							$scope.controlFoldersList = function() {
+								$scope.foldersList = true;
+							};
+
+							$scope.controlNotariesList = function() {
+								$scope.notariesList = true;
+							};
+
+							$scope.controlOpponentTypeList = function(process) {
+								$scope.opponentTypesList = true;
+							};
+
+							$scope.updateOne = function() {
+								var i;
+								var value;
+								var test;
+
+								for (i = 0; i < $scope.tables.length; i++) {
+
+									test = angular.equals(
+											$scope.process.tableUpdatedValue,
+											$scope.tableValues[i].parent.value);
+									if (test) {
+										value = $scope.tableValues[i].value;
+										break;
+									}
+								}
+								$scope.process.lawSuitValueUpdated = $scope.process.lawSuitValue
+										* value;
+							};
+
+							$scope.updateTwo = function() {
+								var i;
+								var value;
+								var test;
+
+								for (i = 0; i < $scope.tables.length; i++) {
+
+									test = angular
+											.equals(
+													$scope.process.tableContingencyValue,
+													$scope.tableValues[i].parent.value);
+									if (test) {
+										value = $scope.tableValues[i].value;
+										break;
+									}
+								}
+								$scope.process.contingencyValueUpdated = $scope.process.contingencyValue
+										* value;
+							};
+
+							/* Paginação */
+
+							$scope.currentPage = 0;
+							$scope.pageSize = 15;
+							$scope.previousButton = true;
+							$scope.nextButton = false;
+							$scope.showPageSize = true;
+
+							$scope.resetPageValues = function() {
+								$scope.pageSize = 15;
+								$scope.currentPage = 0;
+								$scope.previousButton = true;
+								$scope.setShowPageSize();
+								if ($scope.totalPages < 2)
+									$scope.nextButton = false;
+								else
+									$scope.nextButton = false;
+							};
+
+							$scope.changePageSize = function(param) {
+								$scope.pageSize = param;
+							};
+
+							$scope.setShowPageSize = function() {
+								if ($scope.currentPage == 0)
+									$scope.showPageSize = true;
+								else
+									$scope.showPageSize = false;
+							};
+
+							$scope.numberOfPages = function() {
+								$scope.totalPages = Math
+										.ceil($scope.processList.length
+												/ $scope.pageSize);
+								if ($scope.totalPages < 2)
+									$scope.nextButton = true;
+								else
+									$scope.nextButton = false;
+								if (($scope.currentPage + 1) == $scope.totalPages)
+									$scope.nextButton = true;
+								return $scope.totalPages;
+							};
+
+							$scope.previous = function() {
+								$scope.selectedRow = null;
+								$scope.buttons = true;
+								$scope.nextButton = false;
+								$scope.currentPage = $scope.currentPage - 1;
+								if ($scope.currentPage == 0)
+									$scope.previousButton = true;
+								else {
+									$scope.previousButton = false;
+								}
+								$scope.setShowPageSize();
+							};
+							$scope.next = function() {
+								$scope.selectedRow = null;
+								$scope.buttons = true;
+								$scope.previousButton = false;
+								$scope.currentPage = $scope.currentPage + 1;
+								if ($scope.currentPage == $scope
+										.numberOfPages() - 1)
+									$scope.nextButton = true;
+								else {
+									$scope.nextButton = false;
+								}
+								$scope.setShowPageSize();
+							};
+
+							/** *********************** */
+
+							/* Autocomplete */
+
+							// $scope.listas = [];
+							//
+							// $scope.aux = 0;
+							//
+							// $scope.autocompleteList = function() {
+							// if ($scope.aux == 0) {
+							// for (var i = 0; i < $scope.customerList.length;
+							// i++) {
+							// $scope.listas[i] = $scope.customerList[i];
+							// }
+							// $scope.aux++;
+							// }
+							// };
+							/* *********** */
+
+							/* Autocomplete2 */
+
+							// $scope.listas2 = [];
+							//
+							// $scope.aux2 = 0;
+							//
+							// $scope.autocompleteList2 = function() {
+							// if ($scope.aux2 == 0) {
+							// for (var i = 0; i < $scope.customerList.length;
+							// i++) {
+							// $scope.listas2[i] = $scope.customerList[i].name;
+							// }
+							// $scope.aux2++;
+							// }
+							// };
+							/* *********** */
+
+							/* Autocomplete3 */
+
+							// $scope.listas3 = [];
+							//
+							// $scope.aux3 = 0;
+							//
+							// $scope.autocompleteList3 = function() {
+							// if ($scope.aux3 == 0) {
+							// for (var i = 0; i < $scope.customerList.length;
+							// i++) {
+							// $scope.listas3[i] = $scope.customerList[i].name;
+							// }
+							// $scope.aux3++;
+							// }
+							// };
+							/* *********** */
+
+						} ])
+		.filter('folderFilter', function() {
+			return function(input, process) {
+				var j;
+				var folders = [];
+
+				if (input != null) {
+					if (process.fileLocale != null) {
+						for (j = 0; j < input.length; j++) {
+							if (input[j].parent.value === process.fileLocale)
+								folders.push(input[j]);
+						}
+					} else {
+						folders = input;
+					}
+				}
+
+				return folders;
+			}
+		})
+		.filter('cityFilter', function() {
+			return function(input, process) {
+				var i;
+				var cities = [];
+
+				if (input != null) {
+					if (process.state != null) {
+						for (i = 0; i < input.length; i++) {
+							if (input[i].parent.value === process.state)
+								cities.push(input[i]);
+						}
+					} else {
+						cities = input;
+					}
+				}
+
+				return cities;
+			}
+		})
+		.filter('notaryFilter', function() {
+			return function(input, process) {
+				var k;
+				var notaries = [];
+
+				if (input != null) {
+					if (process.county != null) {
+						for (k = 0; k < input.length; k++) {
+							if (input[k].parent.value === process.county)
+								notaries.push(input[k]);
+						}
+					} else {
+						notaries = input;
+					}
+				}
+
+				return notaries;
+			}
+		})
+		.filter(
+				'opponentFilter',
+				function() {
+					return function(input, processCustomer) {
+						var k;
+						var test;
+						var opponentTypes = [];
+
+						if (input != null) {
+							if (processCustomer.processRelationship != null) {
+								for (k = 0; k < input.length; k++) {
+									opponentTypes.push(input[k]);
+								}
+								for (k = 0; k < input.length; k++) {
+									test = angular
+											.equals(
+													opponentTypes[k].value,
+													processCustomer.processRelationship);
+									if (test) {
+										opponentTypes.splice(k, 1);
+										break;
+									}
+								}
+							} else {
+								opponentTypes = input;
+							}
+						}
+						return opponentTypes;
+					}
+				}).filter('paginationFilter', function() {
+			return function(input, start) {
+				if (!input || !input.length) {
+					return;
+				}
+				start = +start;
+				return input.slice(start);
+			}
+		});

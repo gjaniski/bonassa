@@ -1,0 +1,18 @@
+'use strict';
+
+describe('Service: ProcessService', function () {
+
+  // load the service's module
+  beforeEach(module('webappApp'));
+
+  // instantiate service
+  var ProcessService;
+  beforeEach(inject(function (_ProcessService_) {
+    ProcessService = _ProcessService_;
+  }));
+
+  it('should do something', function () {
+    expect(!!ProcessService).toBe(true);
+  });
+
+});

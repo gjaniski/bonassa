@@ -1,0 +1,168 @@
+<div class="modal-body">
+	<div class="panel panel-default toggle panelMove ">
+		<div class="panel-body pt0 pb0">
+			<form class="form-horizontal group-border ">	
+			
+				<div class="form-group">						
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >															
+						<div class="col-xs-6">	
+							<label>Tipo</label>												
+							<div class="form-inline" style="padding-top:10px!important;">
+								<div style="float:left; width:50%;">
+									<div class="radio-custom">
+										<input ng-disabled="hideInputs" type="radio" ng-model="property.type" value="veículo" ng-disabled="true">
+										<label>Veículo</label>
+									</div>
+								</div>
+								<div style="float:right; width:50%;">
+									<div class="radio-custom">
+										<input ng-disabled="hideInputs" type="radio" ng-model="property.type" value="imóvel" ng-disabled="true">
+										<label>Imóvel</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Valor</label>
+								<p>{{property.value}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+										
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<div>
+								<label>Status</label> 
+								<p>{{property.status.value}}</p>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Contrato Nº</label>
+								<p>{{property.numContract}}</p>
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="form-group" ng-show="property.type=='veículo'">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<div>
+								<label>Marca</label> 
+								<p>{{property.brand.value}}</p>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Modelo</label> 
+								<p>{{property.model.value}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+	
+				<div class="form-group" ng-show="property.type=='veículo'">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<div>
+								<label>Cor</label> 
+								<p>{{property.color.value}}</p>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Ano</label>
+								<p>{{property.year}}</p>
+							</div>
+						</div>
+					</div>
+				</div>	
+	
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">															
+							<div>
+								<label>Data env. Adv.</label>
+								<p>{{property.dateEnv}}</p>
+							</div>	
+						</div>
+						<div class="col-xs-6">															
+							<div>
+								<label>Data 1º Inad.</label>
+								<p>{{property.dateInad}}</p>
+							</div>	
+						</div>
+					</div>
+				</div>	
+				
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">															
+							<div>
+								<label>Data Apreensão</label>
+								<p>{{property.dateSeizure}}</p>
+							</div>	
+						</div>
+						<div class="col-xs-6">															
+							<div>
+								<label>Data Sentença</label>
+								<p>{{property.dateSentence}}</p>
+							</div>	
+						</div>
+					</div>
+				</div>	
+				
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">															
+							<div>
+								<label>Data Leilão</label>
+								<p>{{property.dateAuction}}</p>
+							</div>
+						</div>
+						<div class="col-xs-6">															
+							<div>
+								<label>Data Venda</label>
+								<p>{{property.dateSale}}</p>
+							</div>	
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<div>
+								<label>Depósito</label> 
+								<p>{{property.deposit.value}}</p>
+							</div>
+						</div>
+					</div>
+				</div>					
+				
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-12">
+							<div>
+								<label>Observação</label>
+								<p>{{property.observation}}</p>
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+			</form>
+		</div>
+	</div>
+</div>
+<div class="setTopMargin-md-2">
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+		<button type="button" class="btn btn-info" ng-click="editProperty()">Salvar</button>
+	</div>
+</div>

@@ -1,0 +1,730 @@
+<div class="page-content sidebar-page right-sidebar-page clearfix">
+<!-- ng-class="showRightSidebar" -->
+	<div class="page-content-wrapper">
+		<div class="page-content-inner">
+			<div id="page-header" class="clearfix"></div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div
+						class="panel panel-default toggle panelMove panelClose panelRefresh">
+						<!-- Start .panel -->
+						<div class="panel-heading setBgColorWhite">
+							<h4 class="panel-title">{{tag}}</h4>
+						</div>
+						<div class="panel-body">
+								<div id="tabs">
+									<ul style="border-bottom:0px!important; padding-left:0px!important;" class="nav nav-tabs setTabMargin">
+										<li ng-repeat="tab in tabs"
+											ng-class="{active:isActiveTab(tab.url)}"
+											ng-click="onClickTab(tab)"><a>{{tab.title}}</a></li>
+									</ul>
+								</div>
+								<div type="text/ng-template" id="one" ng-show="showTab">
+									<div id="viewOne">
+										<div class="panel panel-default toggle panelMove">
+											<div class="panel-body pt0 pb0">
+												<form class="form-horizontal group-border " name="processForm" novalidate>
+																									
+													<div class="form-group" ng-repeat="processCustomer in process.processCustomer track by $index">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >															
+															<div class="col-xs-6"  ng-class="{ 'has-error' : (processForm.customer{{$index}}.$invalid && !processForm.customer{{$index}}.$pristine) || (formInvalid && processForm.customer{{$index}}.$invalid) }">				
+																<div style="float:left; width:80%; padding-right:20px!important;" append-source>
+																	<label>Cliente {{$index+1}}</label>
+																	<select ng-hide="hideInputs" type="text" name="customer{{$index}}" class="form-control" ng-model="process.processCustomer[$index].partner.id" 
+																			ng-options="customer.id as customer.name for customer in customerList | orderBy: 'name'" required></select>
+																	<p ng-show="(processForm.customer{{$index}}.$invalid && !processForm.customer{{$index}}.$pristine) || (formInvalid && processForm.customer{{$index}}.$invalid)" class="help-block">O cliente é obrigatório!</p>
+																	<p ng-show="hideInputs">{{processCustomer.partner.name}}</p>
+																</div>																	
+																<div style="float:right; width:20%; padding-top:27px!important;">
+																	<button ng-hide="hideInputs || !$last" style="float:right; padding-left:10px!important;" class="btn btn-default clicavel" ng-click="createCustomer()">Novo</button>
+																</div>
+															</div>
+															<div class="col-xs-6">																
+																<div style="float:left; width:80%; padding-right:20px!important;">
+																	<label>Tipo</label>
+<!-- 																	<select ng-hide="hideInputs" type="text" name="customerProcessRelationShip" class="form-control" ng-model="process.processCustomer[$index].processRelationship"> -->
+<!-- 																		<option	ng-repeat="type in customerTypes | orderBy: 'name'">{{type.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{processCustomer.processRelationship}}</p> -->
+																	<select ng-hide="hideInputs" type="text" name="customerProcessRelationShip" class="form-control" ng-model="process.processCustomer[$index].processRelationship.id"
+																			ng-options="type.id as type.value for type in customerTypes | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{processCustomer.processRelationship.value}}</p>
+																</div>																
+																<div style="float:right; width:20%; padding-top:27px!important;">
+																	<button ng-show="!$first && !hideInputs" class="btn btn-default clicavel" ng-click="removeProcessCustomer($index)">-</button>
+																	<button style="float:right; padding-left:10px!important;" ng-show="$last && !hideInputs" class="btn btn-default clicavel" ng-click="addProcessCustomer()">+</button>
+																</div>
+															</div>
+														</div>
+													</div>	
+													
+													<div class="form-group" ng-repeat="processOpponent in process.processOpponent track by $index">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >															
+															<div class="col-xs-6"  ng-class="{ 'has-error' : (processForm.opponent{{$index}}.$invalid && !processForm.opponent{{$index}}.$pristine) || (formInvalid && processForm.opponent{{$index}}.$invalid) }">				
+																<div style="float:left; width:80%; padding-right:20px!important;" append-source>
+																	<label>P. Adversa {{$index+1}}</label> 
+																	<select ng-hide="hideInputs" type="text" name="opponent{{$index}}" class="form-control" ng-model="process.processOpponent[$index].partner.id" 
+																			ng-options="opponent.id as opponent.name for opponent in opponentList | orderBy: 'name'" required></select>
+																	<p ng-show="(processForm.opponent{{$index}}.$invalid && !processForm.opponent{{$index}}.$pristine) || (formInvalid && processForm.opponent{{$index}}.$invalid)" class="help-block">A p. adversa é obrigatória!</p>
+																	<p ng-show="hideInputs">{{processOpponent.partner.name}}</p>
+																</div>																	
+																<div style="float:right; width:20%; padding-top:27px!important;">
+																	<button ng-hide="hideInputs || !$last" style="float:right; padding-left:10px!important;" class="btn btn-default clicavel" ng-click="createOpponent()">Novo</button>
+																</div>
+															</div>
+															<div class="col-xs-6">																
+																<div style="float:left; width:80%; padding-right:20px!important;">
+																	<label>Tipo</label>
+<!-- 																	<select ng-hide="hideInputs" type="text" name="opponentProcessRelationship" class="form-control" ng-model="process.processOpponent[$index].processRelationship"> -->
+<!-- 																		<option ng-repeat="type in opponentTypes | orderBy: 'value'">{{type.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{processOpponent.processRelationship}}</p> -->
+																	<select ng-hide="hideInputs" type="text" name="opponentProcessRelationship" class="form-control" ng-model="process.processOpponent[$index].processRelationship.id"
+																			ng-options="type.id as type.value for type in opponentTypes | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{processOpponent.processRelationship.value}}</p>
+																</div>																
+																<div style="float:right; width:20%; padding-top:27px!important;">
+																	<button ng-show="!$first  && !hideInputs" class="btn btn-default clicavel" ng-click="removeProcessOpponent($index)">-</button>
+																	<button style="float:right; padding-left:10px!important;" ng-show="$last && !hideInputs" class="btn btn-default clicavel" ng-click="addProcessOpponent()">+</button>
+																</div>
+															</div>
+														</div>
+													</div>	
+													
+													<div class="form-group" ng-repeat="processOther in process.processOther track by $index">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >															
+															<div class="col-xs-6"  ng-class="{ 'has-error' : (processForm.other{{$index}}.$invalid && !processForm.other{{$index}}.$pristine) || (formInvalid && processForm.other{{$index}}.$invalid) }">				
+																<div style="float:left; width:80%; padding-right:20px!important;" append-source>
+																	<label>Terceiro {{$index+1}}</label> 
+																	<select ng-hide="hideInputs" type="text" name="other{{$index}}" class="form-control" ng-model="process.processOther[$index].partner.id" 
+																			ng-options="other.id as other.name for other in otherList | orderBy: 'name'" required></select>
+																	<p ng-show="(processForm.other{{$index}}.$invalid && !processForm.other{{$index}}.$pristine) || (formInvalid && processForm.other{{$index}}.$invalid)" class="help-block">A terceiro é obrigatório!</p>
+																	<p ng-show="hideInputs">{{processOther.partner.name}}</p>
+																</div>																	
+																<div style="float:right; width:20%; padding-top:27px!important;">
+																	<button ng-hide="hideInputs || !$last" style="float:right; padding-left:10px!important;" class="btn btn-default clicavel" ng-click="createOther()">Novo</button>
+																</div>
+															</div>
+															<div class="col-xs-6">																
+																<div style="float:left; width:80%; padding-right:20px!important;">
+																	<label>Tipo</label>
+<!-- 																	<select ng-hide="hideInputs" type="text" name="otherProcessRelationShip" class="form-control" ng-model="process.processOther[$index].processRelationship"> -->
+<!-- 																		<option ng-repeat="type in otherTypes | orderBy: 'value'">{{type.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{processOther.processRelationship}}</p> -->
+																	<select ng-hide="hideInputs" type="text" name="otherProcessRelationShip" class="form-control" ng-model="process.processOther[$index].processRelationship.id"
+																			ng-options="type.id as type.value for type in otherTypes | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{processOther.processRelationship.value}}</p>
+																</div>																
+																<div style="float:right; width:20%; padding-top:27px!important;">
+																	<button ng-show="!$first && !hideInputs " class="btn btn-default clicavel" ng-click="removeProcessOther($index)">-</button>
+																	<button style="float:right; padding-left:10px!important;" ng-show="$last && !hideInputs" class="btn btn-default clicavel" ng-click="addProcessOther()">+</button>
+																</div>
+															</div>
+														</div>
+													</div>	
+																									
+													<div class="form-group">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+															<div class="col-xs-6">
+																<div>
+																	<label>Processo</label>
+																	<input ng-hide="hideInputs" type="text" name="numProcess" class="form-control" ng-model="process.numProcess">
+																	<p ng-show="hideInputs">{{process.numProcess}}</p>
+																</div>
+															</div>
+															<div class="col-xs-6">
+																<div>
+																	<label>Contr. Cob.</label>
+																	<input ng-hide="hideInputs" type="text" name="contCob" class="form-control" ng-model="process.contCob">
+																	<p ng-show="hideInputs">{{process.contCob}}</p>
+																</div>
+															</div>
+														</div>
+													</div>	
+																									
+													<div class="form-group">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+															<div class="col-xs-6">
+																<div>
+																	<label>Arquivo Físico</label> 
+<!-- 																	<select ng-hide="hideInputs" type="text" name="fileLocale" class="form-control" ng-model="process.fileLocale"> -->
+<!-- 																		<option ng-repeat="file in files | orderBy: 'value'">{{file.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{process.fileLocale}}</p> -->
+																	<select ng-hide="hideInputs" type="text"name="fileLocale" class="form-control" ng-model="process.fileLocale.id" ng-change="setFolderList()"
+																			ng-options="file.id as file.value for file in files | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{process.fileLocale.value}}</p>
+																</div>
+															</div>
+															<div class="col-xs-6">
+																<div>
+																	<label>Pasta</label> 
+<!-- 																	<select ng-hide="hideInputs" type="text" name="fileFolder" class="form-control" ng-model="process.fileFolder"> -->
+<!-- 																		<option ng-show="process.fileLocale!=undefined" ng-repeat="folder in folders | folderFilter:process  | orderBy: 'value'">{{folder.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{process.fileFolder}}</p> -->
+																	<select ng-hide="hideInputs" type="text"name="fileFolder" class="form-control" ng-model="process.fileFolder.id"
+																			ng-options="folder.id as folder.value for folder in folders | folderFilter:process | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{process.fileFolder.value}}</p>
+																</div>
+															</div>
+														</div>
+													</div>	
+													
+													<div class="form-group">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+															<div class="col-xs-6">
+																<div>
+																	<label>Estado</label> 
+<!-- 																	<select ng-hide="hideInputs" type="text" name="state" class="form-control" ng-model="process.state"> -->
+<!-- 																		<option	ng-repeat="state in states | orderBy: 'value'">{{state.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{process.state}}</p> -->
+																	<select ng-hide="hideInputs" type="text"name="state" class="form-control" ng-model="process.state.id" ng-change="setCityList()"
+																			ng-options="state.id as state.value for state in states | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{process.state.value}}</p>
+																</div>
+															</div>
+															<div class="col-xs-6">
+																<div>
+																	<label>Cidade</label> 
+<!-- 																	<select ng-hide="hideInputs" type="text" name="city" class="form-control" ng-model="process.city"> -->
+<!-- 																		<option ng-show="process.state!=undefined" ng-repeat="city in cities | cityFilter:process | orderBy: 'value'">{{city.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{process.city}}</p> -->
+
+																	<select ng-hide="hideInputs" type="text"name="city" class="form-control" ng-model="process.city.id""
+																			ng-options="city.id as city.value for city in cities | cityFilter:process | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{process.city.value}}</p>
+																</div>
+															</div>
+														</div>
+													</div>	
+													
+													<div class="form-group">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+															<div class="col-xs-6">
+																<div>
+																	<label>Comarca</label> 
+<!-- 																	<select ng-hide="hideInputs" type="text" name="county" class="form-control" ng-model="process.county"> -->
+<!-- 																		<option ng-repeat="county in counties">{{county.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{process.county}}</p> -->
+																	<select ng-hide="hideInputs" type="text"name="county" class="form-control" ng-model="process.county.id" ng-change="setNotaryList()"
+																			ng-options="county.id as county.value for county in counties | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{process.county.value}}</p>
+																</div>
+															</div>
+															<div class="col-xs-6">
+																<div>
+																	<label>Cartório</label> 
+<!-- 																	<select ng-hide="hideInputs" type="text" name="notarysOffice" class="form-control" ng-model="process.notarysOffice"> -->
+<!-- 																			<option ng-show="process.county!=undefined" ng-repeat="notary in notaries | notaryFilter:process | orderBy: 'value'">{{notary.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{process.notarysOffice}}</p> -->
+
+																	<select ng-hide="hideInputs" type="text" name="notarysOffice" class="form-control" ng-model="process.notarysOffice.id""
+																			ng-options="notary.id as notary.value for notary in notaries | notaryFilter:process | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{process.notarysOffice.value}}</p>
+																</div>
+															</div>
+														</div>
+													</div>		
+													
+													<div class="form-group">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+															<div class="col-xs-6">
+																<div>
+																	<label>Tribunal</label> 
+<!-- 																	<select ng-hide="hideInputs" type="text" name="court" class="form-control" ng-model="process.court"> -->
+<!-- 																		<option	ng-repeat="court in courts | orderBy: 'value'">{{court.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{process.court}}</p> -->
+																	<select ng-hide="hideInputs" type="text" name="court" class="form-control" ng-model="process.court.id"
+																			ng-options="court.id as court.value for court in courts | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{process.court.value}}</p>
+																</div>
+															</div>
+															<div class="col-xs-6">
+																<div>
+																	<label>Vínculo</label> 
+<!-- 																	<select ng-hide="hideInputs" type="text" name="link" class="form-control" ng-model="process.link"> -->
+<!-- 																		<option ng-repeat="link in links | orderBy: 'value'">{{link.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{process.link}}</p> -->
+																	<select ng-hide="hideInputs" type="text" name="link" class="form-control" ng-model="process.link.id"
+																			ng-options="link.id as link.value for link in links | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{process.link.value}}</p>
+																</div>
+															</div>
+														</div>
+													</div>	
+													
+													<div class="form-group">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+															<div class="col-xs-6">																
+																<div class="form-inline">
+																	<div style="float:left; width:50%;">
+																		<div class="checkbox-custom">
+																			<input  class="check" type="checkbox" ng-model="process.recoveredProperty" ng-disabled="hideInputs">
+																			<label>Bem Recuperado</label>
+																		</div>
+																		<div class="checkbox-custom">
+																			<input class="check" type="checkbox" ng-model="process.relatedProcess"	ng-disabled="hideInputs">
+																			<label>Processos Relacionados</label>
+																		</div>
+																		<div class="checkbox-custom">
+																			<input class="check" type="checkbox" ng-model="process.checkedToExport" ng-disabled="hideInputs">
+																			<label>Marcado para Exportação</label>
+																		</div>
+																	</div>
+																	<div style="float:right; width:50%;">
+																		<div class="checkbox-custom">
+																			<input class="check" type="checkbox" ng-model="process.sentence" ng-disabled="hideInputs">
+																			<label>Sentença</label>
+																		</div>
+																		<div class="checkbox-custom">
+																			<input class="check" type="checkbox" ng-model="process.acordao" ng-disabled="hideInputs">
+																			<label>Acordão</label>
+																		</div>
+																		<div class="checkbox-custom">
+																			<input class="check" type="checkbox" ng-model="process.transit" ng-disabled="hideInputs">
+																			<label>Trânsito</label>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="col-xs-6">															
+																<div class="form-inline">
+																	<div style="float:left; width:50%;">
+																		<div class="radio-custom">
+																			<input type="radio" ng-model="process.instance" value="1" ng-click="radio()" ng-disabled="hideInputs">
+																			<label>1ª Instância</label>
+																		</div>
+																		<div class="radio-custom">
+																			<input type="radio" ng-model="process.instance" value="2" ng-click="radio()" ng-disabled="hideInputs">
+																			<label>2ª Instância</label>
+																		</div>
+																		<div class="radio-custom">
+																			<input type="radio" ng-model="process.instance" value="3" ng-click="radio()" ng-disabled="hideInputs">
+																			<label>3ª Instância</label>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>	
+													
+													<div class="form-group">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+															<div class="col-xs-12">
+																<div>
+																	<label>Observação</label>
+																	<textarea ng-hide="hideInputs" style="resize: none!important;" class="form-control" rows="3"	ng-model="process.observation"></textarea>
+																	<p ng-show="hideInputs">{{process.observation}}</p>
+																</div>
+															</div>
+														</div>
+													</div>	
+													
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- ******************************** -->
+
+								<div type="text/ng-template" id="two" ng-show="!showTab">
+									<div id="viewTwo">
+										<div class="panel panel-default toggle panelMove ">
+											<div class="panel-body pt0 pb0">
+												<form class="form-horizontal group-border" name="processForm2" novalidate>
+												
+													<div class="form-group">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+															<div class="col-xs-6">
+																<div>
+																	<label>Tipo de Ação</label> 
+<!-- 																	<select ng-hide="hideInputs" type="text" name="actionType" class="form-control" ng-model="process.actionType"> -->
+<!-- 																		<option	ng-repeat="action in actions | orderBy: 'value'">{{action.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{process.actionType}}</p> -->
+																	<select ng-hide="hideInputs" type="text" name="actionType" class="form-control" ng-model="process.actionType.id"
+																			ng-options="action.id as action.value for action in actions | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{process.actionType.value}}</p>
+																</div>
+															</div>
+															<div class="col-xs-6">
+																<div>
+																	<label>Fase</label> 
+<!-- 																	<select ng-hide="hideInputs" type="text" name="phase" class="form-control" ng-model="process.phase"> -->
+<!-- 																		<option	ng-repeat="phase in phases | orderBy: 'value'">{{phase.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{process.phase}}</p> -->
+																	<select ng-hide="hideInputs" type="text" name="phase" class="form-control" ng-model="process.phase.id"
+																			ng-options="phase.id as phase.value for phase in phases | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{process.phase.value}}</p>
+																</div>
+															</div>
+														</div>
+													</div>	
+													
+													<div class="form-group" ng-repeat="owner in process.owners track by $index">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >															
+															<div class="col-xs-6"  ng-class="{ 'has-error' : (processForm2.owner{{$index}}.$invalid && !processForm2.owner{{$index}}.$pristine) || (formInvalid && processForm2.owner{{$index}}.$invalid) }">
+																<label>Responsável {{$index+1}}</label> 
+																<select ng-hide="hideInputs" type="text" name="owner{{$index}}" class="form-control" ng-model="process.owners[$index].owner.id" 
+																		ng-options="owner.id as owner.name for owner in ownerList | orderBy: 'name'" required></select>
+																	<p ng-show="(processForm2.owner{{$index}}.$invalid && !processForm2.owner{{$index}}.$pristine) || (formInvalid && processForm2.owner{{$index}}.$invalid)" class="help-block">O responsável é obrigatório!</p>
+																<p ng-show="hideInputs">{{owner.owner.name}}</p>
+															</div>
+															<div class="col-xs-6">																
+																<div style="float:left; width:80%; padding-right:20px!important;">
+																	<label>Área</label>				
+<!-- 																	<select ng-hide="hideInputs" type="text" name="ownerArea" class="form-control" ng-model="process.owners[$index].area"> -->
+<!-- 																		<option ng-repeat="area in areas | orderBy: 'value'">{{area.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{owner.area.value}}</p> -->
+																	<select ng-hide="hideInputs" type="text" name="ownerArea" class="form-control" ng-model="process.owners[$index].area.id"
+																			ng-options="area.id as area.value for area in areas | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{owner.area.value}}</p>
+																</div>																
+																<div style="float:right; width:20%; padding-top:27px!important;">
+																	<button ng-show="!$first  && !hideInputs" class="btn btn-default clicavel" ng-click="removeOwner($index)">-</button>
+																	<button style="float:right; padding-left:10px!important;" ng-show="$last && !hideInputs" class="btn btn-default clicavel" ng-click="addOwner()">+</button>
+																</div>
+															</div>
+														</div>
+													</div>
+													
+													<div class="form-group">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+															<div class="col-xs-6">
+																<div>
+																	<label>Título do Objeto</label> 
+<!-- 																	<select ng-hide="hideInputs" type="text" name="objectTitle" class="form-control" ng-model="process.objectTitle"> -->
+<!-- 																		<option	ng-repeat="object in objectTitles | orderBy: 'value'">{{object.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{process.objectTitle}}</p> -->
+																	<select ng-hide="hideInputs" type="text" name="objectTitle" class="form-control" ng-model="process.objectTitle.id"
+																			ng-options="object.id as object.value for object in objectTitles | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{process.objectTitle.value}}</p>
+																</div>
+															</div>
+															<div class="col-xs-6">
+																<div>
+																	<label>Escritório</label> 
+<!-- 																	<select ng-hide="hideInputs" type="text" name="office" class="form-control" ng-model="process.office"> -->
+<!-- 																		<option	ng-repeat="office in offices | orderBy: 'value'">{{office.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{process.office}}</p> -->
+																	<select ng-hide="hideInputs" type="text" name="office" class="form-control" ng-model="process.office.id"
+																			ng-options="office.id as office.value for office in offices | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{process.office.value}}</p>
+																</div>
+															</div>
+														</div>
+													</div>	
+													
+													<div class="form-group">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+															<div class="col-xs-12">
+																<div>
+																	<label>Objeto</label>
+																	<textarea ng-hide="hideInputs" style="resize: none!important;" class="form-control" rows="3"	ng-model="process.object"></textarea>
+																	<p ng-show="hideInputs">{{process.object}}</p>
+																</div>
+															</div>
+														</div>
+													</div>	
+													
+													<div class="form-group">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+															<div class="col-xs-6">
+																<div>
+																	<label>Extra</label> 
+<!-- 																	<select ng-hide="hideInputs" type="text" name="extra" class="form-control" ng-model="process.extra"> -->
+<!-- 																		<option ng-repeat="extra in extras | orderBy: 'value'">{{extra.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{process.extra}}</p> -->
+																	<select ng-hide="hideInputs" type="text" name="extra" class="form-control" ng-model="process.extra.id"
+																			ng-options="extra.id as extra.value for extra in extras | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{process.extra.value}}</p>
+																</div>
+															</div>
+															<div class="col-xs-6">
+																<div>
+																	<label>Centro de Custo</label> 
+<!-- 																	<select ng-hide="hideInputs" type="text" name="costCenter" class="form-control" ng-model="process.costCenter"> -->
+<!-- 																		<option	ng-repeat="costCenter in costCenterList | orderBy: 'value'">{{costCenter.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{process.costCenter}}</p> -->
+																	<select ng-hide="hideInputs" type="text" name="costCenter" class="form-control" ng-model="process.costCenter.id"
+																			ng-options="costCenter.id as costCenter.value for costCenter in costCenterList | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{process.costCenter.value}}</p>
+																</div>
+															</div>
+														</div>
+													</div>
+													
+													<div class="form-group">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+															<div class="col-xs-6">
+																<div>
+																	<label>Relator</label> 
+																	<input ng-hide="hideInputs" type="text" name="processRapporteur" class="form-control" ng-model="process.processRapporteur">
+																	<p ng-show="hideInputs">{{process.processRapporteur}}</p>
+																</div>
+															</div>
+														</div>
+													</div>
+													
+													<div class="form-group">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+															<div class="col-xs-6">
+																<div>
+																	<label>Local de Autos.</label> 
+<!-- 																	<select ng-hide="hideInputs" type="text" name="placeFile" class="form-control" ng-model="process.placeFile"> -->
+<!-- 																		<option	ng-repeat="place in places | orderBy: 'value'">{{place.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{process.placeFile}}</p> -->
+																	<select ng-hide="hideInputs" type="text" name="placeFile" class="form-control" ng-model="process.placeFile.id"
+																			ng-options="place.id as place.value for place in places | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{process.placeFile.value}}</p>
+																</div>
+															</div>																								
+															<div class="col-xs-6">															
+																<div style="float:left; width:80%; padding-right:20px!important;">
+																	<label>Data Ajuiz.</label>
+																	<input ng-hide="hideInputs" type="text" name="dateField" class="form-control" ng-model="process.dateField">
+																	<p ng-show="hideInputs">{{process.dateField}}</p>
+																</div>																
+																<div style="float:right; width:20%; padding-top:27px!important;">								
+										          						<button ng-hide="hideInputs" style="float:right;" class="btn btn-default" ng-datepicker ng-options="datepickerOptions" ng-model="process.dateField"><i class="glyphicon glyphicon-calendar"></i></button>
+																</div>
+															</div>
+														</div>
+													</div>
+													
+													<div class="form-group">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+															<div class="col-xs-12">
+																<div>
+																	<label>Observação</label>
+																	<textarea ng-hide="hideInputs" style="resize: none!important;" class="form-control" rows="3"	ng-model="process.observation2"></textarea>
+																	<p ng-show="hideInputs">{{process.observation2}}</p>
+																</div>
+															</div>
+														</div>
+													</div>	
+
+<!-- 													<div class="form-group"> -->
+<!-- 														<label class="col-lg-2 col-md-3 control-label" for="">Valor -->
+<!-- 															da Causa/Calc. Atualiz.</label> -->
+<!-- 														<div class="col-lg-10 col-md-9"> -->
+<!-- 															<div class="row"> -->
+<!-- 																<div class="col-lg-4 col-md-4"> -->
+<!-- 																	<div class="input-group input-medium"> -->
+<!-- 																		<input type="text" class="form-control input-medium" -->
+<!-- 																			placeholder="Digite o Valor" -->
+<!-- 																			ng-model="process.lawSuitValue" required -->
+<!-- 																			ng-trim="false"> -->
+<!-- 																	</div> -->
+
+<!-- 																</div> -->
+<!-- 																<div class="col-lg-3 col-md-3"> -->
+<!-- 																	<div class="input-group input-medium"> -->
+<!-- 																		<div class="input-group input-medium"> -->
+<!-- 																			<select class="fancy-select form-control" -->
+<!-- 																				ng-model="process.tableUpdatedValue" -->
+<!-- 																				ng-disabled="disabledField"> -->
+<!-- 																				<option -->
+<!-- 																					ng-repeat="table in tables | orderBy: 'value'">{{table.value}}</option> -->
+<!-- 																			</select> -->
+<!-- 																		</div> -->
+<!-- 																	</div> -->
+<!-- 																</div> -->
+<!-- 																<div class="col-lg-2 col-md-2"> -->
+<!-- 																	<div class="input-group input-medium"> -->
+<!-- 																		<input ng-value="process.lawSuitValueUpdated" -->
+<!-- 																			type="text" class="form-control input-medium" -->
+<!-- 																			readonly> -->
+<!-- 																	</div> -->
+
+<!-- 																</div> -->
+
+<!-- 																<div class="col-lg-1 col-md-1"></div> -->
+<!-- 																<div id="valorcausareal" class="col-lg-1 col-md-1"> -->
+<!-- 																	<button type="button" class="btn btn-default" -->
+<!-- 																		ng-click="updateOne()">Atualizar</button> -->
+<!-- 																</div> -->
+<!-- 															</div> -->
+<!-- 														</div> -->
+<!-- 													</div> -->
+
+
+<!-- 													<div class="form-group"> -->
+<!-- 														<label class="col-lg-2 col-md-3 control-label" for="">Contingência/Calc. -->
+<!-- 															Atualiz.</label> -->
+<!-- 														<div class="col-lg-10 col-md-9"> -->
+<!-- 															<div class="row"> -->
+<!-- 																<div class="col-lg-4 col-md-4"> -->
+<!-- 																	<div class="input-group input-medium"> -->
+<!-- 																		<input type="text" class="form-control input-medium" -->
+<!-- 																			placeholder="Digite o Valor" -->
+<!-- 																			ng-model="process.contingencyValue" required -->
+<!-- 																			ng-trim="false"> -->
+<!-- 																	</div> -->
+
+<!-- 																</div> -->
+<!-- 																<div class="col-lg-3 col-md-3"> -->
+<!-- 																	<div class="input-group input-medium"> -->
+<!-- 																		<div class="input-group input-medium"> -->
+<!-- 																			<select class="fancy-select form-control" -->
+<!-- 																				ng-model="process.tableContingencyValue" -->
+<!-- 																				ng-disabled="disabledField"> -->
+<!-- 																				<option -->
+<!-- 																					ng-repeat="table in tables | orderBy: 'value'">{{table.value}}</option> -->
+<!-- 																			</select> -->
+<!-- 																		</div> -->
+<!-- 																	</div> -->
+<!-- 																</div> -->
+
+<!-- 																<div class="col-lg-2 col-md-2"> -->
+<!-- 																	<div class="input-group input-medium"> -->
+<!-- 																		<input ng-value="process.contingencyValueUpdated" -->
+<!-- 																			type="text" class="form-control input-medium" -->
+<!-- 																			readonly> -->
+<!-- 																	</div> -->
+
+<!-- 																</div> -->
+
+<!-- 																<div class="col-lg-1 col-md-1"></div> -->
+<!-- 																<div id="valorcontingenciareal" -->
+<!-- 																	class="col-lg-1 col-md-1"> -->
+<!-- 																	<button type="button" class="btn btn-default" -->
+<!-- 																		ng-click="updateTwo()">Atualizar</button> -->
+<!-- 																</div> -->
+<!-- 															</div> -->
+<!-- 														</div> -->
+<!-- 													</div> -->
+
+													<div class="form-group">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >															
+															<div class="col-xs-6">													
+																<div class="form-inline">
+																	<div style="float:left; width:50%;">
+																		<label>Tipo de Processo</label>
+																		<br>
+																		<br>
+																		<div class="radio-custom">
+																			<input type="radio" ng-model="process.activePassiveProcess" value="1" ng-disabled="hideInputs">
+																			<label>Ativo</label>
+																		</div>
+																		<div class="radio-custom">
+																			<input type="radio" ng-model="process.activePassiveProcess" value="2" ng-disabled="hideInputs">
+																			<label>Passivo</label>
+																		</div>
+																	</div>																	
+																	<div style="float:right; width:50%;">
+																		<label>Probabilidade de Perda</label>
+																		<br>
+																		<br>
+																		<div class="radio-custom">
+																			<input type="radio" ng-model="process.lossProb" value="1" ng-disabled="hideInputs">
+																			<label>Remota</label>
+																		</div>
+																		<div class="radio-custom">
+																			<input type="radio" ng-model="process.lossProb" value="2" ng-disabled="hideInputs">
+																			<label>Provável</label>
+																		</div>
+																		<div class="radio-custom">
+																			<input type="radio" ng-model="process.lossProb" value="3" ng-disabled="hideInputs">
+																			<label>Possível</label>
+																		</div>
+																		<div class="radio-custom">
+																			<input type="radio" ng-model="process.lossProb" value="4" ng-disabled="hideInputs">
+																			<label>Certa</label>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="col-xs-6">													
+																<div class="form-inline">
+																	<div style="float:left; width:50%;">
+																		<label>Resultado Final</label>
+																		<br>
+																		<br>
+																		<div class="radio-custom">
+																			<input type="radio" ng-model="process.endResult" value="1" ng-disabled="hideInputs">
+																			<label>Vitória</label>
+																		</div>
+																		<div class="radio-custom">
+																			<input type="radio" ng-model="process.endResult" value="2" ng-disabled="hideInputs">
+																			<label>Perda Parcial</label>
+																		</div>
+																		<div class="radio-custom">
+																			<input type="radio" ng-model="process.endResult" value="3" ng-disabled="hideInputs">
+																			<label>Derrota</label>
+																		</div>
+																		<div class="radio-custom">
+																			<input type="radio" ng-model="process.endResult" value="4" ng-disabled="hideInputs">
+																			<label>Acordo</label>
+																		</div>
+																		<div class="radio-custom">
+																			<input type="radio" ng-model="process.endResult" value="5" ng-disabled="hideInputs">
+																			<label>Inacabado</label>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>	
+													
+													<div class="form-group">
+														<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+															<div class="col-xs-6">
+																<div>
+																	<label>Motivo</label> 
+<!-- 																	<select ng-hide="hideInputs" type="text" name="motivation" class="form-control" ng-model="process.motivation"> -->
+<!-- 																		<option	ng-repeat="motivation in motivations | orderBy: 'value'">{{motivation.value}}</option> -->
+<!-- 																	</select> -->
+<!-- 																	<p ng-show="hideInputs">{{process.motivation}}</p> -->
+																	<select ng-hide="hideInputs" type="text" name="motivation" class="form-control" ng-model="process.motivation.id"
+																			ng-options="motivation.id as motivation.value for motivation in motivations | orderBy: 'value'"></select>
+																	<p ng-show="hideInputs">{{process.motivation.value}}</p>
+																</div>
+															</div>
+															<div class="col-xs-6">
+																<div>
+																	<label>Valor Final</label> 
+																	<input ng-hide="hideInputs" type="text" name="finalValue" class="form-control" ng-model="process.finalValue">
+																	<p ng-show="hideInputs">{{process.finalValue}}</p>
+																</div>
+															</div>
+														</div>
+													</div>
+
+												</form>
+											</div>
+										</div>
+										<div class="setTopMargin-md-2">
+											<br>
+											<div class="modal-footer" style="border-top:0px!important; padding-right:0px!important;">
+												<button type="button" class="btn btn-default" ng-click="exit()">Cancelar</button>
+												<button ng-hide="hideInputs" type="button" class="btn btn-info" ng-click="verifyRequiredFields(!processForm.$invalid && !processForm2.$invalid)">Salvar</button>
+												<button ng-show="hideInputs" type="button" class="btn btn-info" ng-click="edit()">Editar</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

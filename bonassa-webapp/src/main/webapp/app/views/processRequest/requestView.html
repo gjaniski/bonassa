@@ -1,0 +1,139 @@
+<div class="modal-body">
+	<div class="panel panel-default toggle panelMove ">
+		<div class="panel-body pt0 pb0">
+			<form class="form-horizontal group-border ">	
+			
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<div>
+								<label>Tipo</label>
+								<p>{{request.type.value}}</p>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Status</label> 
+								<p>{{request.status.value}}</p>
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+				
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">															
+							<div>
+								<label>Valor Pedido</label>
+								<p>{{request.requestedValue}}</p>
+							</div>
+						</div>
+						<div class="col-xs-6">															
+							<div>
+								<label>Juros Iniciais</label>
+								<p>{{request.initialInterest}}</p>
+							</div>		
+						</div>
+					</div>
+				</div>	
+				
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">														
+							<div>
+								<label>Valor Atualizado</label>
+								<p>{{request.updatedValue}}</p>
+							</div>				
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">															
+							<div style="float:left; width:80%; padding-right:20px!important;">
+								<label>Data Pedido</label>
+								<p>{{request.askedDate | date:'dd/MM/yyyy'}}</p>
+							</div>
+						</div>
+						<div class="col-xs-6">															
+							<div>
+								<label>Atualizado até</label>
+								<p>{{request.updatedDate}}</p>
+							</div>	
+						</div>
+					</div>
+				</div>	
+				
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<div>
+								<label>Valor estimado</label>
+								<p>{{request.estimatedValue}}</p>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Valor deferido</label>
+								<p>{{request.deferredValue}}</p>
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="form-group">						
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >															
+						<div class="col-xs-6">	
+							<label>Probabilidade de Perda</label>												
+							<div class="form-inline" style="padding-top:10px!important;">
+								<div style="float:left; width:50%;">
+									<div class="radio-custom">
+										<input type="radio" ng-model="request.lossProb" value="1" ng-disabled="true">
+										<label>Remota</label>
+									</div>
+								</div>
+								<div style="float:right; width:50%;">
+									<div class="radio-custom">
+										<input type="radio" ng-model="request.lossProb" value="2" ng-disabled="true">
+										<label>Possível</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div style="float:left; width:50%; padding-top:27px!important;">
+								<div class="radio-custom">
+									<input type="radio" ng-model="request.lossProb" value="3" ng-disabled="true">
+									<label>Provável</label>
+								</div>
+							</div>
+							<div style="float:right; width:50%; padding-top:36px!important;">
+								<p>{{request.lossProbPercentage}}</p>
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-12">
+							<div>
+								<label>Observação</label>
+								<p>{{request.observation}}</p>
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+			</form>
+		</div>
+	</div>
+</div>
+<div class="setTopMargin-md-2">
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+		<button type="button" class="btn btn-info" ng-click="editRequest()">Editar</button>
+	</div>
+</div>

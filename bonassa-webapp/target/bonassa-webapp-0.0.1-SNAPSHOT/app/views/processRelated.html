@@ -1,0 +1,186 @@
+<div class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div ng-show="invisible">
+				<div class="modal-header setBgColorWhite">
+					<button type="button" class="close" aria-hidden="true"
+						ng-click="exit()">×</button>
+					<text class="modal-title">{{tag}}{{process.id}}</text>
+				</div>
+				<div class="modal-body">
+					<div class="row ">
+						<div class="setRightMargin" append-source>
+							<div class="form-group input-large">
+								<input type="text" class="form-control input-large "
+									data-placement="right" data-type="info" data-container="body"
+									placeholder="Pesquisar" data-trigger="focus" ng-model="query">
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default toggle panelMove">
+						<table id="tabletools"
+							class="table table-striped table-hoverBlue mouse" cellspacing="0"
+							width="100%">
+
+							<thead>
+								<tr>
+									<th>Cliente</th>
+									<th>Numero</th>
+									<th>Adversario</th>
+									<th>Data</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr
+									ng-repeat="process in processList | filter:query | orderBy: 'name' | paginationFilter:currentPage2*pageSize2 | limitTo:pageSize2"
+									ng-class="{'selected':$index == selectedRow2}"
+									ng-click="setClickedRow2($index)">
+									<td ng-click="setRelated(process)">{{process.id}}</td>
+									<td ng-click="setRelated(process)">{{process.id}}</td>
+									<td ng-click="setRelated(process)">{{process.id}}</td>
+									<td ng-click="setRelated(process)">{{process.id}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group">
+						<div class="col-lg-10 col-md-9">
+							<div class="row">
+								<div class="col-lg-2 col-md-2"></div>
+							</div>
+						</div>
+					</div>
+					<div class="row setTopMargin">
+						<div class="col-lg-7 col-md-7" ng-show="showPageSize2">
+							<div class="input-group input-small">
+								<select class="form-control" ng-init="pageSize2=15"
+									ng-model="pageSize2" ng-change="changePageSize2(pageSize2)">
+									<option value="10">10</option>
+									<option value="15">15</option>
+									<option value="20">20</option>
+									<option value="30">30</option>
+									<option value="50">50</option>
+								</select>
+							</div>
+						</div>
+						<div class="setRightMargin ">
+							<button type="button" class="btn btn-white"
+								ng-disabled="previousButton2" ng-click="previous2()"><<
+								Anterior</button>
+
+							<button type="button" class="btn btn-white">{{currentPage2+1}}/{{numberOfPages2()}}</button>
+
+							<button type="button" class="btn btn-white"
+								ng-disabled="nextButton2" ng-click="next2()">Próximo >></button>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-lg-10 col-md-9">
+							<div class="row">
+								<div class="col-lg-2 col-md-2"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div ng-show="visible">
+				<div class="modal-header setBgColorWhite">
+					<button type="button" class="close" aria-hidden="true"
+						ng-click="exit()">×</button>
+					<text class="modal-title"> Lista de Apensos do Processo nº
+					{{process.id}}</text>
+				</div>
+				<div class="modal-body">
+					<div class="row ">
+						<div class="col-lg-7 col-md-7">
+							<button type="button" class="btn btn-default" ng-disabled="false"
+								ng-click="newRelated()">Novo</button>
+							<button type="button" class="btn btn-default"
+								ng-disabled="buttons" ng-click="deleteProcessRelated()">Excluir</button>
+						</div>
+						<div class="setRightMargin" append-source>
+							<div class="form-group input-large">
+								<input type="text" class="form-control input-large "
+									data-placement="right" data-type="info" data-container="body"
+									placeholder="Pesquisar" data-trigger="focus" ng-model="query">
+							</div>
+						</div>
+					</div>
+
+					<div class="panel panel-default toggle panelMove">
+						<table id="tabletools"
+							class="table table-striped table-hoverBlue mouse" cellspacing="0"
+							width="100%">
+
+							<thead>
+								<tr>
+									<th>Processo</th>
+									<th>Comarca</th>
+									<th>Ligação</th>
+									<th>Vinculo</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr
+									ng-repeat="related in processRelated | filter:query1 | orderBy: 'name' | paginationFilter:currentPage*pageSize | limitTo:pageSize"
+									ng-class="{'selected':$index == selectedRow}"
+									ng-click="setClickedRow($index)">
+									<td ng-click="setAttached(related)">{{related.childProcess.id}}</td>
+									<td ng-click="setAttached(related)">{{related.parentProcess.id}}</td>
+									<td ng-click="setAttached(related)">{{related.id}}</td>
+									<td ng-click="setAttached(related)">{{related.id}}</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="form-group setLeftMargin">
+							<div class="row " ng-if="processRelated.length == 0">
+								<h5>Não há apensos cadastrados para esse processo!</h5>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-lg-10 col-md-9">
+							<div class="row">
+								<div class="col-lg-2 col-md-2"></div>
+							</div>
+						</div>
+					</div>
+					<div class="row setTopMargin" ng-hide="processRelated.length == 0">
+						<div class="col-lg-7 col-md-7" ng-show="showPageSize">
+							<div class="input-group input-small">
+								<select class="form-control" ng-init="pageSize=15"
+									ng-model="pageSize" ng-change="changePageSize(pageSize)">
+									<option value="10">10</option>
+									<option value="15">15</option>
+									<option value="20">20</option>
+									<option value="30">30</option>
+									<option value="50">50</option>
+								</select>
+							</div>
+						</div>
+						<div class="setRightMargin " ng-hide="processRelated.length == 0">
+							<button type="button" class="btn btn-white"
+								ng-disabled="previousButton" ng-click="previous()"><<
+								Anterior</button>
+
+							<button type="button" class="btn btn-white">{{currentPage+1}}/{{numberOfPages()}}</button>
+
+							<button type="button" class="btn btn-white"
+								ng-disabled="nextButton" ng-click="next()">Próximo >></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer" ng-show="visible">
+				<button type="button" class="btn btn-default" ng-click="exit()">Fechar</button>
+			</div>
+			<div class="setTopMargin-md-2" ng-show="invisible">
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+					<button type="button" class="btn btn-info"
+						ng-click="newProcessRelated(related)">Incluir</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

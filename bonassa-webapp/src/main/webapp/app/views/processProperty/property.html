@@ -1,0 +1,206 @@
+<div class="modal-body">
+	<div class="panel panel-default toggle panelMove ">
+		<div class="panel-body pt0 pb0">
+			<form class="form-horizontal group-border ">	
+			
+				<div class="form-group">						
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >															
+						<div class="col-xs-6">	
+							<label>Tipo</label>												
+							<div class="form-inline" style="padding-top:10px!important;">
+								<div style="float:left; width:50%;">
+									<div class="radio-custom">
+										<input ng-disabled="hideInputs" type="radio" ng-model="property.type" value="veículo">
+										<label>Veículo</label>
+									</div>
+								</div>
+								<div style="float:right; width:50%;">
+									<div class="radio-custom">
+										<input ng-disabled="hideInputs" type="radio" ng-model="property.type" value="imóvel">
+										<label>Imóvel</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Valor</label>
+								<input type="text" name="contCob" class="form-control" ng-model="property.value">
+							</div>
+						</div>
+					</div>
+				</div>
+				
+										
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<div>
+								<label>Status</label> 
+<!-- 								<select type="text" name="costCenter" class="form-control" ng-model="property.status"> -->
+<!-- 									<option ng-repeat="status in statusList | orderBy: 'value'">{{status.value}}</option> -->
+<!-- 								</select> -->
+								<select type="text" name="extra" class="form-control" ng-model="property.status.id"
+										ng-options="status.id as status.value for status in statusList | orderBy: 'value'"></select>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Contrato Nº</label>
+								<input type="text" name="contCob" class="form-control" ng-model="property.numContract">
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="form-group" ng-show="property.type=='veículo'">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<div>
+								<label>Marca</label> 
+<!-- 								<select type="text" name="costCenter" class="form-control" ng-model="property.brand" ng-change="controlVehicleModelList()"> -->
+<!-- 									<option ng-repeat="brand in vehicleBrands | orderBy: 'value'">{{brand.value}}</option> -->
+<!-- 								</select> -->
+								<select type="text" name="extra" class="form-control" ng-model="property.brand.id"
+										ng-options="brand.id as brand.value for brand in vehicleBrands | orderBy: 'value'"></select>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Modelo</label> 
+<!-- 								<select type="text" name="costCenter" class="form-control" ng-model="property.model"> -->
+<!-- 									<option ng-show="vehicleModelList" ng-repeat="model in vehicleModels | vehicleModelFilter:property | orderBy: 'value'">{{model.value}}</option> -->
+<!-- 								</select> -->
+								<select type="text" name="extra" class="form-control" ng-model="property.model.id"
+										ng-options="model.id as model.value for model in vehicleModels | vehicleModelFilter:property | orderBy: 'value'"></select>
+							</div>
+						</div>
+					</div>
+				</div>
+	
+				<div class="form-group" ng-show="property.type=='veículo'">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<div>
+								<label>Cor</label> 
+<!-- 								<select type="text" name="costCenter" class="form-control" ng-model="property.color"> -->
+<!-- 									<option ng-repeat="color in vehicleColors | orderBy: 'value'">{{color.value}}</option> -->
+<!-- 								</select> -->
+								<select type="text" name="extra" class="form-control" ng-model="property.color.id"
+										ng-options="color.id as color.value for color in vehicleColors | orderBy: 'value'"></select>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Ano</label>
+								<input type="text" name="contCob" class="form-control" ng-model="property.year">
+							</div>
+						</div>
+					</div>
+				</div>	
+	
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">															
+							<div style="float:left; width:80%; padding-right:20px!important;">
+								<label>Data env. Adv.</label>
+								<input type="text" name="contCob" class="form-control" ng-model="property.dateEnv">
+							</div>																
+							<div style="float:right; width:20%; padding-top:27px!important;">								
+	          						<button style="float:right;" class="btn btn-default" ng-datepicker ng-options="datepickerOptions" ng-model="property.dateEnv"><i class="glyphicon glyphicon-calendar"></i></button>
+							</div>
+						</div>
+						<div class="col-xs-6">															
+							<div style="float:left; width:80%; padding-right:20px!important;">
+								<label>Data 1º Inad.</label>
+								<input type="text" name="contCob" class="form-control" ng-model="property.dateInad">
+							</div>																
+							<div style="float:right; width:20%; padding-top:27px!important;">								
+	          						<button style="float:right;" class="btn btn-default" ng-datepicker ng-options="datepickerOptions" ng-model="property.dateInad"><i class="glyphicon glyphicon-calendar"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">															
+							<div style="float:left; width:80%; padding-right:20px!important;">
+								<label>Data Apreensão</label>
+								<input type="text" name="contCob" class="form-control" ng-model="property.dateSeizure">
+							</div>																
+							<div style="float:right; width:20%; padding-top:27px!important;">								
+	          						<button style="float:right;" class="btn btn-default" ng-datepicker ng-options="datepickerOptions" ng-model="property.dateSeizure"><i class="glyphicon glyphicon-calendar"></i></button>
+							</div>
+						</div>
+						<div class="col-xs-6">															
+							<div style="float:left; width:80%; padding-right:20px!important;">
+								<label>Data Sentença</label>
+								<input type="text" name="contCob" class="form-control" ng-model="property.dateSentence">
+							</div>																
+							<div style="float:right; width:20%; padding-top:27px!important;">								
+	          						<button style="float:right;" class="btn btn-default" ng-datepicker ng-options="datepickerOptions" ng-model="property.dateSentence"><i class="glyphicon glyphicon-calendar"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">															
+							<div style="float:left; width:80%; padding-right:20px!important;">
+								<label>Data Leilão</label>
+								<input type="text" name="contCob" class="form-control" ng-model="property.dateAuction">
+							</div>																
+							<div style="float:right; width:20%; padding-top:27px!important;">								
+	          						<button style="float:right;" class="btn btn-default" ng-datepicker ng-options="datepickerOptions" ng-model="property.dateAuction"><i class="glyphicon glyphicon-calendar"></i></button>
+							</div>
+						</div>
+						<div class="col-xs-6">															
+							<div style="float:left; width:80%; padding-right:20px!important;">
+								<label>Data Venda</label>
+								<input type="text" name="contCob" class="form-control" ng-model="property.dateSale">
+							</div>																
+							<div style="float:right; width:20%; padding-top:27px!important;">								
+	          						<button style="float:right;" class="btn btn-default" ng-datepicker ng-options="datepickerOptions" ng-model="property.dateSale"><i class="glyphicon glyphicon-calendar"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6">
+							<div>
+								<label>Depósito</label> 
+<!-- 								<select type="text" name="costCenter" class="form-control" ng-model="property.deposit"> -->
+<!-- 									<option ng-repeat="deposit in depositTypes | orderBy: 'value'">{{deposit.value}}</option> -->
+<!-- 								</select> -->
+								<select type="text" name="extra" class="form-control" ng-model="property.deposit.id"
+										ng-options="deposit.id as deposit.value for deposit in depositTypes | orderBy: 'value'"></select>
+							</div>
+						</div>
+					</div>
+				</div>					
+				
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-12">
+							<div>
+								<label>Observação</label>
+								<textarea style="resize: none!important;" class="form-control" rows="3" ng-model="property.observation"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+			</form>
+		</div>
+	</div>
+</div>
+<div class="setTopMargin-md-2">
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+		<button type="button" class="btn btn-info" ng-click="save()">Salvar</button>
+	</div>
+</div>

@@ -1,0 +1,35 @@
+<div class="modal-body">
+	<div class="panel panel-default toggle panelMove">
+		<div class="panel-body pt0 pb0">
+			<form class="form-horizontal group-border" name="parameterValueForm" novalidate>
+			
+				<div class="form-group">
+					<div style="padding-left:10px!important; padding-right:10px!important;" class="row" >
+						<div class="col-xs-6" ng-class="{ 'has-error' : (parameterValueForm.value.$invalid && !parameterValueForm.value.$pristine) || (formInvalid && parameterValueForm.value.$invalid) }">
+							<div>
+								<label>Valor</label>
+								<input type="text" name="value" class="form-control" ng-model="value.value" required>
+								<p ng-show="(parameterValueForm.value.$invalid && !parameterValueForm.value.$pristine) || (formInvalid && parameterValueForm.value.$invalid)" class="help-block">O valor é obrigatório!</p>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								<label>Pai</label> 
+								<select type="text" name="costCenter" class="form-control" ng-model="value.parent.id" 
+										ng-options="param.id as param.value for param in parentValueList">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+			</form>
+		</div>
+	</div>
+</div>
+<div class="setTopMargin-md-2">
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+		<button type="button" class="btn btn-info" ng-click="verifyRequiredFields(!parameterValueForm.$invalid)">Salvar</button>
+	</div>
+</div>
